@@ -3,24 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config('app.name', 'Investering') }}</title>
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
-    </div>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
 
-    <div class="card">
-        @yield('content')
-    </div>
+    @include('admin.partials.navbar')
+
+    @include('admin.partials.sidebar')
+
+    @yield('content')
+
+    @include('admin.partials.footer')
+
+    @include('admin.partials.sidebar-left')
+
 </div>
 
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>

@@ -10,14 +10,12 @@
 ## Sidebar menu
 
 - Dashboard
-- Data
-  - Stockholders
-  - Properties
-  - Rounds
-  - Wishes
+- Stockholders
+- Properties
+- Rounds
+- Wishes
 - Settings
-  - Round settings
-  - Users
+    - Users
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 

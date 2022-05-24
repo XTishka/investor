@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Stockholders</h1>
+                        <h1>{{ __('admin.page_title_stockholders_index') }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right text-capitalize">
@@ -31,38 +31,62 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ route('stockholders.create') }}" class="btn btn-secondary btn-sm mr-1">
+                                        {{ __('admin.button_add_new_stockholders') }}
+                                    </a>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
-                                    <tr>
-                                        <th>Stockholder name</th>
-                                        <th>Email</th>
-                                        <th>Is admin</th>
-                                        <th>Status</th>
+                                    <tr class="text-capitalize">
+                                        <th>{{ __('admin.stockholders') }}</th>
+                                        <th>{{ __('admin.email') }}</th>
+                                        <th>{{ __('admin.user_type') }}</th>
+                                        <th>{{ __('admin.status') }}</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
 
                                     @foreach($stockholders as $stockholder)
-                                    <tr>
-                                        <td>{{ $stockholder->name }}</td>
-                                        <td>{{ $stockholder->email }}</td>
-                                        <td>{{ $stockholder->is_admin }}</td>
-                                        <td>{{ $stockholder->status }}</td>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="{{ route('stockholders.show', $stockholder->id) }}">
+                                                    {{ $stockholder->name }}
+                                                </a>
+                                            </td>
+                                            <td>{{ $stockholder->email }}</td>
+                                            <td>
+                                                @if ($stockholder->is_admin === 1)
+                                                    {{ __('admin.administrator') }}
+                                                @else
+                                                    {{ __('admin.stockholder') }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($stockholder->status === 1)
+                                                    <span class="right badge badge-success">
+                                                        {{ __('admin.active') }}
+                                                    </span>
+                                                @else
+                                                    <span class="right badge badge-danger">
+                                                        {{ __('admin.deactivated') }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                        </tr>
                                     @endforeach
 
                                     </tbody>
                                     <tfoot>
-                                    <tr>
-                                        <th>Stockholder name</th>
-                                        <th>Email</th>
-                                        <th>Is admin</th>
-                                        <th>Status</th>
+                                    <tr class="text-capitalize">
+                                        <th>{{ __('admin.stockholders') }}</th>
+                                        <th>{{ __('admin.email') }}</th>
+                                        <th>{{ __('admin.user_type') }}</th>
+                                        <th>{{ __('admin.status') }}</th>
                                     </tr>
                                     </tfoot>
                                 </table>

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             RoundStartSeeder::class
         ]);
 
-        User::factory(100)->create();
+        User::factory(1)->create();
         Property::factory(100)->create();
     }
 }

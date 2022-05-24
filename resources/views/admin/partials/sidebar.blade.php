@@ -42,13 +42,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link text-capitalize">
+                    <a href="{{ route('admin.properties') }}" class="nav-link text-capitalize">
                         <i class="nav-icon fas fa-laptop-house"></i>
                         <p class="text">{{ __('admin.properties') }}</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link text-capitalize">
+                    <a href="{{ route('admin.rounds') }}" class="nav-link text-capitalize">
                         <i class="nav-icon fas fa-recycle"></i>
                         <p class="text">{{ __('admin.rounds') }}</p>
                     </a>

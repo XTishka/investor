@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Stockholders</h1>
+                        <h1>Properties</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right text-capitalize">
@@ -38,31 +38,34 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Stockholder name</th>
-                                        <th>Email</th>
-                                        <th>Is admin</th>
-                                        <th>Status</th>
+                                        <th>Property name</th>
+                                        <th>Country</th>
+                                        <th>Address</th>
+                                        <th>Description</th>
+                                        <th>Is available</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
 
-                                    @foreach($stockholders as $stockholder)
+                                    @foreach($properties as $property)
                                     <tr>
-                                        <td>{{ $stockholder->name }}</td>
-                                        <td>{{ $stockholder->email }}</td>
-                                        <td>{{ $stockholder->is_admin }}</td>
-                                        <td>{{ $stockholder->status }}</td>
+                                        <td>{{ $property->name }}</td>
+                                        <td>{{ $property->country }}</td>
+                                        <td>{{ $property->address }}</td>
+                                        <td>{{ $property->description }}</td>
+                                        <td>{{ $property->is_available }}</td>
                                     </tr>
                                     @endforeach
 
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Stockholder name</th>
-                                        <th>Email</th>
-                                        <th>Is admin</th>
-                                        <th>Status</th>
+                                        <th>Property name</th>
+                                        <th>Country</th>
+                                        <th>Address</th>
+                                        <th>Description</th>
+                                        <th>Is available</th>
                                     </tr>
                                     </tfoot>
                                 </table>

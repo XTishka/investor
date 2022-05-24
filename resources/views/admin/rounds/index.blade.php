@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Stockholders</h1>
+                        <h1>Properties</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right text-capitalize">
@@ -38,31 +38,34 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Stockholder name</th>
-                                        <th>Email</th>
-                                        <th>Is admin</th>
-                                        <th>Status</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Start date</th>
+                                        <th>End wishes date</th>
+                                        <th>End date</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
 
-                                    @foreach($stockholders as $stockholder)
+                                    @foreach($rounds as $round)
                                     <tr>
-                                        <td>{{ $stockholder->name }}</td>
-                                        <td>{{ $stockholder->email }}</td>
-                                        <td>{{ $stockholder->is_admin }}</td>
-                                        <td>{{ $stockholder->status }}</td>
+                                        <td>{{ $round->name }}</td>
+                                        <td>{{ $round->description }}</td>
+                                        <td>{{ date('j F, Y', strtotime($round->start_round_date)) }}</td>
+                                        <td>{{ date('j F, Y', strtotime($round->end_wishes_date)) }}</td>
+                                        <td>{{ date('j F, Y', strtotime($round->end_round_date)) }}</td>
                                     </tr>
                                     @endforeach
 
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Stockholder name</th>
-                                        <th>Email</th>
-                                        <th>Is admin</th>
-                                        <th>Status</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Start date</th>
+                                        <th>End wishes date</th>
+                                        <th>End date</th>
                                     </tr>
                                     </tfoot>
                                 </table>

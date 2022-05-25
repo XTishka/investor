@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('name')->nullable(false);
             $table->string('country')->nullable(false);
             $table->text('address');
-            $table->text('description');
-            $table->boolean('is_available')->nullable(false)->default(true);
+            $table->text('description')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });

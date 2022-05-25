@@ -22,7 +22,6 @@ class PropertyFactory extends Factory
             'country' => $this->faker->country(),
             'address' => $this->faker->address(),
             'description' => $this->faker->sentence(),
-            'is_available' => $this->faker->boolean(),
         ];
     }
 }

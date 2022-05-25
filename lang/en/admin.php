@@ -9,6 +9,32 @@ return [
     'page_title_show_property' => 'Property details',
     'page_title_edit_property' => 'Edit Property details',
 
+    'breadcrumbs_create_property' => 'Create new',
+    'breadcrumbs_edit_property' => 'Edit',
+
+    'card_title_add_new_property' => 'Add new property',
+    'card_title_upload_csv_properties' => 'Upload CSV with properties',
+
+    'button_add_new_properties' => 'Add new properties',
+    'button_create_property' => 'Create property',
+    'button_edit_property' => 'Edit property',
+    'button_upload_csv_property' => 'Upload CSV',
+    'button_save_property' => 'Save',
+
+    'form_field_property_name' => 'Name',
+    'form_field_property_name_placeholder' => 'Enter property name',
+    'form_field_property_country' => 'Country',
+    'form_field_property_country_placeholder' => 'Enter property country',
+    'form_field_property_address' => 'Address',
+    'form_field_property_address_placeholder' => 'Enter property address',
+    'form_field_property_description' => 'Description',
+    'form_field_property_description_placeholder' => 'Enter property description',
+
+    'table_th_property_name' => 'Name',
+    'table_th_property_country' => 'Country',
+    'table_th_property_address' => 'Address',
+    'table_th_property_description' => 'Description',
+
     // STOCKHOLDERS
     'page_title_stockholders_index' => 'Create new Stockholders',
     'page_title_create_new_stockholders' => 'Create new Stockholders',
@@ -61,7 +87,8 @@ return [
     'users' => 'users',
 
     //  FOOTER
-    'developed_by' => 'Developed by',
+    'footer_developed_by' => 'Developed by',
     'footer_rights' => 'All rights reserved',
     'footer_version' => 'Version',
+    'footer_copyright' => 'Copyright'
 ];

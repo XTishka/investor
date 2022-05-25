@@ -31,18 +31,21 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ route('properties.create') }}" class="btn btn-secondary btn-sm mr-1">
+                                        {{ __('admin.button_add_new_properties') }}
+                                    </a>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Property name</th>
-                                        <th>Country</th>
-                                        <th>Address</th>
-                                        <th>Description</th>
-                                        <th>Is available</th>
+                                        <th>{{ __('admin.table_th_property_name') }}</th>
+                                        <th>{{ __('admin.table_th_property_country') }}</th>
+                                        <th>{{ __('admin.table_th_property_address') }}</th>
+                                        <th>{{ __('admin.table_th_property_description') }}</th>
                                     </tr>
                                     </thead>
 
@@ -50,22 +53,24 @@
 
                                     @foreach($properties as $property)
                                     <tr>
-                                        <td>{{ $property->name }}</td>
+                                        <td>
+                                            <a href="{{ route('properties.show', $property->id) }}">
+                                                {{ $property->name }}
+                                            </a>
+                                        </td>
                                         <td>{{ $property->country }}</td>
                                         <td>{{ $property->address }}</td>
                                         <td>{{ $property->description }}</td>
-                                        <td>{{ $property->is_available }}</td>
                                     </tr>
                                     @endforeach
 
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Property name</th>
-                                        <th>Country</th>
-                                        <th>Address</th>
-                                        <th>Description</th>
-                                        <th>Is available</th>
+                                        <th>{{ __('admin.table_th_property_name') }}</th>
+                                        <th>{{ __('admin.table_th_property_country') }}</th>
+                                        <th>{{ __('admin.table_th_property_address') }}</th>
+                                        <th>{{ __('admin.table_th_property_description') }}</th>
                                     </tr>
                                     </tfoot>
                                 </table>

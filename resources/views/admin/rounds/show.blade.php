@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>{{ __('admin.page_title_show_property') }}</h1>
+                        <h1>{{ __('admin.page_title_show_round') }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right text-capitalize">
@@ -18,11 +18,11 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.properties') }}">
-                                    {{ __('admin.properties') }}
+                                <a href="{{ route('admin.rounds') }}">
+                                    {{ __('admin.breadcrumbs_rounds_index') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">{{ $property->name }}</li>
+                            <li class="breadcrumb-item active">{{ $round->name }}</li>
                         </ol>
                     </div>
                 </div>
@@ -39,12 +39,12 @@
                             <div class="row">
                                 <div class="col-12">
                                     <h4>
-                                        <i class="fas fa-home mr-2"></i> {{ $property->name }}
+                                        <i class="fas fa-recycle mr-2"></i> {{ $round->name }}
 
-                                        <a href="{{ route('properties.edit', $property->id) }}"
+                                        <a href="{{ route('rounds.edit', $round->id) }}"
                                            class="btn btn-primary btn-sm mr-1 float-right">
                                             <i class="fas fa-edit"></i>
-                                            {{ __('admin.button_edit_property') }}
+                                            {{ __('admin.button_edit_round') }}
                                         </a>
                                     </h4>
                                 </div>
@@ -52,23 +52,16 @@
                             </div>
 
                             <div class="row invoice-info">
-                                <div class="col-sm-4 invoice-col">
-                                    <address>
-                                        <strong>Country</strong><br>
-                                        {{ $property->country }}
-                                    </address>
-                                </div>
 
                                 <div class="col-sm-4 invoice-col">
-                                    <div class="mb-2">
-                                        <strong>Address</strong><br>
-                                        {{ $property->address }}
-                                    </div>
+                                    <strong>Start round date: </strong>{{ $round->start_round_date }}<br>
+                                    <strong>End wishes date: </strong>{{ $round->end_wishes_date }}<br>
+                                    <strong>End round date: </strong>{{ $round->end_round_date }}<br>
                                 </div>
 
                                 <div class="col-sm-4 invoice-col">
                                     <strong>Description</strong><br>
-                                    {{ $property->description }}
+                                    {{ $round->description }}
                                 </div>
 
                             </div>
@@ -133,11 +126,14 @@
 
                             <div class="row no-print">
                                 <div class="col-12">
-                                    <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                                    <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                                    <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
+                                            class="fas fa-print"></i> Print</a>
+                                    <button type="button" class="btn btn-success float-right"><i
+                                            class="far fa-credit-card"></i> Submit
                                         Payment
                                     </button>
-                                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                                    <button type="button" class="btn btn-primary float-right"
+                                            style="margin-right: 5px;">
                                         <i class="fas fa-download"></i> Generate PDF
                                     </button>
                                 </div>

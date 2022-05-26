@@ -7,7 +7,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Properties</h1>
+                        <h1>{{ __('admin.page_title_round_index') }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right text-capitalize">
@@ -17,7 +17,7 @@
                                     {{ __('admin.dashboard') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">{{ __('admin.stockholders') }}</li>
+                            <li class="breadcrumb-item active">{{ __('admin.breadcrumbs_rounds_index') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -31,18 +31,22 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ route('rounds.create') }}" class="btn btn-secondary btn-sm mr-1">
+                                        {{ __('admin.button_add_new_rounds') }}
+                                    </a>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Start date</th>
-                                        <th>End wishes date</th>
-                                        <th>End date</th>
+                                        <th>{{ __('admin.table_th_round_name') }}</th>
+                                        <th>{{ __('admin.table_th_round_description') }}</th>
+                                        <th>{{ __('admin.table_th_round_start_date') }}</th>
+                                        <th>{{ __('admin.table_th_round_end_wishes_date') }}</th>
+                                        <th>{{ __('admin.table_th_round_end_date') }}</th>
                                     </tr>
                                     </thead>
 
@@ -50,7 +54,11 @@
 
                                     @foreach($rounds as $round)
                                     <tr>
-                                        <td>{{ $round->name }}</td>
+                                        <td>
+                                            <a href="{{ route('rounds.show', $round->id) }}">
+                                                {{ $round->name }}
+                                            </a>
+                                        </td>
                                         <td>{{ $round->description }}</td>
                                         <td>{{ date('j F, Y', strtotime($round->start_round_date)) }}</td>
                                         <td>{{ date('j F, Y', strtotime($round->end_wishes_date)) }}</td>
@@ -61,11 +69,11 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Start date</th>
-                                        <th>End wishes date</th>
-                                        <th>End date</th>
+                                        <th>{{ __('admin.table_th_round_name') }}</th>
+                                        <th>{{ __('admin.table_th_round_description') }}</th>
+                                        <th>{{ __('admin.table_th_round_start_date') }}</th>
+                                        <th>{{ __('admin.table_th_round_end_wishes_date') }}</th>
+                                        <th>{{ __('admin.table_th_round_end_date') }}</th>
                                     </tr>
                                     </tfoot>
                                 </table>

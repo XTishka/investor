@@ -3,7 +3,40 @@ return [
     'logo_alt' => 'Investering logo',
     'user_image_alt' => 'User Image',
 
-    // PROPERTY
+    // ROUNDS
+    'page_title_round_index' => 'Rounds',
+    'page_title_create_new_round' => 'Create new Round',
+    'page_title_show_round' => 'Round details',
+    'page_title_edit_round' => 'Edit Round details',
+
+    'breadcrumbs_rounds_index' => 'Rounds',
+    'breadcrumbs_create_round' => 'Create new',
+    'breadcrumbs_edit_round' => 'Edit',
+
+    'card_title_add_new_round' => 'Add new round',
+    'card_title_upload_csv_rounds' => 'Upload CSV with rounds',
+
+    'button_add_new_rounds' => 'Add new rounds',
+    'button_create_round' => 'Create round',
+    'button_edit_round' => 'Edit round',
+    'button_upload_csv_round' => 'Upload CSV',
+    'button_save_round' => 'Save',
+
+    'table_th_round_name' => 'Name',
+    'table_th_round_description' => 'Description',
+    'table_th_round_start_date' => 'Start date',
+    'table_th_round_end_wishes_date' => 'End wishes date',
+    'table_th_round_end_date' => 'End date',
+
+    'form_field_round_name' => 'Name',
+    'form_field_round_name_placeholder' => 'Enter round name',
+    'form_field_round_description' => 'Description',
+    'form_field_round_description_placeholder' => 'Enter round description',
+    'form_field_round_range' => 'Round range',
+    'form_field_round_end_wishes_date' => 'End wishes date',
+    'form_field_round_end_wishes_date_placeholder' => 'Enter end wishes date',
+
+    // PROPERTIES
     'page_title_property_index' => 'Properties',
     'page_title_create_new_property' => 'Create new Property',
     'page_title_show_property' => 'Property details',
@@ -21,6 +54,11 @@ return [
     'button_upload_csv_property' => 'Upload CSV',
     'button_save_property' => 'Save',
 
+    'table_th_property_name' => 'Name',
+    'table_th_property_country' => 'Country',
+    'table_th_property_address' => 'Address',
+    'table_th_property_description' => 'Description',
+
     'form_field_property_name' => 'Name',
     'form_field_property_name_placeholder' => 'Enter property name',
     'form_field_property_country' => 'Country',
@@ -29,11 +67,6 @@ return [
     'form_field_property_address_placeholder' => 'Enter property address',
     'form_field_property_description' => 'Description',
     'form_field_property_description_placeholder' => 'Enter property description',
-
-    'table_th_property_name' => 'Name',
-    'table_th_property_country' => 'Country',
-    'table_th_property_address' => 'Address',
-    'table_th_property_description' => 'Description',
 
     // STOCKHOLDERS
     'page_title_stockholders_index' => 'Create new Stockholders',

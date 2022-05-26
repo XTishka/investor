@@ -4,7 +4,7 @@ namespace App\Http\Requests\admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePropertyRequest extends FormRequest
+class StoreRoundRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,11 @@ class StorePropertyRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'country' => ['required', 'string', 'min:8'],
-            'address' => ['string', 'min:8'],
-            'description' => ['nullable', 'string', 'min:8'],
+            'round_range' => ['required'],
+            'start_round_date' => ['required', 'date'],
+            'end_round_date' => ['date', 'after:start_round_date'],
+            'end_wishes_date' => ['date', 'after:start_round_date', 'before:end_round_date'],
+            'description' => ['nullable'],
         ];
     }
 }

@@ -10,10 +10,12 @@ class Round extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'description', 'start_round_date', 'end_wishes_date', 'end_round_date'];
+    protected $fillable = [
+        'name',
+        'description',
+        'start_round_date',
+        'end_wishes_date',
+        'end_round_date'
+    ];
 
-    public function checklists()
-    {
-        return $this->hasMany(Checklist::class);
-    }
 }

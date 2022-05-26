@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('rounds', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable(false);
-            $table->text('description');
+            $table->text('description')->nullable(true);
             $table->date('start_round_date')->nullable(false);
             $table->date('end_wishes_date')->nullable(false);
             $table->date('end_round_date')->nullable(false);

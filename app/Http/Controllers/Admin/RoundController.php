@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\StoreRoundRequest;
+use App\Http\Requests\admin\UpdateRoundRequest;
 use App\Models\Round;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 class RoundController extends Controller
 {
@@ -25,66 +30,69 @@ class RoundController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function create()
+    public function create(): Application|Factory|View
     {
-        //
+        return view('admin.rounds.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param StoreRoundRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreRoundRequest $request): RedirectResponse
     {
-        //
+        Round::create($request->validated());
+        return redirect()->route('admin.rounds');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Round $round
+     * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(Round $round): View|Factory|Application
     {
-        //
+        return view('admin.rounds.show', compact('round'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Round $round
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(Round $round): View|Factory|Application
     {
-        //
+        return view('admin.rounds.edit', compact('round'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateRoundRequest $request
+     * @param Round $round
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRoundRequest $request, Round $round): RedirectResponse
     {
-        //
+        $round->update($request->validated());
+        return redirect()->route('rounds.show', $round);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Round $round
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Round $round): RedirectResponse
     {
-        //
+        $round->delete();
+        return redirect()->route('admin.rounds');
     }
 }

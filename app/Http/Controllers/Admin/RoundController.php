@@ -9,10 +9,8 @@ use App\Models\Round;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use App\Actions\GenerateRoundWeeksAction;
 
 class RoundController extends Controller
 {
@@ -55,9 +53,12 @@ class RoundController extends Controller
      * @param Round $round
      * @return Application|Factory|View
      */
-    public function show(Round $round): View|Factory|Application
+    public function show(Round $round, GenerateRoundWeeksAction $weeks): View|Factory|Application
     {
-        return view('admin.rounds.show', compact('round'));
+        return view('admin.rounds.show', [
+            'round' => $round,
+            'weeks' => $weeks->handle($round),
+        ]);
     }
 
     /**

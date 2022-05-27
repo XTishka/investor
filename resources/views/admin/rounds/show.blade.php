@@ -54,9 +54,10 @@
                             <div class="row invoice-info">
 
                                 <div class="col-sm-4 invoice-col">
-                                    <strong>Start round date: </strong>{{ $round->start_round_date }}<br>
-                                    <strong>End wishes date: </strong>{{ $round->end_wishes_date }}<br>
-                                    <strong>End round date: </strong>{{ $round->end_round_date }}<br>
+                                    <strong>Start round date: </strong>{{ date('j F, Y', strtotime($round->start_round_date)) }}<br>
+                                    <strong>End wishes date: </strong>{{ date('j F, Y', strtotime($round->end_wishes_date)) }}<br>
+                                    <strong>End round date: </strong>{{ date('j F, Y', strtotime($round->end_round_date)) }}<br>
+                                    <strong>Weeks QTY: </strong>{{ $weeks['weekQty'] }} weeks<br>
                                 </div>
 
                                 <div class="col-sm-4 invoice-col">

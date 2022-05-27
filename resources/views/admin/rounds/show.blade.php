@@ -57,7 +57,7 @@
                                     <strong>Start round date: </strong>{{ date('j F, Y', strtotime($round->start_round_date)) }}<br>
                                     <strong>End wishes date: </strong>{{ date('j F, Y', strtotime($round->end_wishes_date)) }}<br>
                                     <strong>End round date: </strong>{{ date('j F, Y', strtotime($round->end_round_date)) }}<br>
-                                    <strong>Weeks QTY: </strong>{{ $weeks['weekQty'] }} weeks<br>
+                                    <strong>Weeks QTY: </strong>{{ $weeks }} weeks<br>
                                 </div>
 
                                 <div class="col-sm-4 invoice-col">

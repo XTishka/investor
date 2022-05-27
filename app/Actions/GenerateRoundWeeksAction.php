@@ -12,15 +12,15 @@ class GenerateRoundWeeksAction
 
     public function handle($round)
     {
-        $date = Carbon::parse("2022-05-27");
+        $startDate = Carbon::parse($round->start_round_date);
+        $endDate = Carbon::parse($round->end_round_date);
+        $weeksQty = intval(round($startDate->floatDiffInRealWeeks($endDate), 0, PHP_ROUND_HALF_UP));
 
-        $weekInfo['weekQty'] = $date->weekNumberInMonth;
-        $weekInfo['weekNumber'] = $date->weekOfYear;
-        $weekInfo['start'] = $date->startOfWeek()->toDateString();
-        $weekInfo['end'] = $date->endOfWeek()->toDateString();
+        $counter = $weeksQty;
+        while ($counter > 0) {
+            Debugbar::log($counter--);
+        }
 
-        Debugbar::info('test');
-
-        return $weekInfo;
+        return $weeksQty;
     }
 }

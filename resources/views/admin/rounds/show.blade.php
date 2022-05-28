@@ -54,10 +54,13 @@
                             <div class="row invoice-info">
 
                                 <div class="col-sm-4 invoice-col">
-                                    <strong>Start round date: </strong>{{ date('j F, Y', strtotime($round->start_round_date)) }}<br>
-                                    <strong>End wishes date: </strong>{{ date('j F, Y', strtotime($round->end_wishes_date)) }}<br>
-                                    <strong>End round date: </strong>{{ date('j F, Y', strtotime($round->end_round_date)) }}<br>
-                                    <strong>Weeks QTY: </strong>{{ $weeks }} weeks<br>
+                                    <strong>Start round
+                                        date: </strong>{{ date('j F, Y', strtotime($round->start_round_date)) }}<br>
+                                    <strong>End wishes
+                                        date: </strong>{{ date('j F, Y', strtotime($round->end_wishes_date)) }}<br>
+                                    <strong>End round
+                                        date: </strong>{{ date('j F, Y', strtotime($round->end_round_date)) }}<br>
+                                    <strong>Weeks QTY: </strong>{{ $weeks->count() }} weeks<br>
                                 </div>
 
                                 <div class="col-sm-4 invoice-col">
@@ -83,60 +86,42 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                            <th>Qty</th>
-                                            <th>Product</th>
-                                            <th>Serial #</th>
-                                            <th>Description</th>
-                                            <th>Subtotal</th>
+                                            <th>#</th>
+                                            <th>
+                                                <strong>Week</strong>
+                                            </th>
+                                            <th>Week start date</th>
+                                            <th>Week start date</th>
+                                            <th>Status</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Call of Duty</td>
-                                            <td>455-981-221</td>
-                                            <td>El snort testosterone trophy driving gloves handsome</td>
-                                            <td>$64.50</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Need for Speed IV</td>
-                                            <td>247-925-726</td>
-                                            <td>Wes Anderson umami biodiesel</td>
-                                            <td>$50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Monsters DVD</td>
-                                            <td>735-845-642</td>
-                                            <td>Terry Richardson helvetica tousled street art master</td>
-                                            <td>$10.70</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Grown Ups Blue Ray</td>
-                                            <td>422-568-642</td>
-                                            <td>Tousled lomo letterpress</td>
-                                            <td>$25.99</td>
-                                        </tr>
+                                        @foreach($weeks as $week)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td><strong>{{ $week->number }}</strong></td>
+                                                <td>{{ date('j F, Y', strtotime($week->start_date())) }}</td>
+                                                <td>{{ date('j F, Y', strtotime($week->end_date())) }}</td>
+                                                <td>
+                                                    @if ($week->status() === 'passed')
+                                                        <span class="right badge bg-gradient-gray">
+                                                            {{ $week->status() }}
+                                                        </span>
+                                                    @elseif($week->status() === 'current')
+                                                        <span class="right badge bg-fuchsia">
+                                                            {{ $week->status() }}
+                                                        </span>
+                                                    @elseif($week->status() === 'waiting')
+                                                        <span class="right badge badge-info">
+                                                            {{ $week->status() }}
+                                                        </span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                            </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-
-
-                            <div class="row no-print">
-                                <div class="col-12">
-                                    <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i
-                                            class="fas fa-print"></i> Print</a>
-                                    <button type="button" class="btn btn-success float-right"><i
-                                            class="far fa-credit-card"></i> Submit
-                                        Payment
-                                    </button>
-                                    <button type="button" class="btn btn-primary float-right"
-                                            style="margin-right: 5px;">
-                                        <i class="fas fa-download"></i> Generate PDF
-                                    </button>
                                 </div>
                             </div>
                         </div>

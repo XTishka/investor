@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminSeeder::class,
-            RoundStartSeeder::class
+//            RoundStartSeeder::class
         ]);
 
         User::factory(1)->create();

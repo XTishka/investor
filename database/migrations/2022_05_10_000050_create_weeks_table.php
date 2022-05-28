@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('weeks', function (Blueprint $table) {
             $table->id();
-            $table->integer('week_number')->nullable(false);
+            $table->integer('year')->nullable(false);
+            $table->integer('number')->nullable(false);
             $table->foreignId('round_id')->nullable()->constrained();
             $table->timestamps();
             $table->softDeletes();

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\StoreRoundRequest;
 use App\Http\Requests\admin\UpdateRoundRequest;
 use App\Models\Round;
+use App\Models\Week;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -41,9 +43,10 @@ class RoundController extends Controller
      * @param StoreRoundRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreRoundRequest $request): RedirectResponse
+    public function store(StoreRoundRequest $request, GenerateRoundWeeksAction $weeks): RedirectResponse
     {
-        Round::create($request->validated());
+        $round = Round::create($request->validated());
+        $weeks->handle($round->id, $request);
         return redirect()->route('admin.rounds');
     }
 
@@ -53,11 +56,13 @@ class RoundController extends Controller
      * @param Round $round
      * @return Application|Factory|View
      */
-    public function show(Round $round, GenerateRoundWeeksAction $weeks): View|Factory|Application
+    public function show(Round $round): View|Factory|Application
     {
+        $weeks = Week::where('round_id', $round->id)->get();
         return view('admin.rounds.show', [
             'round' => $round,
-            'weeks' => $weeks->handle($round),
+            'weeks' => $weeks,
+            'currentDate' => Carbon::now(),
         ]);
     }
 

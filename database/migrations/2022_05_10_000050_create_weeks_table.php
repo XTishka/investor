@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('year')->nullable(false);
             $table->integer('number')->nullable(false);
             $table->foreignId('round_id')->nullable()->constrained();
+            $table->date('start_date')->nullable(false);
+            $table->date('end_date')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });

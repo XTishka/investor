@@ -87,11 +87,9 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>
-                                                <strong>Week</strong>
-                                            </th>
+                                            <th>Week</th>
                                             <th>Week start date</th>
-                                            <th>Week start date</th>
+                                            <th>Week end date</th>
                                             <th>Status</th>
                                         </tr>
                                         </thead>
@@ -100,8 +98,8 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td><strong>{{ $week->number }}</strong></td>
-                                                <td>{{ date('j F, Y', strtotime($week->start_date())) }}</td>
-                                                <td>{{ date('j F, Y', strtotime($week->end_date())) }}</td>
+                                                <td>{{ date('j F, Y', strtotime($week->start_date)) }}</td>
+                                                <td>{{ date('j F, Y', strtotime($week->end_date)) }}</td>
                                                 <td>
                                                     @if ($week->status() === 'passed')
                                                         <span class="right badge bg-gradient-gray">

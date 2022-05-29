@@ -58,7 +58,7 @@ class RoundController extends Controller
      */
     public function show(Round $round): View|Factory|Application
     {
-        $weeks = Week::where('round_id', $round->id)->get();
+        $weeks = Week::where('round_id', $round->id)->get()->sortBy('start_date');
         return view('admin.rounds.show', [
             'round' => $round,
             'weeks' => $weeks,
@@ -84,9 +84,10 @@ class RoundController extends Controller
      * @param Round $round
      * @return RedirectResponse
      */
-    public function update(UpdateRoundRequest $request, Round $round): RedirectResponse
+    public function update(UpdateRoundRequest $request, Round $round, GenerateRoundWeeksAction $weeks): RedirectResponse
     {
         $round->update($request->validated());
+        $weeks->handle($round->id, $request);
         return redirect()->route('rounds.show', $round);
     }
 

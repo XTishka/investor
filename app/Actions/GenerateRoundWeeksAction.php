@@ -19,33 +19,26 @@ class GenerateRoundWeeksAction
 
         $weekNumber = 0;
         $date = $startDate;
+
+        // Add new weeks
         while ($weekNumber < $weeksQty) {
             $weekNumber++;
 
-            // TODO: Create new and delete other
-            // Retrieve flight by name or create it with the name, delayed, and arrival_time attributes...
-            //            $flight = Flight::firstOrCreate(
-            //                ['name' => 'London to Paris'],
-            //                ['delayed' => 1, 'arrival_time' => '11:30']
-            //            );
-
-            $week = Week::firstOrCreate([
+            Week::firstOrCreate([
                 'round_id' => $round_id,
                 'year' => $date->year,
                 'number' => $date->weekOfYear,
+                'start_date' => $date->startOfWeek()->format('Y-m-d'),
+                'end_date' => $date->endOfWeek()->format('Y-m-d'),
             ]);
-
-//            $week = new Week();
-//            $week->round_id = $round_id;
-//            $week->year = $date->year;
-//            $week->number = $date->weekOfYear;
-//            $week->start_date = $date->startOfWeek()->format('Y-m-d');
-//            $week->end_date = $date->endOfWeek()->format('Y-m-d');
-//            $week->save();
 
             $date = $date->addWeek();
         }
 
+        // Remove after round end date weeks
+        Week::where('start_date', '>', $endDate)->delete();
+
         return $weeksQty;
     }
+
 }

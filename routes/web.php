@@ -20,15 +20,16 @@ use App\Http\Controllers\WishController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
     Route::get('/wisher', [WishController::class, 'index'])->name('wisher');
 

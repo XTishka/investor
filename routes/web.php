@@ -27,11 +27,12 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+//    Route::get('/', function () {
+//        return view('welcome');
+//    });
 
-    Route::get('/wisher', [WishController::class, 'index'])->name('wisher');
+    Route::get('/', [WishController::class, 'index'])->name('wisher');
+    Route::get('/get_by_country', [WishController::class, 'getPropertiesByCountry'])->name('wisher.countries');
 
     Route::group(['middleware' => 'is_admin'], function () {
 

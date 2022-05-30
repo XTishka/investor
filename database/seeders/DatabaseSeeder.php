@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(1)->create();
-        Property::factory(1)->create();
+        Property::factory(50)->create();
     }
 }

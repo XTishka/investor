@@ -40,13 +40,30 @@
 <script type="text/javascript">
     $("#country").change(function () {
         $.ajax({
-            url: "{{ route('wisher.countries') }}?country" + $(this).val(),
+            url: "{{ route('wisher.countries') }}?country=" + $(this).val(),
             method: 'GET',
             success: function (data) {
                 $('#property').html(data.html);
             }
         });
-        console.log('changed');
+    });
+
+    $("#week").change(function () {
+        $.ajax({
+            url: "{{ route('wisher.wishlist') }}?week=" + $(this).val(),
+            method: 'GET',
+            success: function (data) {
+                $('#wish').html(data.html);
+            }
+        });
+
+        {{--$.ajax({--}}
+        {{--    url: "{{ route('wisher.wish_qty') }}?week=" + $(this).val(),--}}
+        {{--    method: 'GET',--}}
+        {{--    success: function (data) {--}}
+        {{--        $('#available_wishes').html(data.html);--}}
+        {{--    }--}}
+        {{--});--}}
     });
 </script>
 </body>

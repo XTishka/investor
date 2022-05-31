@@ -16,9 +16,11 @@
 
                 <div class="mt-5 md:mt-0 md:col-span-2">
                     <form action="#" method="POST">
+                        @csrf
+
                         <div class="shadow overflow-hidden sm:rounded-md">
                             <div class="px-4 py-5 bg-white sm:p-6">
-                                <div class="grid grid-cols-12 gap-6">
+                                <div class="grid gap-6">
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="country"
                                                class="block text-sm font-medium text-gray-700">Country {{ $countries->count() }}</label>
@@ -35,39 +37,28 @@
                                                class="block text-sm font-medium text-gray-700">Property</label>
                                         <select id="property" name="property" autocomplete="property-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option value="">Select property</option>
+                                            <option value="">Select country</option>
                                         </select>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="country"
+                                        <label for="week"
                                                class="block text-sm font-medium text-gray-700">Week</label>
-                                        <select id="country" name="country" autocomplete="country-name"
+                                        <select id="week" name="week" autocomplete="week-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option>Week #23 ( 2 Jan, 2022 - 23 Feb, 2022 )</option>
-                                            <option>Week #24 ( 2 Jan, 2022 - 23 Feb, 2022 )</option>
-                                            <option>Week #25 ( 2 Jan, 2022 - 23 Feb, 2022 )</option>
-                                            <option>Week #26 ( 2 Jan, 2022 - 23 Feb, 2022 )</option>
-                                            <option>Week #27 ( 2 Jan, 2022 - 23 Feb, 2022 )</option>
+                                            @foreach($weeks as $week)
+                                                <option value="{{ $week->id }}">Week {{ $week->number }} ( {{ date('j F, Y', strtotime($week->start_date)) }} - {{ date('j F, Y', strtotime($week->end_date)) }} )</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="country" class="block text-sm font-medium text-gray-700">
-                                            Wishes <span class="text-xs font-light">( available: 17 )</span>
+                                        <label for="wish" class="block text-sm font-medium text-gray-700">
+                                            Wishes <span id="available_wishes" class="text-xs font-light"></span>
                                         </label>
-                                        <select id="country" name="country" autocomplete="country-name"
+                                        <select id="wish" name="wish" autocomplete="wish-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
+                                            <option value="">Select week</option>
                                         </select>
                                     </div>
                                 </div>

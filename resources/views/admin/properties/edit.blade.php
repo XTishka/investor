@@ -41,17 +41,12 @@
                 <div class="col-md-6">
 
                     <div class="card card-secondary">
-                        <div class="card-header">
-                            <i class="fas fa-user-alt mr-2"></i>
-                            <span class="mr-2">{{ $property->name  }}</span>
-                        </div>
-
                         <div class="card-header d-flex justify-content-between">
                             <h3 class="card-title mr-auto pt-1">
-                                <i class="fas fa-user-alt mr-2"></i>
+                                <i class="fas fa-laptop-house mr-2"></i>
                                 <span class="mr-2">{{ $property->name  }}</span>
                             </h3>
-                            <a href="{{ route('property.show', $property) }}">
+                            <a href="{{ route('properties.show', $property) }}">
                                 <i class="fas fa-chevron-left"></i>
                                 Back
                             </a>

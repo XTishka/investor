@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', [WishController::class, 'index'])->name('wisher');
     Route::get('/get_by_country', [WishController::class, 'getPropertiesByCountry'])->name('wisher.countries');
+    Route::get('/get_wishes', [WishController::class, 'getWishesOptionsList'])->name('wisher.wishlist');
+    Route::get('/get_wishes_qty', [WishController::class, 'getWishesQtyByWeekNumber'])->name('wisher.wish_qty');
 
     Route::group(['middleware' => 'is_admin'], function () {
 

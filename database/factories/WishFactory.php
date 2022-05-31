@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Wish;
+use App\Models\Week;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Wish>
  */
-class WishesFactory extends Factory
+class WishFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,11 +18,9 @@ class WishesFactory extends Factory
     public function definition()
     {
         return [
-            Wish::factory(1)->create([
-                'week_id' => '',
-                'user_id' => '',
-                'wishes' => ''
-            ])
+            'week_id' => $this->faker->randomDigit(2),
+            'user_id' => 1,
+            'wishes' => $this->faker->randomDigit(2)
         ];
     }
 }

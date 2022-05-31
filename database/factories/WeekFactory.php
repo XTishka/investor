@@ -2,13 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Wish;
+use App\Models\Round;
+use App\Models\Week;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Week>
  */
-class WishesFactory extends Factory
+class WeekFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,11 +20,7 @@ class WishesFactory extends Factory
     public function definition()
     {
         return [
-            Wish::factory(1)->create([
-                'week_id' => '',
-                'user_id' => '',
-                'wishes' => ''
-            ])
+
         ];
     }
 }

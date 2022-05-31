@@ -16,15 +16,11 @@ class RoundStartSeeder extends Seeder
      */
     public function run()
     {
-        $round = Round::factory(1)->create([
+        Round::factory(1)->create([
             'name' => 'Round 1',
-            'start_round_date' => '2022-05-16',
-            'end_wishes_date' => '2022-10-16',
-            'end_round_date' => '2022-11-16',
+            'start_round_date' => '2022-04-16',
+            'end_wishes_date' => '2022-11-10',
+            'end_round_date' => '2022-11-20',
         ]);
-
-        // TODO: Autogenerate weeks for factory
-//        $weeks = new GenerateRoundWeeksAction();
-//        $weeks->handle($round->id, $round);
     }
 }

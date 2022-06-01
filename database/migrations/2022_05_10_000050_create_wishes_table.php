@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('wishes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('week_id')->nullable()->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('week_id')->nullable()->constrained();
+            $table->foreignId('property_id')->nullable()->constrained();
             $table->foreignId('status_id')->nullable()->constrained();
             $table->integer('wishes')->nullable('false');
             $table->timestamps();

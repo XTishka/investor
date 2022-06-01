@@ -48,8 +48,10 @@ class WishController extends Controller
     public function getWishesOptionsList(Request $request)
     {
         $wishesMax = 20;
-        $wishes = Wish::where('user_id', auth()->user()->id)
+        $wishes = Wish::select('week_id', 'wishes')
+            ->where('user_id', auth()->user()->id)
             ->where('week_id', $request->week)
+            ->groupBy('week_id')
             ->value('wishes');
 
 

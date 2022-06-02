@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Wish extends Model
 {
     use HasFactory;
+
+    protected $fillable =  ['user_id', 'week_id', 'property_id', 'wishes'];
 }

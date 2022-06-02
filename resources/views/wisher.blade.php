@@ -12,10 +12,26 @@
                             Select property, week and wishes qty
                         </p>
                     </div>
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger my-4">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-dismissible fade show my-4" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @endif 
                 </div>
 
                 <div class="mt-5 md:mt-0 md:col-span-2">
-                    <form action="#" method="POST">
+                    <form action="{{ route('wishes.store') }}" method="POST">
                         @csrf
 
                         <div class="shadow overflow-hidden sm:rounded-md">
@@ -26,6 +42,7 @@
                                                class="block text-sm font-medium text-gray-700">Country</label>
                                         <select id="country" name="country" autocomplete="country-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                <option value="">Select country</option>
                                             @foreach($countries as $country)
                                                 <option value="{{ $country->country }}">{{ $country->country }}</option>
                                             @endforeach
@@ -33,19 +50,20 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="property"
+                                        <label for="property_id"
                                                class="block text-sm font-medium text-gray-700">Property</label>
-                                        <select id="property" name="property" autocomplete="property-name"
+                                        <select id="property_id" name="property_id" autocomplete="property-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                             <option value="">Select country</option>
                                         </select>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="week"
+                                        <label for="week_id"
                                                class="block text-sm font-medium text-gray-700">Week</label>
-                                        <select id="week" name="week" autocomplete="week-name"
+                                        <select id="week_id" name="week_id" autocomplete="week-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                <option value="" selected>Select week</option>
                                             @foreach($weeks as $week)
                                                 <option value="{{ $week->id }}">Week {{ $week->number }} ( {{ date('j F, Y', strtotime($week->start_date)) }} - {{ date('j F, Y', strtotime($week->end_date)) }} )</option>
                                             @endforeach
@@ -53,10 +71,10 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="wish" class="block text-sm font-medium text-gray-700">
+                                        <label for="wishes" class="block text-sm font-medium text-gray-700">
                                             Wishes <span id="available_wishes" class="text-xs font-light"></span>
                                         </label>
-                                        <select id="wish" name="wish" autocomplete="wish-name"
+                                        <select id="wishes" name="wishes" autocomplete="wishes-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                             <option value="">Select week</option>
                                         </select>

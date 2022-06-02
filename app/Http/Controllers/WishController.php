@@ -10,16 +10,27 @@ use Barryvdh\Debugbar\DebugbarViewEngine;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Carbon\Carbon;
 use Database\Factories\WishesFactory;
+use DebugBar\DebugBar as DebugBarDebugBar;
 use Illuminate\Http\Request;
 use Symfony\Component\ErrorHandler\Debug;
+use App\Actions\StoreWishesAction;
+use App\Http\Requests\WishRequest;
+use Auth;
 
 class WishController extends Controller
 {
-    public function index(Round $round)
+    public function index(Round $round, StoreWishesAction $wishes)
     {
         $countries = Property::select('country')->distinct()->get();
         $weeks = Week::where('round_id', $round->currentRoundId())->get();
         return view('wisher', compact('countries', 'weeks'));
+    }
+
+    public function store(WishRequest $request) {
+        $validatedRequest = $request->validated();
+        $validatedRequest['user_id'] = Auth::user()->id;
+        Wish::create($validatedRequest);
+        return back()->with('success','Your wishes were successfully send!');
     }
 
     public function getPropertiesByCountry(Request $request)
@@ -38,13 +49,6 @@ class WishController extends Controller
         return response()->json(['html' => $html]);
     }
 
-    public function getWishesQtyByWeekNumber(Request $request)
-    {
-        Debugbar::info('Wish number');
-        $html = '( available: 18 )';
-        return $html;
-    }
-
     public function getWishesOptionsList(Request $request)
     {
         $wishesMax = 20;
@@ -52,7 +56,7 @@ class WishController extends Controller
             ->where('user_id', auth()->user()->id)
             ->where('week_id', $request->week)
             ->groupBy('week_id')
-            ->value('wishes');
+            ->sum('wishes');
 
 
         $availableWishesFolmula = "$wishesMax - $wishes";
@@ -62,9 +66,14 @@ class WishController extends Controller
         Debugbar::info($availableWishes);
 
         $html = '';
-        for ($i = 1; $i <= $availableWishes; $i++) {
-            $html .= '<option value="' . $i . '">' . $i . '</option>';
+        if ($availableWishes > 0) {
+            for ($i = 1; $i <= $availableWishes; $i++) {
+                $html .= '<option value="' . $i . '">' . $i . '</option>';
+            }
+        } else {
+            $html .= '<option value="">You don\'t have avalable wishes for this week</option>';
         }
+        
         return response()->json(['html' => $html]);
     }
 

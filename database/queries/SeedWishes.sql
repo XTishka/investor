@@ -3,6 +3,8 @@ INSERT INTO wishes (week_id, user_id, wishes) VALUES (2, 1, 12);
 INSERT INTO wishes (week_id, user_id, wishes) VALUES (3, 1, 8);
 INSERT INTO wishes (week_id, user_id, wishes) VALUES (4, 1, 13);
 INSERT INTO wishes (week_id, user_id, wishes) VALUES (5, 1, 5);
+INSERT INTO wishes (week_id, user_id, wishes) VALUES (5, 1, 5);
+INSERT INTO wishes (week_id, user_id, wishes) VALUES (5, 1, 5);
 INSERT INTO wishes (week_id, user_id, wishes) VALUES (6, 1, 1);
 INSERT INTO wishes (week_id, user_id, wishes) VALUES (7, 1, 19);
 INSERT INTO wishes (week_id, user_id, wishes) VALUES (8, 1, 20);

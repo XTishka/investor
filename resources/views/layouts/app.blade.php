@@ -43,17 +43,17 @@
             url: "{{ route('wisher.countries') }}?country=" + $(this).val(),
             method: 'GET',
             success: function (data) {
-                $('#property').html(data.html);
+                $('#property_id').html(data.html);
             }
         });
     });
 
-    $("#week").change(function () {
+    $("#week_id").change(function () {
         $.ajax({
             url: "{{ route('wisher.wishlist') }}?week=" + $(this).val(),
             method: 'GET',
             success: function (data) {
-                $('#wish').html(data.html);
+                $('#wishes').html(data.html);
             }
         });
 

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('week_id')->nullable(false)->constrained();
             $table->foreignId('property_id')->nullable(false)->constrained();
             $table->integer('wishes')->nullable(false);
+            $table->integer('priority')->nullable(true);
+            $table->enum('status', ['Confirmed', 'Not confirmed', 'Failed'])->default('Not confirmed');
             $table->timestamps();
             $table->softDeletes();
         });

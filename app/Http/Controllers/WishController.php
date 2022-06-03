@@ -9,7 +9,6 @@ use App\Models\Wish;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use App\Http\Requests\WishRequest;
-use Auth;
 
 class WishController extends Controller
 {
@@ -22,9 +21,36 @@ class WishController extends Controller
 
     public function store(WishRequest $request) {
         $validatedRequest = $request->validated();
-        $validatedRequest['user_id'] = Auth::user()->id;
-        Wish::create($validatedRequest);
-        return back()->with('success','Your wishes were successfully send!');
+        $validatedRequest['user_id'] = auth()->user()->id;
+
+        $wishes = Wish::select('id', 'week_id', 'wishes')
+            ->where('user_id', auth()->user()->id)
+            ->where('week_id', $validatedRequest['week_id'])
+            ->where('property_id', $validatedRequest['property_id'])->first();
+
+        if ($wishes) {
+            $validatedRequest['wishes'] = $validatedRequest['wishes'] + $wishes->wishes;
+            if ($validatedRequest['wishes'] <= 20) {
+                $wishes->update($validatedRequest);
+                $status = 'success';
+                $flash = 'Your wishes were successfully updated!';
+            } else {
+                $status = 'error';
+                $flash = 'Something goes wrong! Too much wishes were send';
+            }
+        } else {
+            if ($validatedRequest['wishes'] <= 20) {
+                Wish::create($validatedRequest);
+                $status = 'success';
+                $flash = 'Your wishes were successfully added!';
+            } else {
+                $status = 'error';
+                $flash = 'Something goes wrong! Too much wishes were send';
+            }
+        }
+
+
+        return back()->with($status, $flash);
     }
 
     public function getPropertiesByCountry(Request $request)
@@ -56,6 +82,7 @@ class WishController extends Controller
         $availableWishesFolmula = "$wishesMax - $wishes";
         $availableWishes = $wishesMax - $wishes;
 
+        Debugbar::info($request->week);
         Debugbar::info($availableWishesFolmula);
         Debugbar::info($availableWishes);
 

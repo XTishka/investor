@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link text-capitalize">
+                    <a href="{{ route('admin.wish_index') }}" class="nav-link text-capitalize">
                         <i class="nav-icon fas fa-star-half-alt"></i>
                         <p class="text">{{ __('admin.wishes') }}</p>
                     </a>

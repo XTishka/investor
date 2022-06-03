@@ -3,6 +3,18 @@ return [
     'logo_alt' => 'Investering logo',
     'user_image_alt' => 'User Image',
 
+    // WISHES
+    'page_title_wishes_index' => 'Wishes',
+
+    'table_th_wishes_round' => 'Round',
+    'table_th_wishes_week' => 'Week',
+    'table_th_wishes_stockholder' => 'Stockholder',
+    'table_th_wishes_country' => 'Country',
+    'table_th_wishes_property' => 'Property',
+    'table_th_wishes_wishes' => 'Wishes',
+    'table_th_wishes_priority' => 'Priority',
+    'table_th_wishes_status' => 'Status',
+
     // ROUNDS
     'page_title_round_index' => 'Rounds',
     'page_title_create_new_round' => 'Create new Round',

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PropertyController;
 use App\Http\Controllers\Admin\RoundController;
 use App\Http\Controllers\Admin\StockholderController;
+use App\Http\Controllers\Admin\WishesController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('stockholders', StockholderController::class)->name('index', 'admin.stockholders');
             Route::resource('properties', PropertyController::class)->name('index', 'admin.properties');
             Route::resource('rounds', RoundController::class)->name('index', 'admin.rounds');
+            Route::resource('wish_index', WishesController::class)->name('index', 'admin.wish_index');
         });
 
     });

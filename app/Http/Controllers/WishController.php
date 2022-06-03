@@ -6,20 +6,14 @@ use App\Models\Property;
 use App\Models\Round;
 use App\Models\Week;
 use App\Models\Wish;
-use Barryvdh\Debugbar\DebugbarViewEngine;
 use Barryvdh\Debugbar\Facades\Debugbar;
-use Carbon\Carbon;
-use Database\Factories\WishesFactory;
-use DebugBar\DebugBar as DebugBarDebugBar;
 use Illuminate\Http\Request;
-use Symfony\Component\ErrorHandler\Debug;
-use App\Actions\StoreWishesAction;
 use App\Http\Requests\WishRequest;
 use Auth;
 
 class WishController extends Controller
 {
-    public function index(Round $round, StoreWishesAction $wishes)
+    public function index(Round $round)
     {
         $countries = Property::select('country')->distinct()->get();
         $weeks = Week::where('round_id', $round->currentRoundId())->get();
@@ -73,7 +67,7 @@ class WishController extends Controller
         } else {
             $html .= '<option value="">You don\'t have avalable wishes for this week</option>';
         }
-        
+
         return response()->json(['html' => $html]);
     }
 

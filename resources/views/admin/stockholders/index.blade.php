@@ -31,10 +31,13 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <div class="d-flex justify-content-end">
-                                    <a href="{{ route('stockholders.create') }}" class="btn btn-secondary btn-sm mr-1">
-                                        {{ __('admin.button_add_new_stockholders') }}
-                                    </a>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h2>{{ __('admin.header_all_stockholders') }}</h2>
+                                    <div>
+                                        <a href="{{ route('stockholders.create') }}" class="btn btn-secondary btn-sm mr-1">
+                                            {{ __('admin.button_add_new_stockholders') }}
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.card-header -->

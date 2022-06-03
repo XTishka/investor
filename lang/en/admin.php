@@ -81,11 +81,14 @@ return [
     'form_field_property_description_placeholder' => 'Enter property description',
 
     // STOCKHOLDERS
-    'page_title_stockholders_index' => 'Create new Stockholders',
+    'page_title_stockholders_index' => 'Stockholders',
     'page_title_create_new_stockholders' => 'Create new Stockholders',
     'page_title_show_stockholder' => 'Stockholder details',
     'page_title_edit_stockholder' => 'Edit Stockholder details',
     'breadcrumbs_edit_stockholder' => 'Edit',
+
+    'header_all_stockholders' => 'All Stockholders',
+
     'user_type' => 'user type',
     'card_add_new_stockholder' => 'Add new stockholder',
     'card_upload_csv_stockholders' => 'Upload CSV with stockholders',

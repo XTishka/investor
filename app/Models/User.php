@@ -27,6 +27,14 @@ class User extends Authenticatable
         'status'
     ];
 
+    public function priorities() {
+        return $this->hasMany(Priority::class);
+    }
+
+    public function rounds() {
+        return $this->hasMany(Round::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

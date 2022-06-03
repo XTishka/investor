@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Property;
+use Database\Seeders\AdminPrioritiesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,7 +19,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminSeeder::class,
-            RoundStartSeeder::class
+            RoundStartSeeder::class,
+            AdminPrioritiesSeeder::class,
         ]);
 
         User::factory(1)->create();

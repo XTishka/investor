@@ -30,8 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', [WishController::class, 'index'])->name('wisher');
     Route::post('/store_wish', [WishController::class, 'store'])->name('wishes.store');
+    Route::delete('/delete_wish/{id}', [WishController::class, 'delete'])->name('wishes.delete');
     Route::get('/get_by_country', [WishController::class, 'getPropertiesByCountry'])->name('wisher.countries');
-    Route::get('/get_wishes', [WishController::class, 'getWishesOptionsList'])->name('wisher.wishlist');
+    Route::get('/get_weeks', [WishController::class, 'getWeeksOptionsList'])->name('wisher.weeks');
     Route::get('/get_wishes_qty', [WishController::class, 'getWishesQtyByWeekNumber'])->name('wisher.wish_qty');
 
     Route::group(['middleware' => 'is_admin'], function () {

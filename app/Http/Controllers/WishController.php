@@ -9,51 +9,50 @@ use App\Models\Wish;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use App\Http\Requests\WishRequest;
+use Illuminate\Http\JsonResponse;
 
 class WishController extends Controller
 {
-    public function index(Round $round)
+    public function index(Round $round, Wish $wishes)
     {
         $countries = Property::select('country')->distinct()->get();
-        $weeks = Week::where('round_id', $round->currentRoundId())->get();
-        return view('wisher', compact('countries', 'weeks'));
+        $usedWishes = $wishes->usedRoundWishes();
+
+        return view('wisher', compact('countries', 'usedWishes'));
     }
 
-    public function store(WishRequest $request) {
+    public function store(WishRequest $request, Wish $wishes)
+    {
         $validatedRequest = $request->validated();
         $validatedRequest['user_id'] = auth()->user()->id;
 
-        $wishes = Wish::select('id', 'week_id', 'wishes')
-            ->where('user_id', auth()->user()->id)
-            ->where('week_id', $validatedRequest['week_id'])
-            ->where('property_id', $validatedRequest['property_id'])->first();
+        $wish = Wish::firstOrCreate(
+            [
+                'user_id' => $validatedRequest['user_id'],
+                'week_id' => $validatedRequest['week_id'],
+                'property_id' => $validatedRequest['property_id'],
+            ]
+        );
 
-        if ($wishes) {
-            $validatedRequest['wishes'] = $validatedRequest['wishes'] + $wishes->wishes;
-            if ($validatedRequest['wishes'] <= 20) {
-                $wishes->update($validatedRequest);
-                $status = 'success';
-                $flash = 'Your wishes were successfully updated!';
-            } else {
-                $status = 'error';
-                $flash = 'Something goes wrong! Too much wishes were send';
-            }
+        if ($wish->wasRecentlyCreated == true) {
+            $flashType = 'success';
+            $message = 'Your wishes were successfully added!';
         } else {
-            if ($validatedRequest['wishes'] <= 20) {
-                Wish::create($validatedRequest);
-                $status = 'success';
-                $flash = 'Your wishes were successfully added!';
-            } else {
-                $status = 'error';
-                $flash = 'Something goes wrong! Too much wishes were send';
-            }
+            $flashType = 'warning';
+            $message = 'You have sent wish with same parameters before!';
         }
 
-
-        return back()->with($status, $flash);
+        return back()->with($flashType, $message);
     }
 
-    public function getPropertiesByCountry(Request $request)
+    public function delete($id)
+    {
+        $wish = Wish::find($id);
+        $wish->delete();
+        return back();
+    }
+
+    public function getPropertiesByCountry(Request $request): JsonResponse
     {
         $properties = Property::select('id', 'name')
             ->where('country', $request->country)
@@ -69,33 +68,28 @@ class WishController extends Controller
         return response()->json(['html' => $html]);
     }
 
-    public function getWishesOptionsList(Request $request)
+    public function getWeeksOptionsList(Request $request, Round $round): JsonResponse
     {
-        $wishesMax = 20;
-        $wishes = Wish::select('week_id', 'wishes')
-            ->where('user_id', auth()->user()->id)
-            ->where('week_id', $request->week)
-            ->groupBy('week_id')
-            ->sum('wishes');
+        $weeks = Week::where('round_id', $round->currentRoundId())->get();
+        $usedWishes = Wish::where('user_id', auth()->user()->id)->get();
+        $usedWishesIds = $usedWishes->pluck('week_id');
 
+        Debugbar::info('Property ID: ' . $request->property_id);
+        Debugbar::info($usedWishes);
+        Debugbar::info($usedWishesIds->all());
 
-        $availableWishesFolmula = "$wishesMax - $wishes";
-        $availableWishes = $wishesMax - $wishes;
+        $html = '<option value="">Select week</option>';
+        foreach ($weeks as $week) {
+            $weekStartDate = date('j F, Y', strtotime($week->start_date));
+            $weekEndDate = date('j F, Y', strtotime($week->end_date));
 
-        Debugbar::info($request->week);
-        Debugbar::info($availableWishesFolmula);
-        Debugbar::info($availableWishes);
-
-        $html = '';
-        if ($availableWishes > 0) {
-            for ($i = 1; $i <= $availableWishes; $i++) {
-                $html .= '<option value="' . $i . '">' . $i . '</option>';
+            if (!in_array($week->id, $usedWishesIds->all(), )) {
+                $html .= "<option value='$week->id'>";
+                $html .= "Week $week->number ( $weekStartDate - $weekEndDate )";
+                $html .= "</option>";
             }
-        } else {
-            $html .= '<option value="">You don\'t have avalable wishes for this week</option>';
         }
 
         return response()->json(['html' => $html]);
     }
-
 }

@@ -26,7 +26,6 @@ class WishRequest extends FormRequest
         return [
             'week_id' => ['required'],
             'property_id' => ['required'],
-            'wishes' => ['required', 'max:10'],
         ];
     }
 }

@@ -21,9 +21,11 @@
                 </a>
             </nav>
             <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                @if (auth()->user()->is_admin)
                 <a href="{{ route('admin.dashboard') }}"
                    class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
                     Console </a>
+                @endif
 
                 <a href="{{ route('logout') }}"
                    class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
@@ -47,27 +49,21 @@
             url: "{{ route('wisher.countries') }}?country=" + $(this).val(),
             method: 'GET',
             success: function (data) {
+                $('#property-selector').show();
                 $('#property_id').html(data.html);
             }
         });
     });
 
-    $("#week_id").change(function () {
+    $("#property_id").change(function () {
         $.ajax({
-            url: "{{ route('wisher.wishlist') }}?week=" + $(this).val(),
+            url: "{{ route('wisher.weeks') }}?property_id=" + $(this).val(),
             method: 'GET',
             success: function (data) {
-                $('#wishes').html(data.html);
+                $('#week-selector').show();
+                $('#week_id').html(data.html);
             }
         });
-
-        {{--$.ajax({--}}
-        {{--    url: "{{ route('wisher.wish_qty') }}?week=" + $(this).val(),--}}
-        {{--    method: 'GET',--}}
-        {{--    success: function (data) {--}}
-        {{--        $('#available_wishes').html(data.html);--}}
-        {{--    }--}}
-        {{--});--}}
     });
 </script>
 </body>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('start_round_date')->nullable(false);
             $table->date('end_wishes_date')->nullable(false);
             $table->date('end_round_date')->nullable(false);
+            $table->integer('max_wishes')->nullable(false)->default(20);
             $table->timestamps();
             $table->softDeletes();
         });

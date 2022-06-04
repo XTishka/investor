@@ -174,6 +174,22 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="max_wishes">{{ __('admin.form_field_round_max_wishes') }}</label>
+                                    <input type="text"
+                                           id="max_wishes"
+                                           name="max_wishes"
+                                           value="{{ $round->max_wishes }}"
+                                           class="form-control @error('max_wishes') is-invalid @enderror"
+                                           placeholder="{{ __('admin.form_field_round_max_wishes_placeholder') }}">
+
+                                    @error('max_wishes')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
                                     <label for="description">{{ __('admin.form_field_round_description') }}</label>
                                     <textarea id="description" name="description"
                                               class="form-control @error('description') is-invalid @enderror" rows="3"

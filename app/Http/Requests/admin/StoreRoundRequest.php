@@ -30,6 +30,7 @@ class StoreRoundRequest extends FormRequest
             'end_round_date' => ['date', 'after:start_round_date'],
             'end_wishes_date' => ['date', 'after:start_round_date', 'before:end_round_date'],
             'description' => ['nullable'],
+            'max_wishes' => ['required'],
         ];
     }
 }

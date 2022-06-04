@@ -47,6 +47,8 @@ return [
     'form_field_round_range' => 'Round range',
     'form_field_round_end_wishes_date' => 'End wishes date',
     'form_field_round_end_wishes_date_placeholder' => 'Enter end wishes date',
+    'form_field_round_max_wishes' => 'Max wishes for stockholder per round',
+    'form_field_round_max_wishes_placeholder' => '20 wishes by default',
 
     // PROPERTIES
     'page_title_property_index' => 'Properties',

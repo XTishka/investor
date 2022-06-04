@@ -16,7 +16,8 @@ class Round extends Model
         'description',
         'start_round_date',
         'end_wishes_date',
-        'end_round_date'
+        'end_round_date',
+        'max_wishes',
     ];
 
     public function currentRoundId()

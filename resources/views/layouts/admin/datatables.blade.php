@@ -42,6 +42,7 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <script>
     $(function () {
@@ -49,6 +50,7 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -58,6 +60,18 @@
             "autoWidth": false,
             "responsive": true,
         });
+
+        $('#property_index').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": false,
+            "lenght:" : true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#property_index_wrapper .col-md-6:eq(0)');
     });
 </script>
 </body>

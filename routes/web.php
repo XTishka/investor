@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\Admin\PropertyAvailabiltyController;
 use App\Http\Controllers\Admin\RoundController;
 use App\Http\Controllers\Admin\StockholderController;
 use App\Http\Controllers\Admin\WishesController;
@@ -43,6 +44,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('properties', PropertyController::class)->name('index', 'admin.properties');
             Route::resource('rounds', RoundController::class)->name('index', 'admin.rounds');
             Route::resource('wish_index', WishesController::class)->name('index', 'admin.wish_index');
+            Route::controller(PropertyAvailabiltyController::class)->group(function () {
+                Route::get('/availability_disable/{week_id}/{property_id}', 'store')->name('admin.disable_week');
+                Route::get('/availability_enable/{week_id}/{property_id}', 'destroy')->name('admin.enable_week');
+            });
         });
 
     });

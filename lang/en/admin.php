@@ -73,6 +73,12 @@ return [
     'table_th_property_address' => 'Address',
     'table_th_property_description' => 'Description',
 
+    'table_th_availability_week_number' => 'Week #',
+    'table_th_availability_week_start_date' => 'Week start date',
+    'table_th_availability_week_end_date' => 'Week end date',
+    'table_th_availability_week_status' => 'Status',
+    'table_availability_badge_blocked' => 'blocked (this week has wishes)',
+
     'form_field_property_name' => 'Name',
     'form_field_property_name_placeholder' => 'Enter property name',
     'form_field_property_country' => 'Country',

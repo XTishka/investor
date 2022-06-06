@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\StorePropertyRequest;
 use App\Http\Requests\admin\UpdatePropertyRequest;
 use App\Models\Property;
+use App\Models\PropertyAvailability;
+use App\Models\Round;
+use App\Models\Week;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -22,7 +26,7 @@ class PropertyController extends Controller
      */
     public function index(): Application|Factory|View
     {
-        $properties = Property::all();
+        $properties = Property::all()->sortBy('country');
         return view('admin.properties.index', compact('properties'));
     }
 
@@ -54,9 +58,12 @@ class PropertyController extends Controller
      * @param Property $property
      * @return Application|Factory|View
      */
-    public function show(Property $property): View|Factory|Application
+    public function show(Property $property, Round $round): View|Factory|Application
     {
-        return view('admin.properties.show', compact('property'));
+        $currentRoundId = $round->currentRoundId();
+        $weeks = Week::where('round_id', $currentRoundId)->get()->sortBy('start_date');
+        
+        return view('admin.properties.show', compact('property', 'weeks'));
     }
 
     /**

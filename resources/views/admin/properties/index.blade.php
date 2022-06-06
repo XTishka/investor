@@ -39,7 +39,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="property_index" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>{{ __('admin.table_th_property_name') }}</th>

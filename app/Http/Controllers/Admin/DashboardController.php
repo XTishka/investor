@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Round;
 use App\Models\Priority;
+use App\Models\Wish;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 class DashboardController extends Controller
 {
@@ -25,12 +27,15 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request, User $users, Round $round, Priority $priorities)
+    public function index(Request $request, User $stockholders, Round $round, Priority $priorities, Wish $wishes)
     {
         $rounds = $round->all();
         $roundId = ($request->round_id) ? $request->round_id : $round->currentRoundId();
         $round = $rounds->where('id', $roundId)->first();
-        $stockholders = $users->getStockholdersWithPriorityAndRound($roundId);
-        return view('admin.dashboard', compact('stockholders', 'rounds', 'round'));
+
+        Debugbar::info('Incoming request: ', $request->round_id);
+        Debugbar::info('Round: ', $round->id);
+
+        return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'wishes'));
     }
 }

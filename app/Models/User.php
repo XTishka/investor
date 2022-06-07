@@ -32,6 +32,14 @@ class User extends Authenticatable
         return $this->hasMany(Priority::class);
     }
 
+    public function rounds() {
+        return $this->hasMany(Round::class);
+    }
+
+    public function wishes() {
+        return $this->hasMany(Wish::class);
+    }
+
     public function getStockholdersWithPriority() {
         $stockholders = DB::table('priorities')
         ->join('users', 'priorities.user_id', '=', 'users.id')
@@ -69,10 +77,6 @@ class User extends Authenticatable
         ->get();
 
         return $stockholders; 
-    }
-
-    public function rounds() {
-        return $this->hasMany(Round::class);
     }
 
     /**

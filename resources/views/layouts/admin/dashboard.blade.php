@@ -57,7 +57,7 @@
             "autoWidth": true,
             "responsive": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#priority_index_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#dashboard_distributions .col-md-6:eq(0)');
     });
 </script>
 </body>

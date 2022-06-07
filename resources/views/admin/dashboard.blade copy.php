@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Dashboard</h1>
+                        <h1>Blank Page</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -62,10 +62,10 @@
                                         <tr class="text-capitalize">
                                             <th width="10"><i class="nav-icon fas fa-arrows-alt-v"></i></th>
                                             <th>{{ __('admin.stockholders') }}</th>
-                                            @for ($i = 1; $i <= $round->max_wishes; $i++)
-                                                <th>Property #{{ $i }} </th>
-                                                <th>Wish #{{ $i }} </th>
-                                            @endfor
+                                            @foreach ($round->weeks as $week)
+                                            <th>Property #{{ $week->number }} </th>
+                                            <th>Week #{{ $week->number }} </th>
+                                            @endforeach
                                         </tr>
                                     </thead>
 
@@ -81,22 +81,20 @@
                                                     </a>
                                                 </td>
 
-                                                @foreach ($priority->user->wishes as $wish)
-                                                <td class="bg-primary disabled">
-                                                    <a href="{{ route('properties.show', $wish->property->id ) }}">
-                                                        {{ $wish->property->name }}
-                                                    </a>
+                                                {{-- @foreach ($round->weeks as $week)
+                                                <td>
+                                                    {{  $wishes->where('week_id', $week->id)->where('roun') }} ::
+                                                    @if (isset($week->property->name))
+                                                    {{ $week->property->name }}
+                                                    @endif
                                                 </td>
-                                                <td class="bg-primary">
-                                                    <a href="{{ route('admin.wish_index', $wish->property->id ) }}">
-                                                        Week #{{ $wish->week->number }}
-                                                    </a>
-                                                @endforeach
+                                                <td></td>
+                                                @endforeach --}}
 
-                                                @for ($i = 1; $i <= $round->max_wishes - $priority->user->wishes->count(); $i++)
-                                                    <td></td>
-                                                    <td></td>
-                                                @endfor
+                                                @foreach ($priority->user->wishes as $wish)
+                                                <td>{{ $wish->property->name }}</td>
+                                                <td>{{ $wish->week->number }}</td>
+                                                @endforeach
                                             </tr>
                                             @endif
                                         @endforeach
@@ -106,10 +104,10 @@
                                         <tr class="text-capitalize">
                                             <th width="10"><i class="nav-icon fas fa-arrows-alt-v"></i></th>
                                             <th>{{ __('admin.stockholders') }}</th>
-                                            @for ($i = 1; $i <= $round->max_wishes; $i++)
-                                                <th>Property #{{ $i }} </th>
-                                                <th>Wish #{{ $i }} </th>
-                                            @endfor
+                                            @foreach ($round->weeks as $week)
+                                            <th>Property #{{ $week->number }} </th>
+                                            <th>Week #{{ $week->number }} </th>
+                                            @endforeach
                                         </tr>
                                     </tfoot>
                                 </table>

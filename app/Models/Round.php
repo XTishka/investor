@@ -20,6 +20,10 @@ class Round extends Model
         'max_wishes',
     ];
 
+    public function weeks() {
+        return $this->hasMany(Week::class);
+    }
+
     public function currentRoundId()
     {
         $round = $this->select()

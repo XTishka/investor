@@ -28,7 +28,7 @@ class StockholderPriorityDownAction
         }
 
         // Render
-        $stockholders = $users->getStockholdersWithPriority();
+        $stockholders = $users->getStockholdersWithPriorityAndRound($request->round_id);
         $html = '';
         
 

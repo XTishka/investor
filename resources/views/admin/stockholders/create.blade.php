@@ -44,6 +44,21 @@
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
+                                    <label for="round">{{ __('admin.form_stockholder_round') }}</label>
+                                    <select class="custom-select rounded-2 @error('round') is-invalid @enderror" id="round" name="round">
+                                        @foreach ($rounds as $round)
+                                            <option value="{{ $round->id }}">{{ $round->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('round')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
                                     <label for="name">{{ __('admin.form_stockholder_name') }}</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                                            placeholder="{{ __('admin.form_stockholder_name_placeholder') }}">

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -29,6 +30,45 @@ class User extends Authenticatable
 
     public function priorities() {
         return $this->hasMany(Priority::class);
+    }
+
+    public function getStockholdersWithPriority() {
+        $stockholders = DB::table('priorities')
+        ->join('users', 'priorities.user_id', '=', 'users.id')
+        ->join('rounds', 'priorities.round_id', '=', 'rounds.id')
+        ->select('users.id as id',
+            'users.name as name',
+            'users.email as email',
+            'users.status as status',
+            'priorities.round_id as round_id',
+            'priorities.priority as priority',
+            'rounds.name as round'
+        )
+        ->where('users.is_admin', 0)
+        ->orderBy('priorities.priority')
+        ->get();
+
+        return $stockholders; 
+    }
+
+    public function getStockholdersWithPriorityAndRound($round_id) {
+        $stockholders = DB::table('priorities')
+        ->join('users', 'priorities.user_id', '=', 'users.id')
+        ->join('rounds', 'priorities.round_id', '=', 'rounds.id')
+        ->select('users.id as id',
+            'users.name as name',
+            'users.email as email',
+            'users.status as status',
+            'priorities.round_id as round_id',
+            'priorities.priority as priority',
+            'rounds.name as round'
+        )
+        ->where('users.is_admin', 0)
+        ->where('rounds.id', $round_id)
+        ->orderBy('priorities.priority')
+        ->get();
+
+        return $stockholders; 
     }
 
     public function rounds() {

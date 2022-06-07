@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\StoreStockholderRequest;
 use App\Http\Requests\admin\UpdateStockholderRequest;
+use App\Models\Priority;
 use App\Models\Property;
+use App\Models\Round;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class StockholderController extends Controller
 {
@@ -20,10 +23,14 @@ class StockholderController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index(): Application|Factory|View
+    public function index(Request $request, User $users, Round $round, Priority $priorities): Application|Factory|View
     {
-        $stockholders = User::all();
-        return view('admin.stockholders.index', compact('stockholders'));
+        $rounds = $round->all();
+        $roundId = ($request->round_id) ? $request->round_id : $round->currentRoundId();
+        $round = $rounds->where('id', $roundId)->first();
+        $maxPriority = $priorities->where('round_id', $round->currentRoundId())->max('priority');
+        $stockholders = $users->getStockholdersWithPriorityAndRound($roundId);
+        return view('admin.stockholders.index', compact('stockholders', 'maxPriority', 'rounds', 'round'));
     }
 
     /**
@@ -33,7 +40,8 @@ class StockholderController extends Controller
      */
     public function create()
     {
-        return view('admin.stockholders.create');
+        $rounds = Round::all();
+        return view('admin.stockholders.create', compact('rounds'));
     }
 
     /**
@@ -42,12 +50,19 @@ class StockholderController extends Controller
      * @param StoreStockholderRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreStockholderRequest $request): RedirectResponse
+    public function store(StoreStockholderRequest $request, Priority $priority): RedirectResponse
     {
-        User::create([
+        $stockholder = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+        ]);
+
+        $minPriority = $priority->where('round_id', $request->round)->max('priority');
+        Priority::create([
+            'user_id' => $stockholder->id,
+            'round_id' => $request->round,
+            'priority' => $minPriority + 1,
         ]);
 
         return redirect()->route('admin.stockholders');

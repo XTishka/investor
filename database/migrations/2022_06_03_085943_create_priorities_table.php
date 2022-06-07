@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable(false)->constrained();
             $table->foreignId('round_id')->nullable(false)->constrained();
-            $table->integer('priority')->unique()->nullable(false);
+            $table->integer('priority')->nullable(true)->default(0);
             $table->integer('available_weeks')->nullable(false);
             $table->timestamps();
         });

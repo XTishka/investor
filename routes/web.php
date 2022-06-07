@@ -10,6 +10,8 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WishController;
+use App\Actions\StockholderPriorityUpAction;
+use App\Actions\StockholderPriorityDownAction;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,8 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/availability_disable/{week_id}/{property_id}', 'store')->name('admin.disable_week');
                 Route::get('/availability_enable/{week_id}/{property_id}', 'destroy')->name('admin.enable_week');
             });
+            Route::get('/priorities/up', StockholderPriorityUpAction::class)->name('admin.priority_up');
+            Route::get('/priorities/down', StockholderPriorityDownAction::class)->name('admin.priority_down');
         });
 
     });

@@ -32,7 +32,21 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h2>{{ __('admin.header_all_stockholders') }}</h2>
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            {{ $round->name  }}
+                                        </button>
+
+                                        <ul class="dropdown-menu" style="">
+                                            @foreach ($rounds as $round)
+                                                <li class="dropdown-item"><a href="{{ route('admin.stockholders', ['round_id' => $round->id]) }}">{{ $round->name }}</a></li>
+                                            @endforeach
+
+                                        <li class="dropdown-divider"></li>
+                                        <li class="dropdown-item"><a href="{{ route('admin.stockholders') }}">Current round</a></li>
+                                        </ul>
+                                    </div>
+                                
                                     <div>
                                         <a href="{{ route('stockholders.create') }}" class="btn btn-secondary btn-sm mr-1">
                                             {{ __('admin.button_add_new_stockholders') }}
@@ -42,33 +56,50 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="priority_index" class="table table-bordered table-striped">
                                     <thead>
                                     <tr class="text-capitalize">
+                                        <th width="50">{{ __('admin.user_priority') }}</th>
                                         <th>{{ __('admin.stockholders') }}</th>
                                         <th>{{ __('admin.email') }}</th>
-                                        <th>{{ __('admin.user_type') }}</th>
                                         <th>{{ __('admin.status') }}</th>
                                     </tr>
                                     </thead>
 
-                                    <tbody>
+                                    <tbody id="stockholders-index">
 
                                     @foreach($stockholders as $stockholder)
                                         <tr>
+                                            <td>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span>
+                                                        {{  $stockholder->priority }}
+                                                    </span>
+                                                    <div>
+                                                        @if ($stockholder->priority > 1)
+                                                        <button class="priority-up btn-sm btn-primary mr-2" 
+                                                            data-user_id="{{ $stockholder->id }}" 
+                                                            data-round_id="{{ $stockholder->round_id }}">
+                                                            <i class="fas fa-arrow-up"></i>
+                                                        </button>
+                                                        @endif
+                                                        
+                                                        @if ($stockholder->priority < $maxPriority)
+                                                        <button class="priority-down btn-sm btn-primary" 
+                                                            data-user_id="{{ $stockholder->id }}" 
+                                                            data-round_id="{{ $stockholder->round_id }}">
+                                                            <i class="fas fa-arrow-down"></i>
+                                                        </button>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <a href="{{ route('stockholders.show', $stockholder->id) }}">
                                                     {{ $stockholder->name }}
                                                 </a>
                                             </td>
                                             <td>{{ $stockholder->email }}</td>
-                                            <td>
-                                                @if ($stockholder->is_admin === 1)
-                                                    {{ __('admin.administrator') }}
-                                                @else
-                                                    {{ __('admin.stockholder') }}
-                                                @endif
-                                            </td>
                                             <td>
                                                 @if ($stockholder->status === 1)
                                                     <span class="right badge badge-success">
@@ -83,12 +114,31 @@
                                         </tr>
                                     @endforeach
 
+                                    <script>
+                                        $(function () {
+                                            $(".priority-up").click(function() {
+                                                let $userId = $(this).attr("data-user_id");
+                                                let $roundId = $(this).attr("data-round_id");
+                                                console.log($userId);
+                                                console.log($roundId);
+                                                $.ajax({
+                                                    url: "{{ route('admin.priority_up') }}?user_id=" + $userId + '&round_id=' + $roundId,
+                                                    method: 'GET',
+                                                    success: function (data) {
+                                                        // $('#week-selector').show();
+                                                        $('#stockholders-index').html(data.html);
+                                                    }
+                                                });
+                                            });
+                                        });
+                                    </script>
+
                                     </tbody>
                                     <tfoot>
                                     <tr class="text-capitalize">
+                                        <th>{{ __('admin.user_priority') }}</th>
                                         <th>{{ __('admin.stockholders') }}</th>
                                         <th>{{ __('admin.email') }}</th>
-                                        <th>{{ __('admin.user_type') }}</th>
                                         <th>{{ __('admin.status') }}</th>
                                     </tr>
                                     </tfoot>

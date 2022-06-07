@@ -33,9 +33,6 @@ class DashboardController extends Controller
         $roundId = ($request->round_id) ? $request->round_id : $round->currentRoundId();
         $round = $rounds->where('id', $roundId)->first();
 
-        Debugbar::info('Incoming request: ', $request->round_id);
-        Debugbar::info('Round: ', $round->id);
-
         return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'wishes'));
     }
 }

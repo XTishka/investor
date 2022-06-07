@@ -47,8 +47,10 @@
                                         </ul>
                                     </div>
 
-                                    <div>
-                                        <a href="#" class="btn btn-secondary btn-sm mr-1">
+                                    <div id="downloads"></div>
+
+                                    <div id="upload_csv">
+                                        <a href="#" class="btn btn-secondary btn mr-1">
                                             Upload CSV
                                         </a>
                                     </div>
@@ -60,7 +62,7 @@
                                     style="overflow-x: auto; white-space: nowrap;">
                                     <thead>
                                         <tr class="text-capitalize">
-                                            <th width="10"><i class="nav-icon fas fa-arrows-alt-v"></i></th>
+                                            <th width="10">Priority</i></th>
                                             <th>{{ __('admin.stockholders') }}</th>
                                             @for ($i = 1; $i <= $round->max_wishes; $i++)
                                                 <th>Property #{{ $i }} </th>

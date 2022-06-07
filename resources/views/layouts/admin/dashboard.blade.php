@@ -49,7 +49,7 @@
     $(function () {
         $('#dashboard_distributions').DataTable({
             "paging": false,
-            "lengthChange": false,
+            "lengthChange": true,
             "searching": true,
             "ordering": true,
             "lenght:" : true,
@@ -57,7 +57,7 @@
             "autoWidth": true,
             "responsive": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#dashboard_distributions .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#downloads');
     });
 </script>
 </body>

@@ -59,7 +59,7 @@
                                 <table id="priority_index" class="table table-bordered table-striped">
                                     <thead>
                                     <tr class="text-capitalize">
-                                        <th width="50">{{ __('admin.user_priority') }}</th>
+                                        <th>{{ __('admin.table_th_stockholder_priority') }}</th>
                                         <th>{{ __('admin.stockholders') }}</th>
                                         <th>{{ __('admin.email') }}</th>
                                         <th>{{ __('admin.status') }}</th>
@@ -114,29 +114,10 @@
                                         </tr>
                                     @endforeach
 
-                                    <script>
-                                        $(function () {
-                                            $(".priority-up").click(function() {
-                                                let $userId = $(this).attr("data-user_id");
-                                                let $roundId = $(this).attr("data-round_id");
-                                                console.log($userId);
-                                                console.log($roundId);
-                                                $.ajax({
-                                                    url: "{{ route('admin.priority_up') }}?user_id=" + $userId + '&round_id=' + $roundId,
-                                                    method: 'GET',
-                                                    success: function (data) {
-                                                        // $('#week-selector').show();
-                                                        $('#stockholders-index').html(data.html);
-                                                    }
-                                                });
-                                            });
-                                        });
-                                    </script>
-
                                     </tbody>
                                     <tfoot>
                                     <tr class="text-capitalize">
-                                        <th>{{ __('admin.user_priority') }}</th>
+                                        <th>{{ __('admin.table_th_stockholder_priority') }}</th>
                                         <th>{{ __('admin.stockholders') }}</th>
                                         <th>{{ __('admin.email') }}</th>
                                         <th>{{ __('admin.status') }}</th>

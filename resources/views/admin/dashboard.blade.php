@@ -20,36 +20,92 @@
             </div><!-- /.container-fluid -->
         </section>
 
-        <!-- Main content -->
         <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
 
-            <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Title</h3>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                            aria-expanded="false">
+                                            {{ $round->name }}
+                                        </button>
 
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
+                                        <ul class="dropdown-menu" style="">
+                                            @foreach ($rounds as $round)
+                                                <li class="dropdown-item"><a
+                                                        href="{{ route('admin.dashboard', ['round_id' => $round->id]) }}">{{ $round->name }}</a>
+                                                </li>
+                                            @endforeach
+
+                                            <li class="dropdown-divider"></li>
+                                            <li class="dropdown-item"><a href="{{ route('admin.stockholders') }}">Current
+                                                    round</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div>
+                                        <a href="#" class="btn btn-secondary btn-sm mr-1">
+                                            Upload CSV
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="dashboard_distributions" class="table table-bordered table-striped d-block"
+                                    style="overflow-x: auto; white-space: nowrap;">
+                                    <thead>
+                                        <tr class="text-capitalize">
+                                            <th width="10"><i class="nav-icon fas fa-arrows-alt-v"></i></th>
+                                            <th>{{ __('admin.stockholders') }}</th>
+                                            @for ($i = 1; $i <= $round->max_wishes; $i++)
+                                                <th>Property #{{ $i }} </th>
+                                                <th>Week #{{ $i }} </th>
+                                            @endfor
+                                        </tr>
+                                    </thead>
+
+                                    <tbody id="stockholders-index">
+
+                                        @foreach ($stockholders as $stockholder)
+                                            <tr>
+                                                <td>{{ $stockholder->priority }}</td>
+                                                <td>
+                                                    <a href="{{ route('stockholders.show', $stockholder->id) }}">
+                                                        {{ $stockholder->name }}
+                                                    </a>
+                                                </td>
+                                                @for ($i = 1; $i <= $round->max_wishes; $i++)
+                                                    <td>Property name #{{ $i }} </td>
+                                                    <td>Week number #{{ $i }} </td>
+                                                @endfor
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="text-capitalize">
+                                            <th width="10"><i class="nav-icon fas fa-arrows-alt-v"></i></th>
+                                            <th>{{ __('admin.stockholders') }}</th>
+                                            @for ($i = 1; $i <= $round->max_wishes; $i++)
+                                                <th>Property #{{ $i }} </th>
+                                                <th>Week #{{ $i }} </th>
+                                            @endfor
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
                     </div>
                 </div>
-                <div class="card-body">
-                    Start creating your amazing application!
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    Footer
-                </div>
-                <!-- /.card-footer-->
             </div>
-            <!-- /.card -->
-
         </section>
-        <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 @endsection

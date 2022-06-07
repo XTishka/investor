@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Round;
+use App\Models\Priority;
 
 class DashboardController extends Controller
 {
@@ -22,8 +25,12 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request, User $users, Round $round, Priority $priorities)
     {
-        return view('admin.dashboard');
+        $rounds = $round->all();
+        $roundId = ($request->round_id) ? $request->round_id : $round->currentRoundId();
+        $round = $rounds->where('id', $roundId)->first();
+        $stockholders = $users->getStockholdersWithPriorityAndRound($roundId);
+        return view('admin.dashboard', compact('stockholders', 'rounds', 'round'));
     }
 }

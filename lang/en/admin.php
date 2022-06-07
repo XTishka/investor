@@ -3,6 +3,9 @@ return [
     'logo_alt' => 'Investering logo',
     'user_image_alt' => 'User Image',
 
+    // DASHBOARD
+    'table_th_dashboard_priority' => '#',
+
     // WISHES
     'page_title_wishes_index' => 'Wishes',
 
@@ -117,6 +120,8 @@ return [
     'form_label_choose_file' => 'Choose file',
     'form_button_upload' => 'Upload',
     'form_button_save' => 'Save',
+
+    'table_th_stockholder_priority' => 'Priority',
 
     // BUTTONS
     'button_add_new_user' => 'Add new user',

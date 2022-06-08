@@ -87,12 +87,17 @@
                                                 </td>
 
                                                 @foreach ($priority->user->wishes as $wish)
-                                                <td class="bg-primary disabled">
+                                                @php
+                                                    if ($wish->status == "Not confirmed") $legend = 'primary';
+                                                    if ($wish->status == "Confirmed") $legend = 'success';
+                                                    if ($wish->status == "Failed") $legend = 'warning';
+                                                @endphp
+                                                <td class="bg-{{ $legend }}">
                                                     <a href="{{ route('properties.show', $wish->property->id ) }}">
                                                         {{ $wish->property->name }}
                                                     </a>
                                                 </td>
-                                                <td class="bg-primary">
+                                                <td class="bg-{{ $legend }}">
                                                     <a href="{{ route('wish_index.edit', $wish->id ) }}">
                                                         Week #{{ $wish->week->number }}
                                                     </a>

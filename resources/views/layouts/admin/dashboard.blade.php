@@ -49,12 +49,12 @@
     $(function () {
         $('#dashboard_distributions').DataTable({
             "paging": false,
-            "lengthChange": true,
+            "lengthChange": false,
             "searching": true,
             "ordering": true,
-            "lenght:" : true,
+            "lenght:" : false,
             "info": true,
-            "autoWidth": true,
+            "autoWidth": false,
             "responsive": false,
             "scrollX": true,
             "buttons": ["copy", "csv", "excel"]

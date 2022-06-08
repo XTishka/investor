@@ -56,7 +56,8 @@
             "info": true,
             "autoWidth": true,
             "responsive": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            "scrollX": true,
+            "buttons": ["copy", "csv", "excel"]
         }).buttons().container().appendTo('#downloads');
     });
 </script>

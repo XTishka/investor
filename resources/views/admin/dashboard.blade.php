@@ -42,12 +42,16 @@
                                             @endforeach
 
                                             <li class="dropdown-divider"></li>
-                                            <li class="dropdown-item"><a href="{{ route('admin.stockholders') }}">Current
-                                                    round</a></li>
+                                            <li class="dropdown-item">
+                                                <a href="{{ route('admin.dashboard') }}">Current round</a>
+                                            </li>
                                         </ul>
                                     </div>
 
-                                    <div id="downloads"></div>
+                                    <div class="d-flex bg-gray rounded-sm" style="align-items: center;">
+                                        <span class="mx-4 text-mutted" style="color: rgba(255, 255, 255, 0.75);">Download:</span>
+                                        <div id="downloads" class="bg-gray mr-2 pl-2"></div>
+                                    </div>
 
                                     <div id="upload_csv">
                                         <a href="#" class="btn btn-secondary btn mr-1">
@@ -58,8 +62,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="dashboard_distributions" class="table table-bordered table-striped d-block"
-                                    style="overflow-x: auto; white-space: nowrap;">
+                                <table id="dashboard_distributions" class="table table-bordered table-striped">
                                     <thead>
                                         <tr class="text-capitalize">
                                             <th width="10">Priority</i></th>
@@ -90,7 +93,7 @@
                                                     </a>
                                                 </td>
                                                 <td class="bg-primary">
-                                                    <a href="{{ route('admin.wish_index', $wish->property->id ) }}">
+                                                    <a href="{{ route('wish_index.edit', $wish->id ) }}">
                                                         Week #{{ $wish->week->number }}
                                                     </a>
                                                 @endforeach

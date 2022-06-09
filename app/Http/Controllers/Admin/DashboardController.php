@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Round;
 use App\Models\Priority;
 use App\Models\Wish;
+use App\Models\Week;
 use Barryvdh\Debugbar\Facades\Debugbar;
 
 class DashboardController extends Controller
@@ -32,7 +33,9 @@ class DashboardController extends Controller
         $rounds = $round->all();
         $roundId = ($request->round_id) ? $request->round_id : $round->currentRoundId();
         $round = $rounds->where('id', $roundId)->first();
+        $weeks = Week::where('round_id', $roundId)->get();
+        $weeksCount = Week::where('round_id', $roundId)->count();
 
-        return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'wishes'));
+        return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
     }
 }

@@ -49,13 +49,13 @@
     $(function () {
         $('#dashboard_distributions').DataTable({
             "paging": false,
-            "lengthChange": false,
+            "lengthChange": true,
             "searching": true,
             "ordering": true,
-            "lenght:" : false,
+            "lenght:" : true,
             "info": true,
-            "autoWidth": false,
-            "responsive": false,
+            "autoWidth": true,
+            "responsive": true,
             "scrollX": true,
             "buttons": ["copy", "csv", "excel"]
         }).buttons().container().appendTo('#downloads');

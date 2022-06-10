@@ -45,21 +45,7 @@
 <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 
-<script>
-    $(function () {
-        $('#dashboard_distributions').DataTable({
-            "paging": false,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "lenght:" : true,
-            "info": true,
-            "autoWidth": true,
-            "responsive": true,
-            "scrollX": true,
-            "buttons": ["copy", "csv", "excel"]
-        }).buttons().container().appendTo('#downloads');
-    });
-</script>
+@stack('scripts')
+
 </body>
 </html>

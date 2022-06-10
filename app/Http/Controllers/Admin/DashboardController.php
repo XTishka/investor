@@ -28,9 +28,9 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request, User $stockholders, Round $round, Priority $priorities, Wish $wishes)
+    public function index(Request $request, User $stockholders, Round $round, Wish $wishes, Week $week)
     {
-        $rounds = $round->all();
+        $rounds = Round::all();
         $roundId = ($request->round_id) ? $request->round_id : $round->currentRoundId();
         $round = $rounds->where('id', $roundId)->first();
         $weeks = Week::where('round_id', $roundId)->get();

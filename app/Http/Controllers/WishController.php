@@ -84,7 +84,7 @@ class WishController extends Controller
         $roundId = $round->currentRoundId();
         $userId = auth()->user()->id;
         $weeks = Week::where('round_id', $roundId)->get();
-        $usedWishes = Wish::where('user_id', $userId)->get();
+        $usedWishes = Wish::where('user_id', $userId)->where('property_id', $request->property_id)->get();
         $usedWishesIds = $usedWishes->pluck('week_id');
         $maxAvailablePerWeek = $priority->where('round_id', $roundId)
             ->where('user_id', $userId)

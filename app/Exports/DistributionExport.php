@@ -4,9 +4,11 @@ namespace App\Exports;
 
 use App\Models\Priority;
 use App\Models\User;
+use App\Models\Wish;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromArray;
+use Illuminate\Support\Facades\DB;
 
 
 class DistributionExport implements FromArray
@@ -18,23 +20,43 @@ class DistributionExport implements FromArray
 
     public function tableDataArray(): array
     {
-        $stockholders = DB::table('wishes')
+        $stockholders = DB::table('priorities')
+            ->join('users', 'priorities.user_id', '=', 'users.id')
+            ->select(
+                'users.id as id',
+                'priorities.priority as priority',
+                'users.name as user_name',
+            )
+            ->where('users.is_admin', '=', 0)
+            ->orderBy('priorities.priority')
+            ->get();
+        
+        foreach($stockholders as $stockholder) {
+            $counter = 1;
+            foreach ($this->getWishes($stockholder->id, 1) as $wish) {
+                $property = 'property_' . $counter;
+                $week = 'week_' . $counter;
+                $status = 'status_' . $counter;
+                $stockholder->$property = $wish->property_name;
+                $stockholder->$week = $wish->week_number;
+                $stockholder->$status = $wish->wish_status;
+                $counter++;
+            }
+        }
+        return $stockholders->toArray();
+    }
+
+    public function getWishes($user_id, $round_id) {
+        return DB::table('wishes')
             ->join('weeks', 'wishes.week_id', '=', 'weeks.id')
             ->join('properties', 'wishes.property_id', '=', 'properties.id')
-            ->select(
-                'wishes.id as wish_id',
+            ->select('wishes.id as wish_id',
                 'weeks.number as week_number',
-                'weeks.start_date as week_start_date',
-                'weeks.end_date as week_end_date',
                 'properties.name as property_name',
-                'properties.country as property_country',
-                'properties.address as property_address',
+                'wishes.status as wish_status'
             )
-            ->where('wishes.user_id', auth()->user()->id)
+            ->where('wishes.user_id', $user_id)
             ->where('weeks.round_id', $round_id)
-            ->where('properties.id', $property_id)
             ->get();
-            
-        return $stockholders;
     }
 }

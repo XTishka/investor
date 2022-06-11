@@ -2,20 +2,20 @@
 
 namespace App\Exports;
 
-use App\Models\Priority;
-use App\Models\User;
-use App\Models\Wish;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 
 
 class DistributionExport implements FromArray
 {
     public function array(): array
     {
-        return $this->tableDataArray();
+        $headers[] = ['id', 'stockholder', 'priority', 'property_1', 'week_1', 'status_1'];
+        $data = $this->tableDataArray();
+        $export = array_merge($headers, $data);
+        // dd($export);
+        return $export;
     }
 
     public function tableDataArray(): array
@@ -24,8 +24,8 @@ class DistributionExport implements FromArray
             ->join('users', 'priorities.user_id', '=', 'users.id')
             ->select(
                 'users.id as id',
-                'priorities.priority as priority',
                 'users.name as user_name',
+                'priorities.priority as priority',
             )
             ->where('users.is_admin', '=', 0)
             ->orderBy('priorities.priority')

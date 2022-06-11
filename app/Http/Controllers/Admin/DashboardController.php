@@ -10,6 +10,9 @@ use App\Models\Priority;
 use App\Models\Wish;
 use App\Models\Week;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use App\Exports\UsersExport;
+use App\Exports\DistributionExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -38,5 +41,11 @@ class DashboardController extends Controller
         $priorities = Priority::where('round_id', $roundId)->get();
 
         return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
+    }
+
+    public function export()
+    {
+        // return Excel::download(new UsersExport, 'users.csv');
+        return Excel::download(new DistributionExport, 'distribution.csv');
     }
 }

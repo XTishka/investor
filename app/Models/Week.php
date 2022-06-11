@@ -23,12 +23,14 @@ class Week extends Model
         return $this->belongsTo(Round::class);
     }
 
-    public function availibility($week_id, $property_id) {
+    public function availibility($week_id, $property_id)
+    {
         $qty = PropertyAvailability::where('week_id', $week_id)->where('property_id', $property_id)->count();
         return ($qty > 0) ? false : true;
     }
 
-    public function hasWishes($week_id, $property_id) {
+    public function hasWishes($week_id, $property_id)
+    {
         $qty = Wish::where('week_id', $week_id)->where('property_id', $property_id)->count();
         return ($qty > 0) ? true : false;
     }
@@ -40,5 +42,16 @@ class Week extends Model
         if ($currentDate->lessThan($this->start_date)) $status = 'waiting';
         if ($currentDate->greaterThan($this->end_date)) $status = 'passed';
         return $status;
+    }
+
+    public function dashboardWeeksData($roundId)
+    {
+        return DB::table('weeks')
+            // ->join('wishes', 'wishes.week_id', '=', $roundId)
+            ->select( 'weeks.id as id',
+                'weeks.number as number'
+            )
+            ->where('weeks.round_id', $roundId)
+            ->get();
     }
 }

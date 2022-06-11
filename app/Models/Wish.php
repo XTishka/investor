@@ -30,7 +30,6 @@ class Wish extends Model
 
     public function usedRoundWishes($round_id): \Illuminate\Support\Collection
     {
-        Debugbar::info('Round: ' . $round_id);
         $wishes = DB::table('wishes')
             ->join('weeks', 'wishes.week_id', '=', 'weeks.id')
             ->join('properties', 'wishes.property_id', '=', 'properties.id')
@@ -50,7 +49,6 @@ class Wish extends Model
 
     public function usedPropertyRoundWishes($round_id, $property_id): \Illuminate\Support\Collection
     {
-        Debugbar::info('Round: ' . $round_id);
         $wishes = DB::table('wishes')
             ->join('weeks', 'wishes.week_id', '=', 'weeks.id')
             ->join('properties', 'wishes.property_id', '=', 'properties.id')

@@ -8,7 +8,11 @@ use App\Models\User;
 use App\Models\Round;
 use App\Models\Priority;
 use App\Models\Wish;
+use App\Models\Week;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use App\Exports\UsersExport;
+use App\Exports\DistributionExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -27,12 +31,21 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request, User $stockholders, Round $round, Priority $priorities, Wish $wishes)
+    public function index(Request $request, User $stockholders, Round $round, Wish $wishes, Week $week)
     {
-        $rounds = $round->all();
+        $rounds = Round::all();
         $roundId = ($request->round_id) ? $request->round_id : $round->currentRoundId();
         $round = $rounds->where('id', $roundId)->first();
+        $weeks = Week::where('round_id', $roundId)->get();
+        $weeksCount = Week::where('round_id', $roundId)->count();
+        $priorities = Priority::where('round_id', $roundId)->get();
 
-        return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'wishes'));
+        return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
+    }
+
+    public function export()
+    {
+        // return Excel::download(new UsersExport, 'users.csv');
+        return Excel::download(new DistributionExport, 'distribution.csv');
     }
 }

@@ -20,6 +20,8 @@
             </div><!-- /.container-fluid -->
         </section>
 
+
+
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -36,8 +38,11 @@
 
                                         <ul class="dropdown-menu" style="">
                                             @foreach ($rounds as $dropdownItem)
-                                                <li class="dropdown-item"><a
-                                                        href="{{ route('admin.dashboard', ['round_id' => $dropdownItem->id]) }}">{{ $dropdownItem->name }}</a>
+                                                <li class="dropdown-item">
+                                                    <a
+                                                        href="{{ route('admin.dashboard', ['round_id' => $dropdownItem->id]) }}">
+                                                        {{ $dropdownItem->name }}
+                                                    </a>
                                                 </li>
                                             @endforeach
 
@@ -48,14 +53,10 @@
                                         </ul>
                                     </div>
 
-                                    <div class="d-flex bg-gray rounded-sm" style="align-items: center;">
-                                        <span class="mx-4 text-mutted" style="color: rgba(255, 255, 255, 0.75);">Download:</span>
-                                        <div id="downloads" class="bg-gray mr-2 pl-2"></div>
-                                    </div>
 
                                     <div id="upload_csv">
-                                        <a href="#" class="btn btn-secondary btn mr-1">
-                                            Upload CSV
+                                        <a href="{{ route('admin.dashboard.export', ['round_name' => $round->name]) }}" class="btn btn-secondary btn mr-1">
+                                            Download CSV
                                         </a>
                                     </div>
                                 </div>
@@ -64,73 +65,92 @@
                             <div class="card-body">
                                 <table id="dashboard_distributions" class="table table-bordered table-striped">
                                     <thead>
-                                        <tr class="text-capitalize">
-                                            <th width="10">Priority</i></th>
-                                            <th>{{ __('admin.stockholders') }}</th>
-                                            @for ($i = 1; $i <= $round->max_wishes; $i++)
-                                                <th>Property #{{ $i }} </th>
-                                                <th>Wish #{{ $i }} </th>
-                                            @endfor
+                                        <tr>
+                                            <th width="30">{{ __('admin.table_th_dashboard_priority') }}</th>
+                                            <th>{{ __('admin.table_th_dashboard_stockholders') }}</th>
+                                            @foreach ($weeks as $week)
+                                                <th>Week&nbsp;{{ $week->number }}</th>
+                                            @endforeach
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        @foreach ($priorities as $priority)
+                                            @if ($priority->user->is_admin == 0)
+                                                <tr>
+                                                    <td>{{ $priority->priority }}</td>
+                                                    <td>
+                                                        <a href="{{ route('stockholders.show', $priority->user->id) }}">
+                                                            {{ $priority->user->name }}
+                                                        </a>
+                                                    </td>
+                                                    @foreach ($weeks as $week)
+                                                        <td>
+                                                            @php
+                                                                $stockholderWishes = $wishes
+                                                                    ->where('week_id', $week->id)
+                                                                    ->where('user_id', $priority->user->id)
+                                                                    ->get();
+                                                            @endphp
+                                                            @foreach ($stockholderWishes as $wish)
+                                                                @php
+                                                                    $wishStatus = 'danger';
+                                                                    if ($wish->status == 'Not confirmed') {
+                                                                        $wishStatus = 'secondary';
+                                                                    }
+                                                                    if ($wish->status == 'Confirmed') {
+                                                                        $wishStatus = 'success';
+                                                                    }
+                                                                    if ($wish->status == 'Failed') {
+                                                                        $wishStatus = 'warning';
+                                                                    }
+                                                                @endphp
 
-                                    <tbody id="stockholders-index">
-
-                                        @foreach ($priorities->where('round_id', $round->id)->get() as $priority)
-                                            @if ($priority->user->is_admin == 0 )
-                                            <tr>
-                                                <td>{{ $priority->priority }}</td>
-                                                <td>
-                                                    <a href="#">
-                                                        {{ $priority->user->name }}
-                                                    </a>
-                                                </td>
-
-                                                @foreach ($priority->user->wishes as $wish)
-                                                @php
-                                                    if ($wish->status == "Not confirmed") $legend = 'primary';
-                                                    if ($wish->status == "Confirmed") $legend = 'success';
-                                                    if ($wish->status == "Failed") $legend = 'warning';
-                                                @endphp
-                                                <td class="bg-{{ $legend }}">
-                                                    <a href="{{ route('properties.show', $wish->property->id ) }}">
-                                                        {{ $wish->property->name }}
-                                                    </a>
-                                                </td>
-                                                <td class="bg-{{ $legend }}">
-                                                    <a href="{{ route('wish_index.edit', $wish->id ) }}">
-                                                        Week #{{ $wish->week->number }}
-                                                    </a>
-                                                @endforeach
-
-                                                @for ($i = 1; $i <= $round->max_wishes - $priority->user->wishes->count(); $i++)
-                                                    <td></td>
-                                                    <td></td>
-                                                @endfor
-                                            </tr>
+                                                                <a href="{{ route('wish_index.edit', $wish->id) }}"
+                                                                    class="badge badge-{{ $wishStatus }} w-100">
+                                                                    {{ $wish->property->name }}
+                                                                </a>
+                                                            @endforeach
+                                                        </td>
+                                                    @endforeach
+                                                </tr>
                                             @endif
                                         @endforeach
-
                                     </tbody>
                                     <tfoot>
-                                        <tr class="text-capitalize">
-                                            <th width="10"><i class="nav-icon fas fa-arrows-alt-v"></i></th>
-                                            <th>{{ __('admin.stockholders') }}</th>
-                                            @for ($i = 1; $i <= $round->max_wishes; $i++)
-                                                <th>Property #{{ $i }} </th>
-                                                <th>Wish #{{ $i }} </th>
-                                            @endfor
+                                        <tr>
+                                            <th width="30">{{ __('admin.table_th_dashboard_priority') }}</th>
+                                            <th>{{ __('admin.table_th_dashboard_stockholders') }}</th>
+                                            @foreach ($weeks as $week)
+                                                <th>Week&nbsp;{{ $week->number }}</th>
+                                            @endforeach
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-
                     </div>
                 </div>
             </div>
         </section>
     </div>
-    <!-- /.content-wrapper -->
 @endsection
+
+
+
+@push('scripts')
+    <script>
+        $(function() {
+            $('#dashboard_distributions').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "lenght:": false,
+                "info": true,
+                "autoWidth": false,
+                "responsive": false,
+                "scrollX": true,
+            });
+        });
+    </script>
+@endpush

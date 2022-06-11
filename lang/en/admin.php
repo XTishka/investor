@@ -5,6 +5,7 @@ return [
 
     // DASHBOARD
     'table_th_dashboard_priority' => '#',
+    'table_th_dashboard_stockholders' => 'Stockholders',
 
     // WISHES
     'page_title_wishes_index' => 'Wishes',

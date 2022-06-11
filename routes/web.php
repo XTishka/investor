@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::prefix('admin')->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+            Route::get('/dashboard/export/', [DashboardController::class, 'export'])->name('admin.dashboard.export');
+
             Route::resource('stockholders', StockholderController::class)->name('index', 'admin.stockholders');
             Route::resource('properties', PropertyController::class)->name('index', 'admin.properties');
             Route::resource('rounds', RoundController::class)->name('index', 'admin.rounds');

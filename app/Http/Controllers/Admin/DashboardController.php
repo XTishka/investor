@@ -43,9 +43,8 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        // return Excel::download(new UsersExport, 'users.csv');
-        return Excel::download(new DistributionExport, 'distribution.csv');
+        return Excel::download(new DistributionExport($request->round_id), $request->round_name . '_distribution.csv');
     }
 }

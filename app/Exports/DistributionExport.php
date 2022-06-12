@@ -4,18 +4,35 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromArray;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\WithCustomStartCell;
-
+use App\Models\Round;
+use Illuminate\Support\Arr;
 
 class DistributionExport implements FromArray
 {
+    protected $roundId;
+
+    function __construct($round_id)
+    {
+        $this->roundId = $round_id;
+    }
+
     public function array(): array
     {
-        $headers[] = ['id', 'stockholder', 'priority', 'property_1', 'week_1', 'status_1'];
-        $data = $this->tableDataArray();
-        $export = array_merge($headers, $data);
-        // dd($export);
+
+        $export = array_merge([$this->tableHeadersArray()], $this->tableDataArray());
         return $export;
+    }
+
+    public function tableHeadersArray()
+    {
+        $roundModel = new Round();
+        $round = $roundModel->find($this->roundId);
+        $headers = ['id', 'stockholder', 'priority'];
+        for ($i = 1; $i <= $round->max_wishes; $i++) {
+            $wishes = ['property_' . $i, 'week_' . $i, 'status_' . $i];
+            $headers = array_merge($headers, $wishes);
+        }
+        return $headers;
     }
 
     public function tableDataArray(): array
@@ -30,10 +47,10 @@ class DistributionExport implements FromArray
             ->where('users.is_admin', '=', 0)
             ->orderBy('priorities.priority')
             ->get();
-        
-        foreach($stockholders as $stockholder) {
+
+        foreach ($stockholders as $stockholder) {
             $counter = 1;
-            foreach ($this->getWishes($stockholder->id, 1) as $wish) {
+            foreach ($this->getWishes($stockholder->id, $this->roundId) as $wish) {
                 $property = 'property_' . $counter;
                 $week = 'week_' . $counter;
                 $status = 'status_' . $counter;
@@ -46,11 +63,13 @@ class DistributionExport implements FromArray
         return $stockholders->toArray();
     }
 
-    public function getWishes($user_id, $round_id) {
+    public function getWishes($user_id, $round_id)
+    {
         return DB::table('wishes')
             ->join('weeks', 'wishes.week_id', '=', 'weeks.id')
             ->join('properties', 'wishes.property_id', '=', 'properties.id')
-            ->select('wishes.id as wish_id',
+            ->select(
+                'wishes.id as wish_id',
                 'weeks.number as week_number',
                 'properties.name as property_name',
                 'wishes.status as wish_status'

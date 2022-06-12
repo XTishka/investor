@@ -55,7 +55,7 @@
 
 
                                     <div id="upload_csv">
-                                        <a href="{{ route('admin.dashboard.export', ['round_name' => $round->name]) }}" class="btn btn-secondary btn mr-1">
+                                        <a href="{{ route('admin.dashboard.export', ['round_id' => $round->id, 'round_name' => $round->name]) }}" class="btn btn-secondary btn mr-1">
                                             Download CSV
                                         </a>
                                     </div>

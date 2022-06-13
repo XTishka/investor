@@ -42,9 +42,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'is_admin'], function () {
 
         Route::prefix('admin')->group(function () {
-            Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-            Route::get('/dashboard/export/', [DashboardController::class, 'export'])->name('admin.dashboard.export');
-            Route::get('/dashboard/distribution', AutomaticDistributionAction::class)->name('admin.automatic_distribution');
+
+            Route::controller(DashboardController::class)->group(function () {
+                Route::get('/dashboard', 'index')->name('admin.dashboard');
+                Route::get('/dashboard/export', 'export')->name('admin.dashboard.export');
+                Route::get('/dashboard/distribute/{round}', 'distribute')->name('admin.dashboard.distribute');
+            });
 
             Route::resource('stockholders', StockholderController::class)->name('index', 'admin.stockholders');
             Route::resource('properties', PropertyController::class)->name('index', 'admin.properties');

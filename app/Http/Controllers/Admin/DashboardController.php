@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\AutomaticDistributionAction;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -41,6 +42,12 @@ class DashboardController extends Controller
         $priorities = Priority::where('round_id', $roundId)->get();
 
         return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
+    }
+
+    public function distribute(Round $round, AutomaticDistributionAction $action) {
+        $wishes = $action->handle($round);
+        return view('admin.distribute', compact('wishes'));
+        // return back();
     }
 
     public function export(Request $request)

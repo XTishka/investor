@@ -55,7 +55,7 @@
 
 
                                     <div id="upload_csv">
-                                        <a href="{{ route('admin.automatic_distribution') }}" class="btn btn-secondary btn mr-1">
+                                        <a href="{{ route('admin.dashboard.distribute', $round) }}" class="btn btn-secondary btn mr-1">
                                             Automatic distribution
                                         </a>
                                         <a href="{{ route('admin.dashboard.export', ['round_id' => $round->id, 'round_name' => $round->name]) }}" class="btn btn-secondary btn mr-1">

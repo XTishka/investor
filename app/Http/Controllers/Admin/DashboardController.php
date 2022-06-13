@@ -46,8 +46,8 @@ class DashboardController extends Controller
 
     public function distribute(Round $round, AutomaticDistributionAction $action) {
         $wishes = $action->handle($round);
-        return view('admin.distribute', compact('wishes'));
-        // return back();
+        // return view('admin.distribute', compact('wishes'));
+        return back();
     }
 
     public function export(Request $request)

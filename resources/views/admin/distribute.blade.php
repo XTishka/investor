@@ -45,22 +45,25 @@
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>User</th>
-                                            <th>Date</th>
+                                            <th>Wish ID</th>
+                                            <th>Round ID</th>
+                                            <th>Week number</th>
+                                            <th>Property ID</th>
+                                            <th>Stockholder</th>
+                                            <th>Priority</th>
                                             <th>Status</th>
-                                            <th>Reason</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($wishes as $wish)
                                             <tr>
-                                                <td>183</td>
-                                                <td>John Doe</td>
-                                                <td>11-7-2014</td>
-                                                <td><span class="tag tag-success">Approved</span></td>
-                                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.
-                                                </td>
+                                                <td>{{ $wish->id }}</td>
+                                                <td>{{ $wish->round_id }}</td>
+                                                <td>{{ $wish->week_number }}</td>
+                                                <td>{{ $wish->property_id }}</td>
+                                                <td>{{ $wish->stockholder }}</td>
+                                                <td>{{ $wish->priority }}</td>
+                                                <td>{{  $wish->status }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

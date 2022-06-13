@@ -18,21 +18,21 @@ class AdminPrioritiesSeeder extends Seeder
         Priority::create([
             'user_id' => 1,
             'round_id' => 1,
-            'priority' => 1,
+            'priority' => null,
             'available_weeks' => 10
         ]);
 
         Priority::create([
             'user_id' => 2,
             'round_id' => 1,
-            'priority' => 2,
+            'priority' => null,
             'available_weeks' => 5
         ]);
 
         Priority::create([
             'user_id' => 3,
             'round_id' => 1,
-            'priority' => 3,
+            'priority' => 1,
             'available_weeks' => 3
         ]);
     }

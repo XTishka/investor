@@ -35,9 +35,7 @@ class AutomaticDistributionAction
                 'wishes.property_id as property_id',
                 'weeks.round_id as round_id',
                 'weeks.id as week_id',
-                'weeks.number as week_number',
                 'users.id as stockholder_id',
-                'users.name as stockholder',
                 'priorities.priority as priority',
             ])
             ->join('weeks', 'wishes.week_id', '=', 'weeks.id')

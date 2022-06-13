@@ -62,7 +62,7 @@
                                         <th>{{ __('admin.table_th_stockholder_priority') }}</th>
                                         <th>{{ __('admin.stockholders') }}</th>
                                         <th>{{ __('admin.email') }}</th>
-                                        <th>{{ __('admin.status') }}</th>
+                                        <th>{{ __('admin.available_weeks') }}</th>
                                     </tr>
                                     </thead>
 
@@ -100,17 +100,7 @@
                                                 </a>
                                             </td>
                                             <td>{{ $stockholder->email }}</td>
-                                            <td>
-                                                @if ($stockholder->status === 1)
-                                                    <span class="right badge badge-success">
-                                                        {{ __('admin.active') }}
-                                                    </span>
-                                                @else
-                                                    <span class="right badge badge-danger">
-                                                        {{ __('admin.deactivated') }}
-                                                    </span>
-                                                @endif
-                                            </td>
+                                            <td>{{ $stockholder->available_weeks }}</td>
                                         </tr>
                                     @endforeach
 
@@ -120,7 +110,7 @@
                                         <th>{{ __('admin.table_th_stockholder_priority') }}</th>
                                         <th>{{ __('admin.stockholders') }}</th>
                                         <th>{{ __('admin.email') }}</th>
-                                        <th>{{ __('admin.status') }}</th>
+                                        <th>{{ __('admin.available_weeks') }}</th>
                                     </tr>
                                     </tfoot>
                                 </table>

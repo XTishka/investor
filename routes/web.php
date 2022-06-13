@@ -38,18 +38,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/get_by_country', [WishController::class, 'getPropertiesByCountry'])->name('wisher.countries');
     Route::get('/get_weeks', [WishController::class, 'getWeeksOptionsList'])->name('wisher.weeks');
     Route::get('/get_wishes_qty', [WishController::class, 'getWishesQtyByWeekNumber'])->name('wisher.wish_qty');
-
+    
     Route::group(['middleware' => 'is_admin'], function () {
-
+        
         Route::prefix('admin')->group(function () {
-
+            
             Route::controller(DashboardController::class)->group(function () {
                 Route::get('/dashboard', 'index')->name('admin.dashboard');
                 Route::get('/dashboard/export', 'export')->name('admin.dashboard.export');
                 Route::get('/dashboard/distribute/{round}', 'distribute')->name('admin.dashboard.distribute');
             });
-
+            
             Route::resource('stockholders', StockholderController::class)->name('index', 'admin.stockholders');
+            Route::post('stockholders/import', [StockholderController::class, 'import'])->name('admin.stockholders.import');
+            
             Route::resource('properties', PropertyController::class)->name('index', 'admin.properties');
             Route::resource('rounds', RoundController::class)->name('index', 'admin.rounds');
             Route::resource('wish_index', WishesController::class)->name('index', 'admin.wish_index');

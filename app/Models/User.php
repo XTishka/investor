@@ -69,6 +69,7 @@ class User extends Authenticatable
             'users.status as status',
             'priorities.round_id as round_id',
             'priorities.priority as priority',
+            'priorities.available_weeks as available_weeks',
             'rounds.name as round'
         )
         ->where('users.is_admin', 0)

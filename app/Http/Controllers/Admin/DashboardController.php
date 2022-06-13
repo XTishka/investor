@@ -44,9 +44,9 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
     }
 
-    public function distribute(Round $round, AutomaticDistributionAction $action) {
-        $wishes = $action->handle($round);
-        // return view('admin.distribute', compact('wishes'));
+    public function distribute(Round $round, AutomaticDistributionAction $action)
+    {
+        $action->handle($round);
         return back();
     }
 

@@ -45,6 +45,7 @@
 <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
 <script src="{{ asset('plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
 <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
+<script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script src="{{ asset('dist/js/adminlte.min.js?v=3.2.0') }}"></script>
 
 <script>
@@ -64,6 +65,8 @@
         })
     })
 </script>
+
+@stack('scripts')
 
 </body>
 </html>

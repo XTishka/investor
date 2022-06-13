@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('priorities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable(false)->constrained();
-            $table->foreignId('round_id')->nullable(false)->constrained();
+            $table->foreignId('round_id')->nullable(true)->constrained();
             $table->integer('priority')->nullable(true)->default(0);
             $table->integer('available_weeks')->nullable(false);
             $table->timestamps();

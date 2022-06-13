@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\StoreStockholderRequest;
 use App\Http\Requests\admin\UpdateStockholderRequest;
+use App\Imports\StockholdersImport;
 use App\Models\Priority;
 use App\Models\Property;
 use App\Models\Round;
 use App\Models\User;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Excel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -50,6 +52,7 @@ class StockholderController extends Controller
         Priority::create([
             'user_id' => $stockholder->id,
             'round_id' => $request->round,
+            'available_weeks' => $request->available_weeks,
             'priority' => $minPriority + 1,
         ]);
 
@@ -86,6 +89,13 @@ class StockholderController extends Controller
     {
         $stockholder->delete();
 
+        return redirect()->route('admin.stockholders');
+    }
+
+    public function import(Request $request)
+    {
+        Priority::where('round_id', $request->round)->delete();
+        Excel::import(new StockholdersImport($request->round), $request->file('file')->store('temp'));
         return redirect()->route('admin.stockholders');
     }
 }

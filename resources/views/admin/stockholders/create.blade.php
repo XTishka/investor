@@ -45,58 +45,71 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="round">{{ __('admin.form_stockholder_round') }}</label>
-                                    <select class="custom-select rounded-2 @error('round') is-invalid @enderror" id="round" name="round">
+                                    <select class="custom-select rounded-2 @error('round') is-invalid @enderror" id="round"
+                                        name="round">
                                         @foreach ($rounds as $round)
                                             <option value="{{ $round->id }}">{{ $round->name }}</option>
                                         @endforeach
                                     </select>
 
                                     @error('round')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="name">{{ __('admin.form_stockholder_name') }}</label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-                                           placeholder="{{ __('admin.form_stockholder_name_placeholder') }}">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                        name="name" placeholder="{{ __('admin.form_stockholder_name_placeholder') }}">
 
                                     @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">{{ __('admin.form_email_address') }}</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
-                                           placeholder="{{ __('admin.form_email_placeholder') }}">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                        name="email" placeholder="{{ __('admin.form_email_placeholder') }}">
 
                                     @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password">{{ __('admin.form_password') }}</label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
-                                           placeholder="{{ __('admin.form_password_placeholder') }}">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password"
+                                        placeholder="{{ __('admin.form_password_placeholder') }}">
 
                                     @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>                            
+
+                                <div class="form-group">
+                                    <label for="available_weeks">{{ __('admin.form_stockholder_available_weeks') }}</label>
+                                    <input type="text" class="form-control @error('available_weeks') is-invalid @enderror" id="available_weeks"
+                                        name="available_weeks" placeholder="{{ __('admin.form_stockholder_available_weeks_placeholder') }}" value="3">
+
+                                    @error('available_weeks')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="send_password"
-                                           name="send_password">
+                                    <input type="checkbox" class="form-check-input" id="send_password" name="send_password">
                                     <label class="form-check-label" for="send_password">
                                         {{ __('admin.form_email_password_to_stockholder') }}
                                     </label>
@@ -118,35 +131,61 @@
                             <h3 class="card-title">{{ __('admin.card_upload_csv_stockholders') }}</h3>
                         </div>
 
-                        <form>
+                        <form action="{{ route('admin.stockholders.import') }}"  method="POST" enctype="multipart/form-data">
+                            @csrf
+
                             <div class="card-body">
+                                <div class="form-group">
+                                    <label for="round">{{ __('admin.form_stockholder_round') }}</label>
+                                    <select class="custom-select rounded-2 @error('round') is-invalid @enderror" id="round"
+                                        name="round">
+                                        @foreach ($rounds as $round)
+                                            <option value="{{ $round->id }}">{{ $round->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('round')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
                                 <div class="form-group">
                                     <label for="exampleInputFile">{{ __('admin.form_file_input') }}</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                            <input type="file" class="custom-file-input" id="file" name="file">
                                             <label class="custom-file-label"
-                                                   for="exampleInputFile">{{ __('admin.form_label_choose_file') }}</label>
+                                                for="exampleInputFile">{{ __('admin.form_label_choose_file') }}</label>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label"
-                                           for="exampleCheck1">{{ __('admin.form_email_password_to_new_stockholders') }}</label>
+                                        for="exampleCheck1">{{ __('admin.form_email_password_to_new_stockholders') }}</label>
                                 </div>
                             </div>
 
                             <div class="card-footer">
                                 <button type="submit"
-                                        class="btn btn-primary">{{ __('admin.button_upload_csv') }}</button>
+                                    class="btn btn-primary">{{ __('admin.button_upload_csv') }}</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-
         </section>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function() {
+            bsCustomFileInput.init();
+        });
+    </script>
+@endpush

@@ -69,7 +69,7 @@ class StockholderPriorityUpAction
                 </td>
                 <td>$stockholder->email</td>
                 <td>
-                    <span class='right badge badge-$stockholderStatusBadge'>$stockholderStatus</span>
+                    $stockholder->available_weeks
                 </td>
             </tr>";
         }

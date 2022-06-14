@@ -69,8 +69,8 @@
                 <li class="nav-header text-uppercase">{{ __('admin.settings') }}</li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}"
-                        class="nav-link text-capitalize @if (request()->routeIs('admin.dashboard')) active @endif ">
+                    <a href="{{ route('admin.administrators') }}"
+                        class="nav-link text-capitalize @if (request()->routeIs('admin.administrators')) active @endif ">
                         <i class="nav-icon fas fa-users"></i>
                         <p class="text">{{ __('admin.users') }}</p>
                     </a>

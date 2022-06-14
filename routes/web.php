@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WishController;
 use App\Actions\StockholderPriorityUpAction;
 use App\Actions\StockholderPriorityDownAction;
-use App\Actions\AutomaticDistributionAction;
+use App\Http\Controllers\Admin\AdministratorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
             });
             Route::get('/priorities/up', StockholderPriorityUpAction::class)->name('admin.priority_up');
             Route::get('/priorities/down', StockholderPriorityDownAction::class)->name('admin.priority_down');
+
+            Route::resource('administrators', AdministratorController::class)->name('index', 'admin.administrators');
         });
 
     });

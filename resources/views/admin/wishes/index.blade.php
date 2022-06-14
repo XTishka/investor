@@ -64,7 +64,6 @@
                                             <td>{{ $request->property->name }}</td>
                                             <td>
                                                 {{ $priorities->where('round_id', $request->week->round->id)->where('user_id', $request->user->id)->value('priority') }}
-                                                {{ Debugbar::info($priorities->where('round_id', $request->week->round->id)->where('user_id', $request->user->id)->value('priority')) }}
                                             </td>
                                             <td>
                                                 @if ($request->status === 'Confirmed')

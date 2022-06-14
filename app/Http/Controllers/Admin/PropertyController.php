@@ -21,10 +21,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PropertyController extends Controller
 {
-    public function index(): Application|Factory|View
+    public function index(Round $round): Application|Factory|View
     {
+        $round = $round->currentRoundId();
         $properties = Property::all()->sortBy('country');
-        return view('admin.properties.index', compact('properties'));
+        return view('admin.properties.index', compact('properties', 'round'));
     }
 
 

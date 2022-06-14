@@ -56,7 +56,7 @@
                                     <tr>
                                         <td>{{ $property->id }}</td>
                                         <td>
-                                            <a href="{{ route('admin.properties.show', $property->id) }}">
+                                            <a href="{{ route('admin.properties.show', [$property, $round]) }}">
                                                 {{ $property->name }}
                                             </a>
                                         </td>

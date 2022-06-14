@@ -41,7 +41,7 @@
                                     <h4>
                                         <i class="fas fa-home mr-2"></i> {{ $property->name }}
 
-                                        <a href="{{ route('properties.edit', $property->id) }}"
+                                        <a href="{{ route('admin.properties.edit', $property->id) }}"
                                             class="btn btn-primary btn-sm mr-1 float-right">
                                             <i class="fas fa-edit"></i>
                                             {{ __('admin.button_edit_property') }}
@@ -92,12 +92,12 @@
                                 <ul class="dropdown-menu" style="">
                                     @foreach ($rounds as $round)
                                         <li class="dropdown-item"><a
-                                                href="{{ route('properties.show', $property, $round) }}">{{ $round->name }}</a>
+                                                href="{{ route('admin.properties.show', [$property, $round]) }}">{{ $round->name }}</a>
                                         </li>
                                     @endforeach
 
                                     <li class="dropdown-divider"></li>
-                                    <li class="dropdown-item"><a href="{{ route('properties.show', $property, $round) }}">Current
+                                    <li class="dropdown-item"><a href="{{ route('admin.properties.show', [$property, $round]) }}">Current
                                             round</a></li>
                                 </ul>
                             </div>

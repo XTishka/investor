@@ -29,6 +29,14 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title mt-2">Administrators index</h3>
+
+                                <a href="{{ route('administrators.create') }}" class="btn btn-secondary btn-sm mr-1 float-right">
+                                    {{ __('admin.button_add_new_administrators') }}
+                                </a>
+                            </div>
+
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap">
                                     <thead>
@@ -42,13 +50,17 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($administrators as $administrator)
-                                        <tr>
-                                            <td>{{ $administrator->id }}</td>
-                                            <td><a href="{{ route('administrators.edit', $administrator) }}">{{ $administrator->name }}</a></td>
-                                            <td><a href="mailto:{{ $administrator->email }}">{{ $administrator->email }}</a></td>
-                                            <td>{{ date('j F, Y', strtotime($administrator->created_at)) }}</td>
-                                            <td>{{ date('j F, Y', strtotime($administrator->uupdated_at)) }}</td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ $administrator->id }}</td>
+                                                <td><a
+                                                        href="{{ route('administrators.edit', $administrator) }}">{{ $administrator->name }}</a>
+                                                </td>
+                                                <td><a
+                                                        href="mailto:{{ $administrator->email }}">{{ $administrator->email }}</a>
+                                                </td>
+                                                <td>{{ date('j F, Y', strtotime($administrator->created_at)) }}</td>
+                                                <td>{{ date('j F, Y', strtotime($administrator->uupdated_at)) }}</td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

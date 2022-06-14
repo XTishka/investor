@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>{{ __('admin.page_title_create_new_stockholders') }}</h1>
+                        <h1>{{ __('admin.page_title_create_new_administrator') }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right text-capitalize">
@@ -19,8 +19,8 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('admin.stockholders') }}">
-                                    {{ __('admin.stockholders') }}
+                                <a href="{{ route('admin.administrators') }}">
+                                    {{ __('admin.administrators') }}
                                 </a>
                             </li>
                             <li class="breadcrumb-item active">{{ __('admin.create_new') }}</li>
@@ -37,32 +37,17 @@
 
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">{{ __('admin.card_add_new_stockholder') }}</h3>
+                            <h3 class="card-title">{{ __('admin.card_add_new_administrator') }}</h3>
                         </div>
 
-                        <form action="{{ route('stockholders.store') }}" method="POST">
+                        <form action="{{ route('administrators.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="round">{{ __('admin.form_stockholder_round') }}</label>
-                                    <select class="custom-select rounded-2 @error('round') is-invalid @enderror" id="round"
-                                        name="round">
-                                        @foreach ($rounds as $round)
-                                            <option value="{{ $round->id }}">{{ $round->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('round')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
 
                                 <div class="form-group">
-                                    <label for="name">{{ __('admin.form_stockholder_name') }}</label>
+                                    <label for="name">{{ __('admin.form_administrator_name') }}</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                        name="name" placeholder="{{ __('admin.form_stockholder_name_placeholder') }}">
+                                        name="name" placeholder="{{ __('admin.form_administrator_name_placeholder') }}">
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -96,82 +81,18 @@
                                     @enderror
                                 </div>                            
 
-                                <div class="form-group">
-                                    <label for="available_weeks">{{ __('admin.form_stockholder_available_weeks') }}</label>
-                                    <input type="text" class="form-control @error('available_weeks') is-invalid @enderror" id="available_weeks"
-                                        name="available_weeks" placeholder="{{ __('admin.form_stockholder_available_weeks_placeholder') }}" value="3">
-
-                                    @error('available_weeks')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="send_password" name="send_password">
                                     <label class="form-check-label" for="send_password">
-                                        {{ __('admin.form_email_password_to_stockholder') }}
+                                        {{ __('admin.form_email_password_to_administrator') }}
                                     </label>
                                 </div>
                             </div>
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('admin.form_button_create_stockholder') }}
+                                    {{ __('admin.form_button_create_administrator') }}
                                 </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card card-secondary">
-                        <div class="card-header">
-                            <h3 class="card-title">{{ __('admin.card_upload_csv_stockholders') }}</h3>
-                        </div>
-
-                        <form action="{{ route('admin.stockholders.import') }}"  method="POST" enctype="multipart/form-data">
-                            @csrf
-
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="round">{{ __('admin.form_stockholder_round') }}</label>
-                                    <select class="custom-select rounded-2 @error('round') is-invalid @enderror" id="round"
-                                        name="round">
-                                        @foreach ($rounds as $round)
-                                            <option value="{{ $round->id }}">{{ $round->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('round')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleInputFile">{{ __('admin.form_file_input') }}</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="file" name="file">
-                                            <label class="custom-file-label"
-                                                for="exampleInputFile">{{ __('admin.form_label_choose_file') }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label"
-                                        for="exampleCheck1">{{ __('admin.form_email_password_to_new_stockholders') }}</label>
-                                </div>
-                            </div>
-
-                            <div class="card-footer">
-                                <button type="submit"
-                                    class="btn btn-primary">{{ __('admin.button_upload_csv') }}</button>
                             </div>
                         </form>
                     </div>

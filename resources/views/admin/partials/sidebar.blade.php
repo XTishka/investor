@@ -72,7 +72,7 @@
                     <a href="{{ route('admin.administrators') }}"
                         class="nav-link text-capitalize @if (request()->routeIs('admin.administrators')) active @endif ">
                         <i class="nav-icon fas fa-users"></i>
-                        <p class="text">{{ __('admin.users') }}</p>
+                        <p class="text">{{ __('Administrators') }}</p>
                     </a>
                 </li>
             </ul>

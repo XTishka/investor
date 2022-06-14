@@ -18,6 +18,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\Wish;
 
 class StockholderController extends Controller
 {
@@ -62,8 +63,8 @@ class StockholderController extends Controller
 
     public function show(User $stockholder): Application|Factory|View
     {
-        $properties = Property::all();
-        return view('admin.stockholders.show', compact('stockholder', 'properties'));
+        $wishes = Wish::where('user_id', $stockholder->id)->get();
+        return view('admin.stockholders.show', compact('stockholder', 'wishes'));
     }
 
 

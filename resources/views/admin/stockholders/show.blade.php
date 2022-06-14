@@ -58,34 +58,64 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Property name</th>
-                                        <th>Country</th>
-                                        <th>Address</th>
-                                        <th>Description</th>
-                                        <th>Is available</th>
+                                        <th>{{ __('admin.table_th_wishes_round') }}</th>
+                                        <th>{{ __('admin.table_th_wishes_week') }}</th>
+                                        <th>{{ __('admin.table_th_wishes_country') }}</th>
+                                        <th>{{ __('admin.table_th_wishes_property') }}</th>
+                                        <th>{{ __('admin.table_th_wishes_status') }}</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
 
-                                    @foreach($properties as $property)
-                                        <tr>
-                                            <td>{{ $property->name }}</td>
-                                            <td>{{ $property->country }}</td>
-                                            <td>{{ $property->address }}</td>
-                                            <td>{{ $property->description }}</td>
-                                            <td>{{ $property->is_available }}</td>
-                                        </tr>
+                                    @foreach($wishes as $wish)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('rounds.show', $wish->week->round->id) }}">
+                                                {{ $wish->week->round->name }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('wish_index.edit', $wish) }}">
+                                                <strong>#{{ $wish->week->number }}</strong>
+                                                <span class="text-sm">
+                                                    ( {{ date('j F, Y', strtotime($wish->week->start_date)) }}  -
+                                                    {{ date('j F, Y', strtotime($wish->week->end_date)) }} )
+                                                </span>
+                                            </a>
+                                        </td>
+                                        <td>{{ $wish->property->country }}</td>
+                                        <td>{{ $wish->property->name }}</td>
+                                        <td>
+                                            @if ($wish->status === 'Confirmed')
+                                                <span class="right badge badge-success">
+                                                    {{ __($wish->status) }}
+                                                </span>
+                                            @elseif ($wish->status === 'Not confirmed')
+                                                <span class="right badge bg-lightblue">
+                                                    {{ __($wish->status) }}
+                                                </span>
+                                            @elseif ($wish->status === 'Failed')
+                                                <span class="right badge badge-warning">
+                                                    {{ __($wish->status) }}
+                                                </span>
+                                            @else
+                                                <span class="right badge badge-danger">
+                                                    {{ __('Error!') }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                    </tr>
                                     @endforeach
 
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th>Property name</th>
-                                        <th>Country</th>
-                                        <th>Address</th>
-                                        <th>Description</th>
-                                        <th>Is available</th>
+                                        <th>{{ __('admin.table_th_wishes_round') }}</th>
+                                        <th>{{ __('admin.table_th_wishes_week') }}</th>
+                                        <th>{{ __('admin.table_th_wishes_country') }}</th>
+                                        <th>{{ __('admin.table_th_wishes_property') }}</th>
+                                        <th>{{ __('admin.table_th_wishes_status') }}</th>
                                     </tr>
                                     </tfoot>
                                 </table>

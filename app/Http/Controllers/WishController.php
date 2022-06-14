@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\IsAdmin;
 use App\Models\Property;
 use App\Models\PropertyAvailability;
 use App\Models\Round;
@@ -18,6 +19,8 @@ class WishController extends Controller
 {
     public function index(Round $round, Wish $wishes)
     {
+        if (auth()->user()->is_admin) return redirect()->route('admin.dashboard');
+        
         $roundId = $round->currentRoundId();
         $countries = Property::select('country')->distinct()->orderBy('country')->get();
         $usedWishes = $wishes->usedRoundWishes($roundId);

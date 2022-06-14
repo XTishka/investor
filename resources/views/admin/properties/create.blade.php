@@ -115,17 +115,17 @@
                             <h3 class="card-title">{{ __('admin.card_title_upload_csv_properties') }}</h3>
                         </div>
 
-                        <form action="{{ route('admin.properties.import') }}" method="POST">
+                        <form action="{{ route('admin.properties.import') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="upload_file">{{ __('admin.form_file_input') }}</label>
+                                    <label for="exampleInputFile">{{ __('admin.form_file_input') }}</label>
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="file" name="file">
                                             <label class="custom-file-label"
-                                                   for="file">{{ __('admin.form_label_choose_file') }}</label>
+                                                for="exampleInputFile">{{ __('admin.form_label_choose_file') }}</label>
                                         </div>
                                     </div>
                                 </div>

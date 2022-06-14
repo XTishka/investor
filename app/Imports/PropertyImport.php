@@ -8,17 +8,28 @@ use Maatwebsite\Excel\Concerns\ToModel;
 class PropertyImport implements ToModel
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
-        return new Property([
-            'name' => $row[0],
-            'country' => $row[1],
-            'address' => $row[2],
-            'description' => $row[3],
-        ]);
+        $property = Property::where('id', $row[0])->first();
+        if ($property) {
+            $property->update([
+                'name' => $row[1],
+                'country' => $row[2],
+                'address' => $row[3],
+                'description' => $row[4],
+            ]);
+        } else {
+            $property = new Property([
+                'name' => $row[1],
+                'country' => $row[2],
+                'address' => $row[3],
+                'description' => $row[4],
+            ]);
+        }
+        return $property;
     }
 }

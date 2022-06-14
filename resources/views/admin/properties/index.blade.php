@@ -32,7 +32,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex justify-content-end">
-                                    <a href="{{ route('properties.create') }}" class="btn btn-secondary btn-sm mr-1">
+                                    <a href="{{ route('admin.properties.create') }}" class="btn btn-secondary btn-sm mr-1">
                                         {{ __('admin.button_add_new_properties') }}
                                     </a>
                                 </div>
@@ -42,6 +42,7 @@
                                 <table id="property_index" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
+                                        <th>{{ __('admin.table_th_property_id') }}</th>
                                         <th>{{ __('admin.table_th_property_name') }}</th>
                                         <th>{{ __('admin.table_th_property_country') }}</th>
                                         <th>{{ __('admin.table_th_property_address') }}</th>
@@ -53,8 +54,9 @@
 
                                     @foreach($properties as $property)
                                     <tr>
+                                        <td>{{ $property->id }}</td>
                                         <td>
-                                            <a href="{{ route('properties.show', $property->id) }}">
+                                            <a href="{{ route('admin.properties.show', $property->id) }}">
                                                 {{ $property->name }}
                                             </a>
                                         </td>
@@ -67,6 +69,7 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
+                                        <th>{{ __('admin.table_th_property_id') }}</th>
                                         <th>{{ __('admin.table_th_property_name') }}</th>
                                         <th>{{ __('admin.table_th_property_country') }}</th>
                                         <th>{{ __('admin.table_th_property_address') }}</th>
@@ -84,3 +87,4 @@
         </section>
     </div>
 @endsection
+

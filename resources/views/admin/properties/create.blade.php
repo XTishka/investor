@@ -40,13 +40,14 @@
                             <h3 class="card-title">{{ __('admin.card_title_add_new_property') }}</h3>
                         </div>
 
-                        <form action="{{ route('properties.store') }}" method="POST">
+                        <form action="{{ route('admin.properties.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">{{ __('admin.form_field_property_name') }}</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
                                            id="name" name="name"
+                                           value="{{ old('name') }}"
                                            placeholder="{{ __('admin.form_field_property_name_placeholder') }}">
 
                                     @error('name')
@@ -59,7 +60,8 @@
                                 <div class="form-group">
                                     <label for="country">{{ __('admin.form_field_property_country') }}</label>
                                     <input type="text" class="form-control @error('country') is-invalid @enderror"
-                                           id="country" name="country"
+                                           id="country" name="country" 
+                                           value="{{ old('country') }}"
                                            placeholder="{{ __('admin.form_field_property_country_placeholder') }}">
 
                                     @error('country')
@@ -73,6 +75,7 @@
                                     <label for="address">{{ __('admin.form_field_property_address') }}</label>
                                     <input type="text" class="form-control @error('address') is-invalid @enderror"
                                            id="address" name="address"
+                                           value="{{ old('address') }}"
                                            placeholder="{{ __('admin.form_field_property_address_placeholder') }}">
 
                                     @error('address')
@@ -85,7 +88,7 @@
                                 <div class="form-group">
                                     <label for="description">{{ __('admin.form_field_property_description') }}</label>
                                     <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror" rows="3"
-                                              placeholder="{{ __('admin.form_field_property_description_placeholder') }}"></textarea>
+                                              placeholder="{{ __('admin.form_field_property_description_placeholder') }}">{{ old('description') }}</textarea>
 
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -112,15 +115,17 @@
                             <h3 class="card-title">{{ __('admin.card_title_upload_csv_properties') }}</h3>
                         </div>
 
-                        <form>
+                        <form action="{{ route('admin.properties.import') }}" method="POST">
+                            @csrf
+
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="upload_file">{{ __('admin.form_file_input') }}</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="upload_file">
+                                            <input type="file" class="custom-file-input" id="file" name="file">
                                             <label class="custom-file-label"
-                                                   for="upload_file">{{ __('admin.form_label_choose_file') }}</label>
+                                                   for="file">{{ __('admin.form_label_choose_file') }}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -139,3 +144,11 @@
         </section>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function() {
+            bsCustomFileInput.init();
+        });
+    </script>
+@endpush

@@ -52,7 +52,18 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('stockholders', StockholderController::class)->name('index', 'admin.stockholders');
             Route::post('stockholders/import', [StockholderController::class, 'import'])->name('admin.stockholders.import');
             
-            Route::resource('properties', PropertyController::class)->name('index', 'admin.properties');
+            // Route::resource('properties', PropertyController::class)->name('index', 'admin.properties');
+            Route::controller(PropertyController::class)->group(function () {
+                Route::get('/properties', 'index')->name('admin.properties');
+                Route::get('/properties/create', 'create')->name('admin.properties.create');
+                Route::post('/properties/store', 'store')->name('admin.properties.store');
+                Route::get('/properties/show/{property}', 'show')->name('admin.properties.show');
+                Route::get('/properties/edit/{property}', 'edit')->name('admin.properties.edit');
+                Route::post('/properties/update/{property}', 'update')->name('admin.properties.update');
+                Route::post('/properties/delete/{property}', 'destroy')->name('admin.properties.delete');
+                Route::post('/properties/import', 'import')->name('admin.properties.import');
+            });
+
             Route::resource('rounds', RoundController::class)->name('index', 'admin.rounds');
             Route::resource('wish_index', WishesController::class)->name('index', 'admin.wish_index');
             Route::controller(PropertyAvailabiltyController::class)->group(function () {

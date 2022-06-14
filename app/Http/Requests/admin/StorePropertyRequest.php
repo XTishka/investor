@@ -25,7 +25,7 @@ class StorePropertyRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'country' => ['required', 'string', 'min:8'],
+            'country' => ['required', 'string', 'min:3'],
             'address' => ['string', 'min:8'],
             'description' => ['nullable', 'string', 'min:8'],
         ];

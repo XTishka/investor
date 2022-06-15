@@ -25,17 +25,22 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}"
-                        class="nav-link text-capitalize 
+
+                @RoundIsset
+                    <li class="nav-item">
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="nav-link text-capitalize 
                     @if (request()->routeIs('admin.dashboard')) active @endif ">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p class="text">{{ __('admin.dashboard') }}</p>
-                    </a>
-                </li>
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p class="text">{{ __('admin.dashboard') }}</p>
+                        </a>
+                    </li>
+                @endRoundIsset
+
 
                 <li class="nav-header text-uppercase">{{ __('admin.data') }}</li>
 
+                @RoundIsset
                 <li class="nav-item">
                     <a href="{{ route('admin.stockholders') }}"
                         class="nav-link text-capitalize
@@ -44,6 +49,8 @@
                         <p class="text">{{ __('admin.stockholders') }}</p>
                     </a>
                 </li>
+                @endRoundIsset
+
                 <li class="nav-item">
                     <a href="{{ route('admin.properties') }}"
                         class="nav-link text-capitalize @if (request()->routeIs('admin.properties')) active @endif ">
@@ -51,6 +58,7 @@
                         <p class="text">{{ __('admin.properties') }}</p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="{{ route('admin.rounds') }}"
                         class="nav-link text-capitalize @if (request()->routeIs('admin.rounds')) active @endif ">
@@ -58,6 +66,8 @@
                         <p class="text">{{ __('admin.rounds') }}</p>
                     </a>
                 </li>
+
+                @RoundIsset
                 <li class="nav-item">
                     <a href="{{ route('admin.wish_index') }}"
                         class="nav-link text-capitalize @if (request()->routeIs('admin.wish_index')) active @endif ">
@@ -65,6 +75,7 @@
                         <p class="text">{{ __('admin.wishes') }}</p>
                     </a>
                 </li>
+                @endRoundIsset
 
                 <li class="nav-header text-uppercase">{{ __('admin.settings') }}</li>
 

@@ -8,15 +8,16 @@ use App\Models\PropertyAvailability;
 use App\Models\Round;
 use App\Models\Week;
 use App\Models\Wish;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Http\Request;
 use App\Http\Requests\WishRequest;
+use App\Http\Traits\ActiveRoundTrait;
 use App\Models\Priority;
-use DebugBar\DebugBar as DebugBarDebugBar;
 use Illuminate\Http\JsonResponse;
 
 class WishController extends Controller
 {
+    use ActiveRoundTrait;
+
     public function index(Round $round, Wish $wishes)
     {
         if (auth()->user()->is_admin) return redirect()->route('admin.dashboard');
@@ -59,6 +60,11 @@ class WishController extends Controller
         $wish = Wish::find($id);
         $wish->delete();
         return back();
+    }
+
+    public function noRounds() {
+        if ($this->activeRound()) return redirect()->route('wisher');
+        return view('noRounds');
     }
 
     public function getPropertiesByCountry(Request $request): JsonResponse

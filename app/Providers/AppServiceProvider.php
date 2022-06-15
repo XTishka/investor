@@ -3,9 +3,14 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
+use App\Models\Round;
+use App\Http\Traits\ActiveRoundTrait;
 
 class AppServiceProvider extends ServiceProvider
 {
+    use ActiveRoundTrait;
+
     /**
      * Register any application services.
      *
@@ -23,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::if('RoundIsset', function () {
+            return $this->roundsIsset();
+        });
     }
 }

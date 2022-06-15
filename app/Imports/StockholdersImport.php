@@ -29,7 +29,7 @@ class StockholdersImport implements ToModel, WithHeadingRow
         $stockholder = User::where('email', $row['email'])->first();
         if (!$stockholder) {
             $stockholder = User::create([
-                'name' => utf8_encode($row['stockholder']),
+                'name' => $row['stockholder'],
                 'email' => $row['email'],
                 'password' => Hash::make(Str::random(8)),
                 'status' => 1,

@@ -18,17 +18,17 @@ class PropertyImport implements ToModel, WithHeadingRow
         $property = Property::where('id', $row['id'])->first();
         if ($property) {
             $property->update([
-                'name' => utf8_encode ( $row['name'] ),
-                'country' => utf8_encode ( $row['country'] ),
-                'address' => utf8_encode($row['address']),
-                'description' => utf8_encode($row['description']),
+                'name' =>  $row['name'],
+                'country' =>  $row['country'],
+                'address' => $row['address'],
+                'description' => $row['description'],
             ]);
         } else {
             $property = new Property([
-                'name' => utf8_encode($row['name']),
-                'country' => utf8_encode($row['country']),
-                'address' => utf8_encode($row['address']),
-                'description' => utf8_encode($row['description']),
+                'name' => $row['name'],
+                'country' => $row['country'],
+                'address' => $row['address'],
+                'description' => $row['description'],
             ]);
         }
         return $property;

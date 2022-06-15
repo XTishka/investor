@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Property;
-use Database\Seeders\AdminPrioritiesSeeder;
+use Database\Seeders\StockholderPrioritiesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,11 +19,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminSeeder::class,
-            RoundStartSeeder::class,
-            AdminPrioritiesSeeder::class,
+
+            // Fake starter
+            // RoundStartSeeder::class,
+            // StockholderSeeder::class,
+            // StockholderPrioritiesSeeder::class,
         ]);
 
-        User::factory(1)->create();
-        Property::factory(50)->create();
+        // Fake data generators
+        // Property::factory(50)->create();
     }
 }

@@ -54,7 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::post('/properties/store', 'store')->name('admin.properties.store');
                 Route::get('/properties/show/{property}/{round}', 'show')->name('admin.properties.show');
                 Route::get('/properties/edit/{property}', 'edit')->name('admin.properties.edit');
-                Route::post('/properties/update/{property}', 'update')->name('admin.properties.update');
+                Route::put('/properties/update/{property}', 'update')->name('admin.properties.update');
                 Route::post('/properties/delete/{property}', 'destroy')->name('admin.properties.delete');
                 Route::post('/properties/import', 'import')->name('admin.properties.import');
             });
@@ -69,10 +69,12 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::resource('stockholders', StockholderController::class)->name('index', 'admin.stockholders');
                 Route::post('stockholders/import', [StockholderController::class, 'import'])->name('admin.stockholders.import');
                 Route::resource('wish_index', WishesController::class)->name('index', 'admin.wish_index');
+
                 Route::controller(PropertyAvailabiltyController::class)->group(function () {
                     Route::get('/availability_disable/{week_id}/{property_id}', 'store')->name('admin.disable_week');
                     Route::get('/availability_enable/{week_id}/{property_id}', 'destroy')->name('admin.enable_week');
                 });
+
                 Route::get('/priorities/up', StockholderPriorityUpAction::class)->name('admin.priority_up');
                 Route::get('/priorities/down', StockholderPriorityDownAction::class)->name('admin.priority_down');
             });

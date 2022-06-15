@@ -58,14 +58,15 @@ class PropertyController extends Controller
 
     public function edit(Property $property): View|Factory|Application
     {
-        return view('admin.properties.edit', compact('property'));
+        $round = Round::find($this->activeRound()->id);
+        return view('admin.properties.edit', compact('property', 'round'));
     }
 
 
     public function update(UpdatePropertyRequest $request, Property $property): RedirectResponse
     {
         $property->update($request->validated());
-        return redirect()->route('admin.properties.show', $property);
+        return redirect()->route('admin.properties.show', [$property, $this->activeRound()->id]);
     }
 
 

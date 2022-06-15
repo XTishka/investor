@@ -24,7 +24,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('properties.show', $property->id) }}">
+                                <a href="{{ route('admin.properties.show', [$property, $round]) }}">
                                     {{ $property->name }}
                                 </a>
                             </li>
@@ -46,7 +46,7 @@
                                 <i class="fas fa-laptop-house mr-2"></i>
                                 <span class="mr-2">{{ $property->name  }}</span>
                             </h3>
-                            <a href="{{ route('properties.show', $property) }}">
+                            <a href="{{ route('admin.properties.show', [$property, $round]) }}">
                                 <i class="fas fa-chevron-left"></i>
                                 Back
                             </a>
@@ -54,7 +54,7 @@
 
 
                         <div class="card-body">
-                            <form action="{{ route('properties.update', $property) }}" method="POST" id="property-edit">
+                            <form action="{{ route('admin.properties.update', $property) }}" method="POST" id="property-edit">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
@@ -117,7 +117,7 @@
                                 {{ __('admin.button_save_property') }}
                             </button>
 
-                            <form action="{{ route('properties.destroy', $property) }}" method="POST"
+                            <form action="{{ route('admin.properties.delete', $property) }}" method="POST"
                                   class="float-right">
                                 @csrf
                                 @method('DELETE')

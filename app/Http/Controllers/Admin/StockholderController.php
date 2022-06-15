@@ -19,14 +19,16 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Wish;
+use App\Http\Traits\ActiveRoundTrait;
 
 class StockholderController extends Controller
 {
+    use ActiveRoundTrait;
 
     public function index(Request $request, User $users, Round $round, Priority $priorities): Application|Factory|View
     {
         $rounds = $round->all();
-        $roundId = ($request->round_id) ? $request->round_id : $round->currentRoundId();
+        $roundId = ($request->round_id) ? $request->round_id : $this->activeRound()->id;
         $round = $rounds->where('id', $roundId)->first();
         $maxPriority = $priorities->where('round_id', $roundId)->max('priority');
         $stockholders = $users->getStockholdersWithPriorityAndRound($roundId);

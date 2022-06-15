@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Models\Property;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class PropertyImport implements ToModel
+class PropertyImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -14,20 +15,20 @@ class PropertyImport implements ToModel
      */
     public function model(array $row)
     {
-        $property = Property::where('id', $row[0])->first();
+        $property = Property::where('id', $row['id'])->first();
         if ($property) {
             $property->update([
-                'name' => $row[1],
-                'country' => $row[2],
-                'address' => $row[3],
-                'description' => $row[4],
+                'name' => utf8_encode ( $row['name'] ),
+                'country' => utf8_encode ( $row['country'] ),
+                'address' => utf8_encode($row['address']),
+                'description' => utf8_encode($row['description']),
             ]);
         } else {
             $property = new Property([
-                'name' => $row[1],
-                'country' => $row[2],
-                'address' => $row[3],
-                'description' => $row[4],
+                'name' => utf8_encode($row['name']),
+                'country' => utf8_encode($row['country']),
+                'address' => utf8_encode($row['address']),
+                'description' => utf8_encode($row['description']),
             ]);
         }
         return $property;

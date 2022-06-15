@@ -7,6 +7,7 @@ use App\Models\Priority;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class StockholdersImport implements ToModel, WithHeadingRow
 {
@@ -28,19 +29,35 @@ class StockholdersImport implements ToModel, WithHeadingRow
         $stockholder = User::where('email', $row['email'])->first();
         if (!$stockholder) {
             $stockholder = User::create([
-                'name' => $row['stockholder'],
+                'name' => utf8_encode($row['stockholder']),
                 'email' => $row['email'],
-                'password' => Hash::make($row['email']),
+                'password' => Hash::make(Str::random(8)),
                 'status' => 1,
                 'is_admin' => 0
             ]);
         }
 
-        return new Priority([
-            'user_id' => $stockholder->id,
-            'round_id' => $this->roundId,
-            'priority' => $row['priority'],
-            'available_weeks' => $row['weeks'],
-        ]);
+        $priority = Priority::query()
+            ->where('user_id', $stockholder->id)
+            ->where('round_id', $this->roundId)
+            ->first();
+
+        if ($priority) {
+            $priority->update([
+                'user_id' => $stockholder->id,
+                'round_id' => $this->roundId,
+                'priority' => $row['priority'],
+                'available_weeks' => $row['weeks'],
+            ]);
+        } else {
+            $priority = new Priority([
+                'user_id' => $stockholder->id,
+                'round_id' => $this->roundId,
+                'priority' => $row['priority'],
+                'available_weeks' => $row['weeks'],
+            ]);
+        }
+
+        return $priority;
     }
 }

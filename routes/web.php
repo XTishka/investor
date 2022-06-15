@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('/properties/show/{property}/{round}', 'show')->name('admin.properties.show');
                 Route::get('/properties/edit/{property}', 'edit')->name('admin.properties.edit');
                 Route::put('/properties/update/{property}', 'update')->name('admin.properties.update');
-                Route::post('/properties/delete/{property}', 'destroy')->name('admin.properties.delete');
+                Route::delete('/properties/delete/{property}', 'destroy')->name('admin.properties.delete');
                 Route::post('/properties/import', 'import')->name('admin.properties.import');
             });
 

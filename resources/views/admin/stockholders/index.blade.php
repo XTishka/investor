@@ -60,9 +60,9 @@
                                     <thead>
                                     <tr class="text-capitalize">
                                         <th>{{ __('admin.table_th_stockholder_priority') }}</th>
-                                        <th>{{ __('admin.stockholders') }}</th>
+                                        <th>{{ __('stockholder') }}</th>
                                         <th>{{ __('admin.email') }}</th>
-                                        <th>{{ __('admin.available_weeks') }}</th>
+                                        <th>{{ __('weeks') }}</th>
                                     </tr>
                                     </thead>
 
@@ -108,9 +108,9 @@
                                     <tfoot>
                                     <tr class="text-capitalize">
                                         <th>{{ __('admin.table_th_stockholder_priority') }}</th>
-                                        <th>{{ __('admin.stockholders') }}</th>
+                                        <th>{{ __('stockholder') }}</th>
                                         <th>{{ __('admin.email') }}</th>
-                                        <th>{{ __('admin.available_weeks') }}</th>
+                                        <th>{{ __('admin.weeks') }}</th>
                                     </tr>
                                     </tfoot>
                                 </table>

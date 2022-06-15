@@ -22,10 +22,9 @@ class WishController extends Controller
     {
         if (auth()->user()->is_admin) return redirect()->route('admin.dashboard');
         
-        $roundId = $round->currentRoundId();
         $countries = Property::select('country')->distinct()->orderBy('country')->get();
-        $usedWishes = $wishes->usedRoundWishes($roundId);
-        $maxRoundWishes = $round->find($roundId)->value('max_wishes');
+        $usedWishes = $wishes->usedRoundWishes($this->activeRound()->id);
+        $maxRoundWishes = $round->find($this->activeRound()->id)->value('max_wishes');
         $availableWishes = $maxRoundWishes - $usedWishes->count();
 
         return view('wisher', compact('countries', 'usedWishes', 'availableWishes'));
@@ -90,7 +89,7 @@ class WishController extends Controller
         Priority $priority,
         Wish $wish
     ): JsonResponse {
-        $roundId = $round->currentRoundId();
+        $roundId = $this->activeRound()->id;
         $userId = auth()->user()->id;
         $weeks = Week::where('round_id', $roundId)->get();
         $usedWishes = Wish::where('user_id', $userId)->where('property_id', $request->property_id)->get();

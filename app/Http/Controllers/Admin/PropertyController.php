@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\StorePropertyRequest;
 use App\Http\Requests\admin\UpdatePropertyRequest;
+use App\Http\Traits\ActiveRoundTrait;
 use App\Models\Property;
 use App\Models\PropertyAvailability;
 use App\Models\Round;
@@ -21,9 +22,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PropertyController extends Controller
 {
+    use ActiveRoundTrait;
+
     public function index(Round $round): Application|Factory|View
     {
-        $round = $round->currentRoundId();
+        $round = $this->activeRound()->id;
         $properties = Property::all()->sortBy('country');
         return view('admin.properties.index', compact('properties', 'round'));
     }
@@ -45,7 +48,7 @@ class PropertyController extends Controller
     public function show(Property $property, Round $round): View|Factory|Application
     {
         $rounds = $round->all();
-        $roundId = ($round->id) ? $round->id : $round->currentRoundId();
+        $roundId = ($round->id) ? $round->id : $this->activeRound()->id;
         $round = $rounds->where('id', $roundId)->first();
         $weeks = Week::where('round_id', $roundId)->get()->sortBy('start_date');
         

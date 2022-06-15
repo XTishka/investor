@@ -35,6 +35,11 @@ class StockholdersImport implements ToModel, WithHeadingRow
                 'status' => 1,
                 'is_admin' => 0
             ]);
+        } else {
+            $stockholder->update([
+                'name' => $row['stockholder'],
+                'email' => $row['email'],
+            ]);
         }
 
         $priority = Priority::query()

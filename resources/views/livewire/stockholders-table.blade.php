@@ -10,24 +10,11 @@
     </thead>
     <tbody id="stockholders-index">
         @foreach ($stockholders as $stockholder)
-            <tr  wire:sortable.item="{{ $stockholder->id }}" wire:key="stockholder-{{ $stockholder->id }}">
+            <tr  wire:sortable.item="{{ $stockholder->priority_id }}" wire:key="stockholder-{{ $stockholder->priority }}">
                 <td>
                     <span style="display:inline-block; width: 35px;">
-                        {{ $stockholder->priority }}
+                        {{ $stockholder->priority }} [{{ $stockholder->priority_id }}]
                     </span>
-                    <div class="btn-group ml-2">
-                        <button type="button"
-                            class="btn btn-sm btn-default priority-up {{ $stockholder->priority > 1 ? '' : 'disabled' }}"
-                            data-user_id="{{ $stockholder->id }}" data-round_id="{{ $stockholder->round_id }}">
-                            <i class="fas fa-arrow-up"></i>
-                        </button>
-
-                        <button type="button"
-                            class="btn btn-sm btn-default priority-down {{ $stockholder->priority < $maxPriority ? '' : 'disabled' }}"
-                            data-user_id="{{ $stockholder->id }}" data-round_id="{{ $stockholder->round_id }}">
-                            <i class="fas fa-arrow-down"></i>
-                        </button>
-                    </div>
                 </td>
 
                 <td>{{ $stockholder->name }}</td>

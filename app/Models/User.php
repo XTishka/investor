@@ -67,6 +67,7 @@ class User extends Authenticatable
             'users.name as name',
             'users.email as email',
             'users.status as status',
+            'priorities.id as priority_id',
             'priorities.round_id as round_id',
             'priorities.priority as priority',
             'priorities.available_weeks as available_weeks',

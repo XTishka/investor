@@ -110,7 +110,6 @@ class StockholderPriorityDownAction
             });
         </script>';
 
-
         return response()->json(['html' => $html]);;
     }
 }

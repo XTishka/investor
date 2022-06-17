@@ -72,16 +72,26 @@ class StockholderController extends Controller
 
     public function edit(User $stockholder): View|Factory|Application
     {
-        return view('admin.stockholders.edit', compact('stockholder'));
+        $rounds = Round::all();
+        return view('admin.stockholders.edit', compact('stockholder', 'rounds'));
     }
 
 
     public function update(UpdateStockholderRequest $request, User $stockholder): RedirectResponse
     {
+        dd($request->password);
+        $stockholder->name = $request['name'];
+        $stockholder->email = $request['email'];
+        
         $stockholder->update([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
+        ]);
+
+        $priority = Priority::where('user_id', $stockholder->id)->where('round_id', $request->round)->first();
+        $priority->update([
+            'available_weeks' => $request->available_weeks,
         ]);
 
         return redirect()->route('stockholders.show', $stockholder);
@@ -90,6 +100,7 @@ class StockholderController extends Controller
 
     public function destroy(User $stockholder): RedirectResponse
     {
+        dd($stockholder);
         $stockholder->delete();
 
         return redirect()->route('admin.stockholders');

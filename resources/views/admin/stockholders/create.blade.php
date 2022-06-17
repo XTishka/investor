@@ -43,22 +43,7 @@
                         <form action="{{ route('stockholders.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="round">{{ __('admin.form_stockholder_round') }}</label>
-                                    <select class="custom-select rounded-2 @error('round') is-invalid @enderror" id="round"
-                                        name="round">
-                                        @foreach ($rounds as $round)
-                                            <option value="{{ $round->id }}">{{ $round->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('round')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
+                                
                                 <div class="form-group">
                                     <label for="name">{{ __('admin.form_stockholder_name') }}</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
@@ -94,11 +79,28 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>                            
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="round">{{ __('admin.form_stockholder_round') }}</label>
+                                    <select class="custom-select rounded-2 @error('round') is-invalid @enderror" id="round"
+                                        name="round">
+                                        @foreach ($rounds as $round)
+                                            <option value="{{ $round->id }}">{{ $round->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    @error('round')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
 
                                 <div class="form-group">
                                     <label for="available_weeks">{{ __('admin.form_stockholder_available_weeks') }}</label>
-                                    <input type="text" class="form-control @error('available_weeks') is-invalid @enderror" id="available_weeks"
+                                    <input type="number" min="1" max="5" class="form-control @error('available_weeks') is-invalid @enderror" id="available_weeks"
                                         name="available_weeks" placeholder="{{ __('admin.form_stockholder_available_weeks_placeholder') }}" value="3">
 
                                     @error('available_weeks')

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Investering') }}</title>
+    <title>@isset($title){{ $title }} @endisset | {{ config('app.name', 'Investering') }}</title>
 
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -72,49 +72,9 @@
             "responsive": true,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#property_index_wrapper .col-md-6:eq(0)');
-
-        $('#priority_index').DataTable({
-            "paging": false,
-            "lengthChange": true,
-            "searching": false,
-            "ordering": false,
-            "lenght:" : true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#priority_index_wrapper .col-md-6:eq(0)');
-
-        $(".priority-up").click(function() {
-            let $userId = $(this).attr("data-user_id");
-            let $roundId = $(this).attr("data-round_id");
-            console.log($userId);
-            console.log($roundId);
-            $.ajax({
-                url: "{{ route('admin.priority_up') }}?user_id=" + $userId + '&round_id=' + $roundId,
-                method: 'GET',
-                success: function (data) {
-                    // $('#week-selector').show();
-                    $('#stockholders-index').html(data.html);
-                }
-            });
-        });
-
-        $(".priority-down").click(function() {
-            let $userId = $(this).attr("data-user_id");
-            let $roundId = $(this).attr("data-round_id");
-            console.log($userId);
-            console.log($roundId);
-            $.ajax({
-                url: "{{ route('admin.priority_down') }}?user_id=" + $userId + '&round_id=' + $roundId,
-                method: 'GET',
-                success: function (data) {
-                    // $('#week-selector').show();
-                    $('#stockholders-index').html(data.html);
-                }
-            });
-        });
     });
 </script>
+
+@stack('scripts')
 </body>
 </html>

@@ -34,9 +34,11 @@
                 <div class="row">
                     <div class="col-12">
 
-                        <div class="card">
+                        @livewire('stockholder-wishes-table', ['stockholder' => $stockholder])
+
+                        {{-- <div class="card">
                             <div class="card-header d-flex justify-content-between">
-                                <h3 class="card-title d-flex align-items-center mr-auto">
+                                <h3 class="card-title d-flex align-items-center">
                                     <span>
                                         <i class="fas fa-user-alt mr-2"></i>
                                         <span class="mr-2">{{ $stockholder->name  }}</span>
@@ -47,7 +49,7 @@
                                     </small>
                                 </h3>
 
-                                <a href="{{ route('stockholders.edit', $stockholder->id) }}"
+                                <a href="{{ route('admin.stockholders.edit', $stockholder->id) }}"
                                    class="btn btn-primary btn-sm mr-1">
                                     <i class="fas fa-edit"></i>
                                     {{ __('admin.button_edit_stockholder') }}
@@ -121,7 +123,7 @@
                                 </table>
                             </div>
                             <!-- /.card-body -->
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>

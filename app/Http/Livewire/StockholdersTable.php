@@ -7,24 +7,22 @@ use Livewire\Component;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Traits\ActiveRoundTrait;
+use Debugbar;
+
 class StockholdersTable extends Component
 {
     use ActiveRoundTrait;
 
-    public $stockholders;
-    public $maxPriority;
+    public $search = '';
+
+    public $round;
+
+    public $rounds;
 
     public function render(User $stockholders, Request $request)
     {
         $roundId = ($request->round_id) ? $request->round_id : $this->activeRound()->id;
-        $stockholders = $stockholders->getStockholdersWithPriorityAndRound($roundId);
+        $stockholders = $stockholders->getStockholdersWithPriorityAndRound($roundId, $this->search);
         return view('livewire.stockholders-table', compact('stockholders'));
-    }
-
-    public function updateStockholdersPriority($priorities)
-    {
-        foreach ($priorities as $priority) {
-            Priority::find($priority['value'])->update(['priority' => $priority['order']]);
-        }
     }
 }

@@ -28,74 +28,83 @@ class User extends Authenticatable
         'status'
     ];
 
-    public function priorities() {
+    public function priorities()
+    {
         return $this->hasMany(Priority::class);
     }
 
-    public function rounds() {
+    public function rounds()
+    {
         return $this->hasMany(Round::class);
     }
 
-    public function wishes() {
+    public function wishes()
+    {
         return $this->hasMany(Wish::class);
     }
 
-    public function getStockholdersWithPriority() {
+    public function getStockholdersWithPriority()
+    {
         $stockholders = DB::table('priorities')
-        ->join('users', 'priorities.user_id', '=', 'users.id')
-        ->join('rounds', 'priorities.round_id', '=', 'rounds.id')
-        ->select('users.id as id',
-            'users.name as name',
-            'users.email as email',
-            'users.status as status',
-            'priorities.round_id as round_id',
-            'priorities.priority as priority',
-            'rounds.name as round'
-        )
-        ->where('users.is_admin', 0)
-        ->orderBy('priorities.priority')
-        ->get();
+            ->join('users', 'priorities.user_id', '=', 'users.id')
+            ->join('rounds', 'priorities.round_id', '=', 'rounds.id')
+            ->select(
+                'users.id as id',
+                'users.name as name',
+                'users.email as email',
+                'users.status as status',
+                'priorities.round_id as round_id',
+                'priorities.priority as priority',
+                'rounds.name as round'
+            )
+            ->where('users.is_admin', 0)
+            ->orderBy('priorities.priority')
+            ->get();
 
-        return $stockholders; 
+        return $stockholders;
     }
 
-    public function getStockholdersWithPriorityAndRound($round_id) {
+    public function getStockholdersWithPriorityAndRound($round_id, $search)
+    {
         $stockholders = DB::table('priorities')
-        ->join('users', 'priorities.user_id', '=', 'users.id')
-        ->join('rounds', 'priorities.round_id', '=', 'rounds.id')
-        ->select('users.id as id',
-            'users.name as name',
-            'users.email as email',
-            'users.status as status',
-            'priorities.id as priority_id',
-            'priorities.round_id as round_id',
-            'priorities.priority as priority',
-            'priorities.available_weeks as available_weeks',
-            'rounds.name as round'
-        )
-        ->where('users.is_admin', 0)
-        ->where('rounds.id', $round_id)
-        ->orderBy('priorities.priority')
-        ->get();
+            ->join('users', 'priorities.user_id', '=', 'users.id')
+            ->join('rounds', 'priorities.round_id', '=', 'rounds.id')
+            ->select(
+                'users.id as id',
+                'users.name as name',
+                'users.email as email',
+                'users.status as status',
+                'priorities.id as priority_id',
+                'priorities.round_id as round_id',
+                'priorities.priority as priority',
+                'priorities.available_weeks as available_weeks',
+                'rounds.name as round'
+            )
+            ->where('users.is_admin', 0)
+            ->where('rounds.id', $round_id)
+            ->where('users.name', 'like', '%' . $search . '%')
+            ->orWhere('users.email', 'like', '%' . $search . '%')
+            ->orderBy('priorities.priority')
+            ->get();
 
-        return $stockholders; 
+        return $stockholders;
     }
 
     public function getStockholderData($stockholder_id, $round_id)
     {
         $stockholders = DB::table('priorities')
-        ->join('users', 'priorities.user_id', '=', 'users.id')
-        ->join('rounds', 'priorities.round_id', '=', 'rounds.id')
-        ->select(
-            'users.id as id',
-            'users.name as name',
-            'users.email as email',
-            'users.status as status',
-            'priorities.round_id as round_id',
-            'priorities.priority as priority',
-            'priorities.available_weeks as available_weeks',
-            'rounds.name as round'
-        )
+            ->join('users', 'priorities.user_id', '=', 'users.id')
+            ->join('rounds', 'priorities.round_id', '=', 'rounds.id')
+            ->select(
+                'users.id as id',
+                'users.name as name',
+                'users.email as email',
+                'users.status as status',
+                'priorities.round_id as round_id',
+                'priorities.priority as priority',
+                'priorities.available_weeks as available_weeks',
+                'rounds.name as round'
+            )
             ->where('users.id', $stockholder_id)
             ->where('rounds.id', $round_id)
             ->first();

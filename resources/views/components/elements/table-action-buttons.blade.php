@@ -4,6 +4,7 @@
         <i class="fa fa-eye mr-1"></i>
         {{ __('Info') }}
     </a>
+    
     <a href="{{ route($route . '.edit', $stockholderId) }}" class="btn btn-sm btn-default">
         <i class="fas fa-edit mr-1"></i>
         {{ __('Edit') }}
@@ -18,7 +19,7 @@
 
 </div>
 
-<form id="delete-{{ $stockholderId }}" action="{{ route($route . '.destroy', $stockholderId) }}"
+<form id="delete-{{ $stockholderId }}" action="{{ route($route . '.delete', $stockholderId) }}"
     method="POST">
     @csrf
     @method('DELETE')

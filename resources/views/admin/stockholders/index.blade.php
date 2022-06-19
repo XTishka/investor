@@ -3,37 +3,14 @@
 @section('content')
     <div class="content-wrapper">
 
-        <!-- Content Header (Page header) -->
-        <x-elements.page-header title="{{ __('Stockholders') }}" :breadcrumbs="['Stockholders' => '#']">
+        <x-elements.page-header title="Stockholders" :breadcrumbs="['Stockholders' => '#']">
         </x-elements.page-header>
 
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
-                            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 p-2">
-                                {{-- Round selector --}}
-                                <x-elements.round-selector :round="$round" :rounds="$rounds" :route="'admin.stockholders'">
-                                </x-elements.round-selector>
-
-                                {{-- Search --}}
-                                <x-elements.table-search>
-                                </x-elements.table-search>
-
-                                {{-- Action buttons --}}
-                                <x-elements.card-action-buttons :buttons="[
-                                    'Download all' => ['icon' => 'download', 'route' => 'stockholders.create'],
-                                    'Download by round' => ['icon' => 'file-download', 'route' => 'stockholders.create'],
-                                    'Add new' => ['icon' => 'user-plus', 'route' => 'stockholders.create'],
-                                ]">
-                                </x-elements.card-action-buttons>
-                            </div>
-
-                            <div id="card-stockholders" class="card-body table-responsive p-0">
-                                @livewire('stockholders-table', ['stockholders' => $stockholders, 'maxPriority' => $maxPriority])
-                            </div>
-                        </div>
+                        @livewire('stockholders-table', ['stockholders' => $stockholders, 'round' => $round, 'rounds' => $rounds])
                     </div>
                 </div>
             </div>
@@ -41,39 +18,51 @@
     </div>
 @endsection
 
+@push('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+@endpush
+
+@push('styles')
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+@endpush
 
 @push('scripts')
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script>
         $(function() {
-            $(".priority-up").click(function() {
-                let $userId = $(this).attr("data-user_id");
-                let $roundId = $(this).attr("data-round_id");
-                console.log($userId);
-                console.log($roundId);
-                $.ajax({
-                    url: "{{ route('admin.priority_up') }}?user_id=" + $userId + '&round_id=' +
-                        $roundId,
-                    method: 'GET',
-                    success: function(data) {
-                        $('#button_scripts').html(data.html);
-                        $('#table-stockholders').load(location.href + " #card-stockholders");
-                    }
-                });
-            });
 
-            $(".priority-down").click(function() {
-                let $userId = $(this).attr("data-user_id");
-                let $roundId = $(this).attr("data-round_id");
-                console.log($userId);
-                console.log($roundId);
-                $.ajax({
-                    url: "{{ route('admin.priority_down') }}?user_id=" + $userId + '&round_id=' +
-                        $roundId,
-                    method: 'GET',
-                    success: function(data) {
-                        $('#stockholders-index').html(data.html);
+            $('#stockholders-index').sortable({
+                start: function(event, ui) {
+                    let start_pos = ui.item.index();
+                    ui.item.data('start_pos', start_pos);
+                },
+                change: function(event, ui) {
+                    let start_pos = ui.item.data('start_pos');
+                    let index = ui.placeholder.index();
+                    if (start_pos < index) {
+                        $('#stockholders-index li:nth-child(' + index + ')').addClass('highlights');
+                    } else {
+                        $('#stockholders-index li:eq(' + (index + 1) + ')').addClass('highlights');
                     }
-                });
+                },
+                update: function(event, ui) {
+                    $('#stockholders-index li').removeClass('highlights');
+
+                    let order = $("#stockholders-index").sortable("toArray");
+                    let _token = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        url: "{{ route('admin.stockholders.order') }}",
+                        type: 'POST',
+                        data: {
+                            order: order,
+                            _token: _token
+                        },
+                        success: function(data) {
+                            $('#message').html(data.html);
+                        }
+                    });
+                }
             });
         });
     </script>

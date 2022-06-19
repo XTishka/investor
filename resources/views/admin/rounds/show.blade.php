@@ -41,7 +41,7 @@
                                     <h4>
                                         <i class="fas fa-recycle mr-2"></i> {{ $round->name }}
 
-                                        <a href="{{ route('rounds.edit', $round->id) }}"
+                                        <a href="{{ route('admin.rounds.edit', $round->id) }}"
                                            class="btn btn-primary btn-sm mr-1 float-right">
                                             <i class="fas fa-edit"></i>
                                             {{ __('admin.button_edit_round') }}

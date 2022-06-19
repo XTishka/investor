@@ -40,7 +40,7 @@
                             <h3 class="card-title">{{ __('admin.card_title_add_new_round') }}</h3>
                         </div>
 
-                        <form action="{{ route('rounds.store') }}" method="POST">
+                        <form action="{{ route('admin.rounds.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 @if ($errors->any())

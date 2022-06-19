@@ -46,7 +46,7 @@
 <script type="text/javascript">
     $("#country").change(function () {
         $.ajax({
-            url: "{{ route('wisher.countries') }}?country=" + $(this).val(),
+            url: "{{ route('wish.countries') }}?country=" + $(this).val(),
             method: 'GET',
             success: function (data) {
                 $('#property-selector').show();
@@ -57,7 +57,7 @@
 
     $("#property_id").change(function () {
         $.ajax({
-            url: "{{ route('wisher.weeks') }}?property_id=" + $(this).val(),
+            url: "{{ route('wish.weeks') }}?property_id=" + $(this).val(),
             method: 'GET',
             success: function (data) {
                 $('#week-selector').show();

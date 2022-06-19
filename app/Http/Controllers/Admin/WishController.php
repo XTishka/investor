@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class WishesController extends Controller
+class WishController extends Controller
 {
     public function index(): View|Factory|Application
     {

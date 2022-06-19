@@ -3,6 +3,15 @@ return [
     'logo_alt' => 'Investering logo',
     'user_image_alt' => 'User Image',
 
+    'page_title_administrators_index' => 'Administrators',
+    'button_add_new_administrators' => 'Add new administrator',
+    'page_title_create_new_administrator' => 'Creat new administrator',
+    'card_add_new_administrator' => 'Add new administrator',
+    'form_administrator_name' => 'Name',
+    'form_administrator_name_placeholder' => 'Enter administrator\'s name',
+    'form_email_password_to_administrator' => 'Send email with password to user?',
+    'form_button_create_administrator' => 'Create administrator',
+
     // DASHBOARD
     'table_th_dashboard_priority' => '#',
     'table_th_dashboard_stockholders' => 'Stockholders',
@@ -77,6 +86,7 @@ return [
     'table_th_property_address' => 'Address',
     'table_th_property_description' => 'Description',
 
+    'table_th_property_id' => 'id',
     'table_th_availability_week_number' => 'Week #',
     'table_th_availability_week_start_date' => 'Week start date',
     'table_th_availability_week_end_date' => 'Week end date',

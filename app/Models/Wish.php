@@ -33,7 +33,8 @@ class Wish extends Model
         $wishes = DB::table('wishes')
             ->join('weeks', 'wishes.week_id', '=', 'weeks.id')
             ->join('properties', 'wishes.property_id', '=', 'properties.id')
-            ->select('wishes.id as wish_id',
+            ->select(
+                'wishes.id as wish_id',
                 'weeks.number as week_number',
                 'weeks.start_date as week_start_date',
                 'weeks.end_date as week_end_date',
@@ -52,7 +53,8 @@ class Wish extends Model
         $wishes = DB::table('wishes')
             ->join('weeks', 'wishes.week_id', '=', 'weeks.id')
             ->join('properties', 'wishes.property_id', '=', 'properties.id')
-            ->select('wishes.id as wish_id',
+            ->select(
+                'wishes.id as wish_id',
                 'weeks.number as week_number',
                 'weeks.start_date as week_start_date',
                 'weeks.end_date as week_end_date',

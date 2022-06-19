@@ -82,7 +82,7 @@
                                                 <tr>
                                                     <td>{{ $priority->priority }}</td>
                                                     <td>
-                                                        <a href="{{ route('stockholders.show', $priority->user->id) }}">
+                                                        <a href="{{ route('admin.stockholders.show', $priority->user->id) }}">
                                                             {{ $priority->user->name }}
                                                         </a>
                                                     </td>

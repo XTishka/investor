@@ -51,7 +51,7 @@
                                         <tr>
                                             <td>{{ $request->week->round->name }}</td>
                                             <td>
-                                                <a href="{{ route('wish_index.edit', $request) }}">
+                                                <a href="{{ route('admin.wish_index.edit', $request) }}">
                                                     <strong>#{{ $request->week->number }}</strong>
                                                     <span class="text-sm">
                                                         ( {{ date('j F, Y', strtotime($request->week->start_date)) }}  -

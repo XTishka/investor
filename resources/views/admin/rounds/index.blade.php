@@ -32,7 +32,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex justify-content-end">
-                                    <a href="{{ route('rounds.create') }}" class="btn btn-secondary btn-sm mr-1">
+                                    <a href="{{ route('admin.rounds.create') }}" class="btn btn-secondary btn-sm mr-1">
                                         {{ __('admin.button_add_new_rounds') }}
                                     </a>
                                 </div>
@@ -55,7 +55,7 @@
                                     @foreach($rounds as $round)
                                     <tr>
                                         <td>
-                                            <a href="{{ route('rounds.show', $round->id) }}">
+                                            <a href="{{ route('admin.rounds.show', $round->id) }}">
                                                 {{ $round->name }}
                                             </a>
                                         </td>

@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="mt-5 md:mt-0 md:col-span-2">
-                    <form action="{{ route('wishes.store') }}" method="POST">
+                    <form action="{{ route('wish.store') }}" method="POST">
                         @csrf
 
                         <div class="shadow overflow-hidden sm:rounded-md">
@@ -154,7 +154,7 @@
                                             </td>
 
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                <form class="inline-block" action="{{ route('wishes.delete', $wish->wish_id) }}" method="POST"
+                                                <form class="inline-block" action="{{ route('wish.delete', $wish->wish_id) }}" method="POST"
                                                       onsubmit="return confirm('Are you sure?');">
                                                     @csrf
                                                     @method('DELETE')

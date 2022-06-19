@@ -24,7 +24,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('rounds.show', $round->id) }}">
+                                <a href="{{ route('admin.rounds.show', $round->id) }}">
                                     {{ $round->name }}
                                 </a>
                             </li>
@@ -47,7 +47,7 @@
                                 <i class="fas fa-user-alt mr-2"></i>
                                 <span class="mr-2">{{ $round->name  }}</span>
                             </h3>
-                            <a href="{{ route('rounds.show', $round) }}">
+                            <a href="{{ route('admin.rounds.show', $round) }}">
                                 <i class="fas fa-chevron-left"></i>
                                 Back
                             </a>
@@ -55,7 +55,7 @@
 
 
                         <div class="card-body">
-                            <form action="{{ route('rounds.update', $round) }}" method="POST" id="round-edit">
+                            <form action="{{ route('admin.rounds.update', $round) }}" method="POST" id="round-edit">
                                 @csrf
                                 @method('PUT')
 
@@ -211,7 +211,7 @@
                                 {{ __('admin.button_save_round') }}
                             </button>
 
-                            <form action="{{ route('rounds.destroy', $round) }}" method="POST"
+                            <form action="{{ route('admin.rounds.delete', $round) }}" method="POST"
                                   class="float-right">
                                 @csrf
                                 @method('DELETE')

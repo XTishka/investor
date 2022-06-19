@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Admin\MailController;
 
 class StockholdersImport implements ToModel, WithHeadingRow
 {
@@ -26,19 +28,31 @@ class StockholdersImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        // dd($row);
+        Validator::make($row, [
+            'priority' => 'integer',
+            'name' => 'required',
+            'email' => 'required|email',
+            'available_weeks' => 'required|integer',
+        ])->validate();
+
         $stockholder = User::where('email', $row['email'])->first();
         if (!$stockholder) {
+            $password = Str::random(8);
             $stockholder = User::create([
-                'name' => $row['stockholder'],
+                'name' => $row['name'],
                 'email' => $row['email'],
-                'password' => Hash::make(Str::random(8)),
+                'password' => Hash::make($password),
                 'status' => 1,
                 'is_admin' => 0
             ]);
+
+            $mail = new MailController();
+            $stockholder->password = $password;
+            $mail->newUser($stockholder);
         } else {
             $stockholder->update([
-                'name' => $row['stockholder'],
-                'email' => $row['email'],
+                'name' => $row['name'],
             ]);
         }
 
@@ -52,14 +66,14 @@ class StockholdersImport implements ToModel, WithHeadingRow
                 'user_id' => $stockholder->id,
                 'round_id' => $this->roundId,
                 'priority' => $row['priority'],
-                'available_weeks' => $row['weeks'],
+                'available_weeks' => $row['available_weeks'],
             ]);
         } else {
             $priority = new Priority([
                 'user_id' => $stockholder->id,
                 'round_id' => $this->roundId,
                 'priority' => $row['priority'],
-                'available_weeks' => $row['weeks'],
+                'available_weeks' => $row['available_weeks'],
             ]);
         }
 

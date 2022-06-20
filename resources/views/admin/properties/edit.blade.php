@@ -1,4 +1,4 @@
-@extends('layouts.admin.forms')
+@extends('layouts.admin.forms', ['title' => 'Edit property'])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->

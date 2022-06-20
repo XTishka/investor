@@ -23,7 +23,7 @@ class RoundController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        $rounds = Round::all();
+        $rounds = Round::all()->sortBy('end_wishes_date');
         return view('admin.rounds.index', compact('rounds'));
     }
 

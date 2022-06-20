@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Wish;
 use App\Http\Traits\ActiveRoundTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class StockholderController extends Controller
@@ -50,7 +51,9 @@ class StockholderController extends Controller
     public function create(): Application|Factory|View
     {
         $random_password = Str::random(8);
-        $rounds = Round::all();
+        $rounds = Round::whereDate('end_wishes_date', '>' , Carbon::today()->toDateString())
+            ->orderBy('end_wishes_date')
+            ->get();
         return view('admin.stockholders.create', compact('rounds', 'random_password'));
     }
 

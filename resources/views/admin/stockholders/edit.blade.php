@@ -8,16 +8,16 @@
         <section class="content">
 
             @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h5><i class="icon fas fa-ban"></i> {{ __('Alert') }}!</h5>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-ban"></i> {{ __('Alert') }}!</h5>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <div class="row">
                 <div class="col-md-6">
@@ -42,8 +42,8 @@
 
                 <div class="col-md-6">
 
-                    <x-elements.form-card title="Stockholder rounds" form="update-stockholder-rounds" submitButtonStyle="primary"
-                        submitButtonText="Update">
+                    <x-elements.form-card title="Available weeks per property" form="update-stockholder-rounds"
+                        submitButtonStyle="primary" submitButtonText="Update">
 
                         <form action="{{ route('admin.stockholders.update', $stockholder) }}" method="POST"
                             id="update-stockholder-rounds">
@@ -51,17 +51,20 @@
                             @method('PUT')
 
                             @foreach ($rounds as $round)
+                                @php
+                                    $roundEndWishDate = \Carbon\Carbon::parse($round->end_wishes_date);
+                                    $today = \Carbon\Carbon::today()->toDateString();
+                                    $disabled = $roundEndWishDate->gt($today) == false ? 'true' : 'false';
+                                @endphp
+
                                 <x-elements.form-number-field id="available_weeks" name="available_weeks"
                                     label="{{ $round->name }}" placeholder="Enter weeks limit for one property"
-                                    value="" min="1" max="20" />
+                                    value="{{ $priorities->where('round_id', $round->id)->value('available_weeks') }}"
+                                    min="1" max="{{ $round->max_wishes }}" :disabled="$disabled" />
                             @endforeach
                         </form>
 
                     </x-elements.form-card>
-                </div>
-
-                <div class="col-md-6">
-                    
                 </div>
             </div>
 

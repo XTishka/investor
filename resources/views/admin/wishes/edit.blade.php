@@ -1,4 +1,4 @@
-@extends('layouts.admin.forms')
+@extends('layouts.admin.forms', __['title' => 'Edit wish'])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -58,7 +58,7 @@
                                         </ul>
                                     </div>
                                 @endif
- 
+
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="nav-icon fas fa-user"></i></span>

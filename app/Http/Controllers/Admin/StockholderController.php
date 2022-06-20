@@ -55,7 +55,7 @@ class StockholderController extends Controller
     }
 
 
-    public function store(StoreStockholderRequest $request, Priority $priority): RedirectResponse
+    public function store(StoreStockholderRequest $request): RedirectResponse
     {
         $stockholder = User::where('email', $request->email)->first();
         if (!$stockholder) {
@@ -64,6 +64,7 @@ class StockholderController extends Controller
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
             ]);
+<<<<<<< HEAD
         }
 
         $minPriority = $priority->where('round_id', $request->round)->max('priority');
@@ -77,7 +78,26 @@ class StockholderController extends Controller
         if ($request->send_password == 'on') {
             $mail = new MailController();
             $mail->newUser($request);
+=======
+
+            if ($request->send_password == 'on') {
+                $mail = new MailController();
+                $mail->newUser($request);
+            }
+>>>>>>> ab0affa (Fix adding users to Rounds)
         }
+
+        $priority = Priority::where('round_id', $request->round)->where('user_id', $stockholder->id)->first();
+        if(!$priority) {
+            $minPriority = Priority::where('round_id', $request->round)->max('priority');
+            Priority::create([
+                'user_id' => $stockholder->id,
+                'round_id' => $request->round,
+                'available_weeks' => $request->available_weeks,
+                'priority' => $minPriority + 1,
+            ]);
+        }
+
         return redirect()->route('admin.stockholders');
     }
 

@@ -57,25 +57,26 @@ class StockholderController extends Controller
 
     public function store(StoreStockholderRequest $request, Priority $priority): RedirectResponse
     {
-        $stockholder = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
+        $stockholder = User::where('email', $request->email)->first();
+        if (!$stockholder) {
+            $stockholder = User::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+            ]);
+        }
+
+        $minPriority = $priority->where('round_id', $request->round)->max('priority');
+        Priority::create([
+            'user_id' => $stockholder->id,
+            'round_id' => $request->round,
+            'available_weeks' => $request->available_weeks,
+            'priority' => $minPriority + 1,
         ]);
 
-        if ($stockholder) {
-            $minPriority = $priority->where('round_id', $request->round)->max('priority');
-            Priority::create([
-                'user_id' => $stockholder->id,
-                'round_id' => $request->round,
-                'available_weeks' => $request->available_weeks,
-                'priority' => $minPriority + 1,
-            ]);
-
-            if ($request->send_password == 'on') {
-                $mail = new MailController();
-                $mail->newUser($request);
-            }
+        if ($request->send_password == 'on') {
+            $mail = new MailController();
+            $mail->newUser($request);
         }
         return redirect()->route('admin.stockholders');
     }

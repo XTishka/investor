@@ -102,8 +102,9 @@ class StockholderController extends Controller
 
     public function edit(User $stockholder): View|Factory|Application
     {
-        $rounds = Round::all();
-        return view('admin.stockholders.edit', compact('stockholder', 'rounds'));
+        $rounds = Round::all()->sortBy('end_wishes_date');
+        $priorities = Priority::where('user_id', $stockholder->id)->get();
+        return view('admin.stockholders.edit', compact('stockholder', 'rounds', 'priorities'));
     }
 
 

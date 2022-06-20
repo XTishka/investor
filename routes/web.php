@@ -27,7 +27,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/no_rounds', [WishController::class, 'noRounds'])->name('no_rounds');
+    Route::get('/no_rounds', [StockholderWishes::class, 'noRounds'])->name('no_rounds');
 
     Route::group(['middleware' => 'active_round'], function () {
         Route::controller(StockholderWishes::class)->group(function () {

@@ -1,4 +1,4 @@
-@extends('layouts.admin.datatables', ['title' => 'Property details'])
+@extends('layouts.admin.datatables', ['title' => __('Property details')])
 
 @section('content')
     <div class="content-wrapper">

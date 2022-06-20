@@ -1,4 +1,4 @@
-@extends('layouts.admin.forms')
+@extends('layouts.admin.forms', ['title' => __('New property')])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -60,7 +60,7 @@
                                 <div class="form-group">
                                     <label for="country">{{ __('admin.form_field_property_country') }}</label>
                                     <input type="text" class="form-control @error('country') is-invalid @enderror"
-                                           id="country" name="country" 
+                                           id="country" name="country"
                                            value="{{ old('country') }}"
                                            placeholder="{{ __('admin.form_field_property_country_placeholder') }}">
 

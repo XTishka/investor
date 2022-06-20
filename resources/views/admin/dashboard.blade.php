@@ -1,4 +1,4 @@
-@extends('layouts.admin.dashboard')
+@extends('layouts.admin.dashboard', ['title' => __('Dashboard')])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->

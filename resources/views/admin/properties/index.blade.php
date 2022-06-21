@@ -28,59 +28,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-end">
-                                    <a href="{{ route('admin.properties.create') }}" class="btn btn-secondary btn-sm mr-1">
-                                        {{ __('admin.button_add_new_properties') }}
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="property_index" class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>{{ __('admin.table_th_property_id') }}</th>
-                                        <th>{{ __('admin.table_th_property_name') }}</th>
-                                        <th>{{ __('admin.table_th_property_country') }}</th>
-                                        <th>{{ __('admin.table_th_property_address') }}</th>
-                                        <th>{{ __('admin.table_th_property_description') }}</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                    @foreach($properties as $property)
-                                    <tr>
-                                        <td>{{ $property->id }}</td>
-                                        <td>
-                                            <a href="{{ route('admin.properties.show', [$property, $round]) }}">
-                                                {{ $property->name }}
-                                            </a>
-                                        </td>
-                                        <td>{{ $property->country }}</td>
-                                        <td>{{ $property->address }}</td>
-                                        <td>{{ $property->description }}</td>
-                                    </tr>
-                                    @endforeach
-
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>{{ __('admin.table_th_property_id') }}</th>
-                                        <th>{{ __('admin.table_th_property_name') }}</th>
-                                        <th>{{ __('admin.table_th_property_country') }}</th>
-                                        <th>{{ __('admin.table_th_property_address') }}</th>
-                                        <th>{{ __('admin.table_th_property_description') }}</th>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-
+                        @livewire('properties-table', ['roundId' => $roundId])
                     </div>
                 </div>
             </div>

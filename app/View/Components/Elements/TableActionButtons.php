@@ -6,17 +6,24 @@ use Illuminate\View\Component;
 
 class TableActionButtons extends Component
 {
-    public $stockholderId;
-    public $route;
+    public $id;
+    public $showRoute;
+    public $editRoute;
+    public $deleteRoute;
+    public $round;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($stockholderId, $route)
+    public function __construct($id, $route, $round = false)
     {
-        $this->stockholderId = $stockholderId;
-        $this->route = $route;
+        $this->id = $id;
+        $this->showRoute = $route  . '.show';
+        $this->editRoute = $route . '.edit';
+        $this->deleteRoute = $route . '.delete';
+        $this->round = ($round == false) ? '' : $round;
     }
 
     /**

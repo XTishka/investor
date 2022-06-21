@@ -76,7 +76,7 @@
                         </td>
 
                         <td>
-                            <x-elements.table-action-buttons :stockholderId="$stockholder->id" :route="'admin.stockholders'" />
+                            <x-elements.table-action-buttons :id="$wish->id" route="admin.wishes" />
                         </td>
                     </tr>
                 @endforeach

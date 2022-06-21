@@ -41,7 +41,7 @@
                         </td>
 
                         <td>
-                            <x-elements.table-action-buttons :stockholderId="$stockholder->id" :route="'admin.stockholders'">
+                            <x-elements.table-action-buttons :id="$stockholder->id" route="admin.stockholders">
                             </x-elements.table-action-buttons>
                         </td>
                     </tr>

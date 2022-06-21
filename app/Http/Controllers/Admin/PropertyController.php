@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\PropertiesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\StorePropertyRequest;
 use App\Http\Requests\admin\UpdatePropertyRequest;
@@ -24,11 +25,20 @@ class PropertyController extends Controller
 {
     use ActiveRoundTrait;
 
+    public $timestamp;
+    public $roundId;
+
+    public function __construct(Request $request)
+    {
+        $this->timestamp = now()->timestamp;
+        $this->roundId = ($request->round_id) ? $request->round_id : $this->activeRound()->id;
+    }
+
     public function index(Round $round): Application|Factory|View
     {
-        $round = $this->activeRound()->id;
+        $roundId = $this->activeRound()->id;
         $properties = Property::all()->sortBy('country');
-        return view('admin.properties.index', compact('properties', 'round'));
+        return view('admin.properties.index', compact('properties', 'roundId'));
     }
 
 
@@ -76,9 +86,16 @@ class PropertyController extends Controller
         return redirect()->route('admin.properties');
     }
 
+
     public function import(Request $request)
     {
         Excel::import(new PropertyImport(), $request->file('file')->store('temp'));
+        return redirect()->route('admin.properties');
+    }
+
+    public function export()
+    {
+        return Excel::download(new PropertiesExport, 'properties_' . $this->timestamp . '.csv');
         return redirect()->route('admin.properties');
     }
 }

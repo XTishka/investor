@@ -87,6 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
                     Route::put('/properties/update/{property}', 'update')->name('admin.properties.update');
                     Route::delete('/properties/delete/{property}', 'destroy')->name('admin.properties.delete');
                     Route::post('/properties/import', 'import')->name('admin.properties.import');
+                    Route::get('/properties/export', 'export')->name('admin.properties.export');
                 });
                 Route::controller(PropertyAvailabiltyController::class)->group(function () {
                     Route::get('/availability_disable/{week_id}/{property_id}', 'store')->name('admin.disable_week');
@@ -100,10 +101,10 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::controller(WishController::class)->group(function () {
                     Route::get('/wishes', 'index')->name('admin.wishes');
                     Route::get('/wishes/edit/{wish}', 'edit')->name('admin.wishes.edit');
+                    Route::get('/wishes/show/{wish}', 'edit')->name('admin.wishes.show');
                     Route::put('/wishes/update/{wish}', 'update')->name('admin.wishes.update');
                     Route::delete('/wishes/delete/{wish}', 'destroy')->name('admin.wishes.delete');
                 });
-                // Route::resource('/wishes', WishController::class)->name('index', 'admin.wishes');
             });
         });
     });

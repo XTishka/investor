@@ -40,10 +40,8 @@ class StockholderController extends Controller
 
     public function index(Request $request, User $users, Round $round, Priority $priorities): Application|Factory|View
     {
-        $rounds = $round->all();
-        $round = $rounds->where('id', $this->roundId)->first();
         $maxPriority = $priorities->where('round_id', $this->roundId)->max('priority');
-        return view('admin.stockholders.index', compact('maxPriority', 'rounds', 'round'));
+        return view('admin.stockholders.index', compact('maxPriority'));
     }
 
 

@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        @livewire('stockholders-table', ['round' => $round, 'rounds' => $rounds])
+                        @livewire('stockholders-table')
                     </div>
                 </div>
             </div>

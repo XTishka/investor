@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
                     Route::get('/wishes/show/{wish}', 'edit')->name('admin.wishes.show');
                     Route::put('/wishes/update/{wish}', 'update')->name('admin.wishes.update');
                     Route::delete('/wishes/delete/{wish}', 'destroy')->name('admin.wishes.delete');
+                    Route::get('/wishes/export', 'export')->name('admin.wishes.export');
                 });
             });
         });

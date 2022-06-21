@@ -1,10 +1,8 @@
 <div class="card">
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 p-2">
-        <x-elements.round-selector :round="$round" :rounds="$rounds" :route="'admin.stockholders'">
-        </x-elements.round-selector>
+        <x-elements.round-selector :round="$round" :rounds="$rounds" :route="'admin.stockholders'" />
 
-        <x-elements.table-search>
-        </x-elements.table-search>
+        <x-elements.table-search />
 
         <x-elements.card-action-buttons :buttons="[
             'Download all' => ['icon' => 'download', 'route' => 'admin.stockholders.full-export'],
@@ -13,12 +11,11 @@
                 'route' => 'admin.stockholders.round-export',
             ],
             'Add new' => ['icon' => 'user-plus', 'route' => 'admin.stockholders.create'],
-        ]">
-        </x-elements.card-action-buttons>
+        ]" />
     </div>
 
     <div id="card-stockholders" class="card-body table-responsive p-0">
-        <table id="table-stockholders" class="table table-hover text-nowrap">
+        <table id="table-stockholders" class="table table-hover text-nowrap  table-striped">
             <thead>
                 <tr>
                     <th>{{ __('Stockholder') }}</th>

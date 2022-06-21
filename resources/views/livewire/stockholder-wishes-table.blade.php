@@ -22,7 +22,7 @@
     </div>
 
     <div id="card-stockholders" class="card-body table-responsive p-0">
-        <table id="table-stockholders" class="table table-hover text-nowrap">
+        <table id="table-stockholders" class="table table-hover text-nowrap  table-striped">
             <thead>
                 <tr>
                     <th>{{ __('Round') }}</th>

@@ -18,7 +18,7 @@ class PropertiesTable extends Component
         $properties = Property::query()
             ->where('name', 'like', '%' . $this->search . '%')
             ->orWhere('country', 'like', '%' . $this->search . '%')
-            ->orWhere('Address', 'like', '%' . $this->search . '%')
+            ->orWhere('address', 'like', '%' . $this->search . '%')
             ->get();
         return view('livewire.properties-table', compact('properties'));
     }

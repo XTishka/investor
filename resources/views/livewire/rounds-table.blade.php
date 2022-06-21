@@ -2,17 +2,15 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 p-2">
         <div></div>
 
-        <x-elements.table-search>
-        </x-elements.table-search>
+        <x-elements.table-search />
 
         <x-elements.card-action-buttons :buttons="[
             'Add new' => ['icon' => 'user-plus', 'route' => 'admin.rounds.create'],
-        ]">
-        </x-elements.card-action-buttons>
+        ]" />
     </div>
 
     <div id="card-stockholders" class="card-body table-responsive p-0">
-        <table id="table-stockholders" class="table table-hover text-nowrap">
+        <table id="table-stockholders" class="table table-hover text-nowrap  table-striped">
             <thead>
                 <tr>
                     <th>{{ __('ID') }}</th>

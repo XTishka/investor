@@ -108,7 +108,7 @@
                                                                     }
                                                                 @endphp
 
-                                                                <a href="{{ route('wish_index.edit', $wish->id) }}"
+                                                                <a href="{{ route('admin.wishes.edit', $wish->id) }}"
                                                                     class="badge badge-{{ $wishStatus }} w-100">
                                                                     {{ $wish->property->name }}
                                                                 </a>

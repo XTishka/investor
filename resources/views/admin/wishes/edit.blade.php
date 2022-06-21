@@ -1,4 +1,4 @@
-@extends('layouts.admin.forms', __['title' => 'Edit wish'])
+@extends('layouts.admin.forms', ['title' => __('Edit wish')])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -86,7 +86,7 @@
                                     </div>
                                     <input type="text" class="form-control" value="{{ date('j F, Y', strtotime($wish->week->start_date)) }} - {{ date('j F, Y', strtotime($wish->week->end_date)) }}" disabled>
                                 </div>
-                                <form action="{{ route('wish_index.update', $wish) }}" method="POST" id="wish-edit">
+                                <form action="{{ route('admin.wishes.update', $wish) }}" method="POST" id="wish-edit">
                                     @csrf
                                     @method('PUT')
                                     <div class="input-group mb-3">

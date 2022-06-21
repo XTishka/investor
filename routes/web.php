@@ -56,9 +56,6 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::delete('/rounds/delete/{round}', 'destroy')->name('admin.rounds.delete');
             });
 
-            
-
-
             Route::group(['middleware' => 'active_round'], function () {
                 Route::controller(DashboardController::class)->group(function () {
                     Route::get('/dashboard', 'index')->name('admin.dashboard');
@@ -100,7 +97,13 @@ Route::group(['middleware' => 'auth'], function () {
                     Route::get('/mail/new-user', 'newUser')->name('admin.mail.new_user');
                 });
 
-                Route::resource('wish_index', WishController::class)->name('index', 'admin.wish_index');
+                Route::controller(WishController::class)->group(function () {
+                    Route::get('/wishes', 'index')->name('admin.wishes');
+                    Route::get('/wishes/edit/{wish}', 'edit')->name('admin.wishes.edit');
+                    Route::put('/wishes/update/{wish}', 'update')->name('admin.wishes.update');
+                    Route::delete('/wishes/delete/{wish}', 'destroy')->name('admin.wishes.delete');
+                });
+                // Route::resource('/wishes', WishController::class)->name('index', 'admin.wishes');
             });
         });
     });

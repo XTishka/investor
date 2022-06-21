@@ -44,7 +44,7 @@
                         </td>
 
                         <td>
-                            <a href="{{ route('wish_index.edit', $wish->id) }}">
+                            <a href="{{ route('admin.wishes.edit', $wish->id) }}">
                                 <strong>#{{ $wish->week_number }}</strong>
                                 <span class="text-sm">
                                     ({{ date('j F, Y', strtotime($wish->week_start_date)) }} -

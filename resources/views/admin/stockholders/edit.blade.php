@@ -42,13 +42,15 @@
 
                 <div class="col-md-6">
 
-                    <x-elements.form-card title="Available weeks per property" form="update-stockholder-rounds"
+                    <x-elements.form-card title="Available weeks per property" form="update-available-weeks"
                         submitButtonStyle="primary" submitButtonText="Update">
 
-                        <form action="{{ route('admin.stockholders.update', $stockholder) }}" method="POST"
-                            id="update-stockholder-rounds">
+                        <form action="{{ route('admin.stockholders.update-available-weeks', $stockholder) }}" method="POST"
+                            id="update-available-weeks">
                             @csrf
                             @method('PUT')
+
+                            <input name="stockholder_id" type="hidden" value="{{ $stockholder->id }}">
 
                             @foreach ($rounds as $round)
                                 @php
@@ -57,7 +59,7 @@
                                     $disabled = $roundEndWishDate->gt($today) == false ? 'true' : 'false';
                                 @endphp
 
-                                <x-elements.form-number-field id="available_weeks" name="available_weeks"
+                                <x-elements.form-number-field id="{{ 'round_' .$round->id }}" name="{{ 'round_' . $round->id }}"
                                     label="{{ $round->name }}" placeholder="Enter weeks limit for one property"
                                     value="{{ $priorities->where('round_id', $round->id)->value('available_weeks') }}"
                                     min="1" max="{{ $round->max_wishes }}" :disabled="$disabled" />

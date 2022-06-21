@@ -82,8 +82,33 @@ class User extends Authenticatable
             )
             ->where('users.is_admin', 0)
             ->where('rounds.id', $round_id)
+            ->orderBy('priorities.priority')
+            ->get();
+
+        return $stockholders;
+    }
+
+    public function searchStockholdersWithPriorityAndRound($round_id, $search)
+    {
+        $stockholders = DB::table('priorities')
+            ->join('users', 'priorities.user_id', '=', 'users.id')
+            ->join('rounds', 'priorities.round_id', '=', 'rounds.id')
+            ->select(
+                'users.id as id',
+                'users.name as name',
+                'users.email as email',
+                'users.status as status',
+                'priorities.id as priority_id',
+                'priorities.round_id as round_id',
+                'priorities.priority as priority',
+                'priorities.available_weeks as available_weeks',
+                'rounds.name as round'
+            )
+            ->where('users.is_admin', 0)
+            ->where('rounds.id', $round_id)
             ->where('users.name', 'like', '%' . $search . '%')
             ->orWhere('users.email', 'like', '%' . $search . '%')
+            ->where('rounds.id', 'like', $round_id)
             ->orderBy('priorities.priority')
             ->get();
 

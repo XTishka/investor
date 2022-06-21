@@ -43,15 +43,15 @@ class StockholderController extends Controller
         $rounds = $round->all();
         $round = $rounds->where('id', $this->roundId)->first();
         $maxPriority = $priorities->where('round_id', $this->roundId)->max('priority');
-        $stockholders = $users->getStockholdersWithPriorityAndRound($this->roundId, '');
-        return view('admin.stockholders.index', compact('stockholders', 'maxPriority', 'rounds', 'round'));
+        // $stockholders = $users->getStockholdersWithPriorityAndRound($this->roundId, '');
+        return view('admin.stockholders.index', compact('maxPriority', 'rounds', 'round'));
     }
 
 
     public function create(): Application|Factory|View
     {
         $random_password = Str::random(8);
-        $rounds = Round::whereDate('end_wishes_date', '>' , Carbon::today()->toDateString())
+        $rounds = Round::whereDate('end_wishes_date', '>', Carbon::today()->toDateString())
             ->orderBy('end_wishes_date')
             ->get();
         return view('admin.stockholders.create', compact('rounds', 'random_password'));
@@ -83,7 +83,7 @@ class StockholderController extends Controller
         }
 
         $priority = Priority::where('round_id', $request->round)->where('user_id', $stockholder->id)->first();
-        if(!$priority) {
+        if (!$priority) {
             $minPriority = Priority::where('round_id', $request->round)->max('priority');
             Priority::create([
                 'user_id' => $stockholder->id,
@@ -121,12 +121,30 @@ class StockholderController extends Controller
             'email' => $request['email'],
         ]);
 
-        Priority::query()
-            ->where('user_id', $stockholder->id)
-            ->where('round_id', $request->round)
-            ->update(['available_weeks' => $request->available_weeks]);
-
         return redirect()->route('admin.stockholders.show', $stockholder);
+    }
+
+    public function updatePriorities(Request $request)
+    {
+        foreach ($request->all() as $round => $weeks) {
+            if (Str::contains($round, 'round_') == true) {
+                $stockholderId = $request->stockholder_id;
+                $roundId = Str::remove('round_', $round);
+                $priority = Priority::where('user_id', $stockholderId)->where('round_id', $roundId)->first();
+                if ($priority) {
+                    $priority->update(['available_weeks' => $weeks]);
+                } else {
+                    $minPriority = Priority::where('round_id', $roundId)->max('priority');
+                    Priority::create([
+                        'user_id' => $stockholderId,
+                        'round_id' => $roundId,
+                        'available_weeks' => $weeks,
+                        'priority' => $minPriority + 1,
+                    ]);
+                }
+            }
+        }
+        return redirect()->back();
     }
 
 

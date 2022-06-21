@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
                     Route::post('/stockholders/import', 'import')->name('admin.stockholders.import');
                     Route::get('/stockholders/full-export', 'exportFull')->name('admin.stockholders.full-export');
                     Route::get('/stockholders/round-export', 'exportRound')->name('admin.stockholders.round-export');
+                    Route::put('/stockholders/update-available-weeks', 'updatePriorities')->name('admin.stockholders.update-available-weeks');
                 });
 
                 Route::controller(PropertyController::class)->group(function () {

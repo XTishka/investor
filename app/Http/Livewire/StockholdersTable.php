@@ -22,7 +22,7 @@ class StockholdersTable extends Component
     public function render(User $stockholders, Request $request)
     {
         $roundId = ($request->round_id) ? $request->round_id : $this->activeRound()->id;
-        $stockholders = $stockholders->getStockholdersWithPriorityAndRound($roundId, $this->search);
+        $stockholders = $stockholders->searchStockholdersWithPriorityAndRound($roundId, $this->search);
         return view('livewire.stockholders-table', compact('stockholders'));
     }
 }

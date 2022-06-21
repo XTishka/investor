@@ -88,7 +88,7 @@ class RoundController extends Controller
     {
         $round->update($request->validated());
         $weeks->handle($round->id, $request);
-        return redirect()->route('rounds.show', $round);
+        return redirect()->route('admin.rounds.show', $round);
     }
 
     /**

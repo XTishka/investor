@@ -23,11 +23,11 @@ class WishStatusBadge extends Component
                 break;
 
             case 'Not confirmed':
-                $this->type = 'warning';
+                $this->type = 'primary';
                 break;
 
-            case 'Not confirmed':
-                $this->type = 'primary';
+            case 'Failed':
+                $this->type = 'warning';
                 break;
 
             default:

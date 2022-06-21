@@ -71,7 +71,7 @@
                 @RoundIsset
                     <li class="nav-item">
                         <a href="{{ route('admin.wishes') }}"
-                            class="nav-link text-capitalize @if (request()->routeIs('admin.wish_index')) active @endif ">
+                            class="nav-link text-capitalize @if (request()->routeIs('admin.wishes')) active @endif ">
                             <i class="nav-icon fas fa-star-half-alt"></i>
                             <p class="text">{{ __('admin.wishes') }}</p>
                         </a>

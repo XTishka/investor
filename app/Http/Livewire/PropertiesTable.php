@@ -13,8 +13,6 @@ class PropertiesTable extends Component
 
     public $search = '';
 
-    public $roundId;
-
     public function render()
     {
         $properties = Property::query()
@@ -22,6 +20,6 @@ class PropertiesTable extends Component
             ->orWhere('country', 'like', '%' . $this->search . '%')
             ->orWhere('Address', 'like', '%' . $this->search . '%')
             ->get();
-        return view('livewire.properties-table', compact('properties', 'roundId'));
+        return view('livewire.properties-table', compact('properties'));
     }
 }

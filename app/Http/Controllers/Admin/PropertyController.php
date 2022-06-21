@@ -36,9 +36,8 @@ class PropertyController extends Controller
 
     public function index(Round $round): Application|Factory|View
     {
-        $roundId = $this->activeRound()->id;
         $properties = Property::all()->sortBy('country');
-        return view('admin.properties.index', compact('properties', 'roundId'));
+        return view('admin.properties.index', compact('properties'));
     }
 
 
@@ -55,13 +54,13 @@ class PropertyController extends Controller
     }
 
 
-    public function show(Property $property, Round $round): View|Factory|Application
+    public function show(Property $property, Request $request): View|Factory|Application
     {
-        $rounds = $round->all();
-        $roundId = ($round->id) ? $round->id : $this->activeRound()->id;
+        $rounds = Round::all();
+        $roundId = ($request->round_id) ? $request->round_id : $this->activeRound()->id;
         $round = $rounds->where('id', $roundId)->first();
         $weeks = Week::where('round_id', $roundId)->get()->sortBy('start_date');
-        
+
         return view('admin.properties.show', compact('property', 'weeks', 'round', 'rounds'));
     }
 

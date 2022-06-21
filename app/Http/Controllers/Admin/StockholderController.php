@@ -43,7 +43,6 @@ class StockholderController extends Controller
         $rounds = $round->all();
         $round = $rounds->where('id', $this->roundId)->first();
         $maxPriority = $priorities->where('round_id', $this->roundId)->max('priority');
-        // $stockholders = $users->getStockholdersWithPriorityAndRound($this->roundId, '');
         return view('admin.stockholders.index', compact('maxPriority', 'rounds', 'round'));
     }
 

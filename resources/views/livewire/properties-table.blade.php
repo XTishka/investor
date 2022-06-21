@@ -33,7 +33,7 @@
                         <td>{{ $property->address }}</td>
                         <td>{{ $property->description }}</td>
                         <td>
-                            <x-elements.table-action-buttons :id="$property->id" route="admin.properties" :round="$roundId">
+                            <x-elements.table-action-buttons :id="$property->id" route="admin.properties">
                             </x-elements.table-action-buttons>
                         </td>
                     </tr>

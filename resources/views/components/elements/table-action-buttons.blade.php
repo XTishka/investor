@@ -1,10 +1,10 @@
 <div class="btn-group float-right">
-    
-    <a href="{{ route($showRoute, $id, $round) }}" class="btn btn-sm btn-default">
+
+    <a href="{{ route($showRoute, $id) }}" class="btn btn-sm btn-default">
         <i class="fa fa-eye mr-1"></i>
         {{ __('Info') }}
     </a>
-    
+
     <a href="{{ route($editRoute, $id) }}" class="btn btn-sm btn-default">
         <i class="fas fa-edit mr-1"></i>
         {{ __('Edit') }}

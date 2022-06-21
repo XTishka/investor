@@ -92,7 +92,7 @@
                                 <ul class="dropdown-menu" style="">
                                     @foreach ($rounds as $round)
                                         <li class="dropdown-item"><a
-                                                href="{{ route('admin.properties.show', [$property, $round]) }}">{{ $round->name }}</a>
+                                                href="{{ route('admin.properties.show', [$property, 'round_id' => $round]) }}">{{ $round->name }}</a>
                                         </li>
                                     @endforeach
 

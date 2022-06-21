@@ -28,7 +28,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        @livewire('properties-table', ['roundId' => $roundId])
+                        @livewire('properties-table')
                     </div>
                 </div>
             </div>

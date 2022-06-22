@@ -6,6 +6,7 @@ use App\Exports\PropertiesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\StorePropertyRequest;
 use App\Http\Requests\admin\UpdatePropertyRequest;
+use App\Http\Requests\admin\ImportPropertiesRequest;
 use App\Http\Traits\ActiveRoundTrait;
 use App\Models\Property;
 use App\Models\PropertyAvailability;
@@ -86,11 +87,12 @@ class PropertyController extends Controller
     }
 
 
-    public function import(Request $request)
+    public function import(ImportPropertiesRequest $request)
     {
         Excel::import(new PropertyImport(), $request->file('file')->store('temp'));
         return redirect()->route('admin.properties');
     }
+
 
     public function export()
     {

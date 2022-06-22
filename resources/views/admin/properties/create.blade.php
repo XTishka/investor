@@ -46,54 +46,51 @@
                                 <div class="form-group">
                                     <label for="name">{{ __('admin.form_field_property_name') }}</label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                           id="name" name="name"
-                                           value="{{ old('name') }}"
-                                           placeholder="{{ __('admin.form_field_property_name_placeholder') }}">
+                                        id="name" name="name" value="{{ old('name') }}"
+                                        placeholder="{{ __('admin.form_field_property_name_placeholder') }}">
 
                                     @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="country">{{ __('admin.form_field_property_country') }}</label>
                                     <input type="text" class="form-control @error('country') is-invalid @enderror"
-                                           id="country" name="country"
-                                           value="{{ old('country') }}"
-                                           placeholder="{{ __('admin.form_field_property_country_placeholder') }}">
+                                        id="country" name="country" value="{{ old('country') }}"
+                                        placeholder="{{ __('admin.form_field_property_country_placeholder') }}">
 
                                     @error('country')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="address">{{ __('admin.form_field_property_address') }}</label>
                                     <input type="text" class="form-control @error('address') is-invalid @enderror"
-                                           id="address" name="address"
-                                           value="{{ old('address') }}"
-                                           placeholder="{{ __('admin.form_field_property_address_placeholder') }}">
+                                        id="address" name="address" value="{{ old('address') }}"
+                                        placeholder="{{ __('admin.form_field_property_address_placeholder') }}">
 
                                     @error('address')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description">{{ __('admin.form_field_property_description') }}</label>
-                                    <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror" rows="3"
-                                              placeholder="{{ __('admin.form_field_property_description_placeholder') }}">{{ old('description') }}</textarea>
+                                    <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror"
+                                        rows="3" placeholder="{{ __('admin.form_field_property_description_placeholder') }}">{{ old('description') }}</textarea>
 
                                     @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
 
@@ -110,33 +107,19 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="card card-secondary">
-                        <div class="card-header">
-                            <h3 class="card-title">{{ __('admin.card_title_upload_csv_properties') }}</h3>
-                        </div>
 
-                        <form action="{{ route('admin.properties.import') }}" method="POST" enctype="multipart/form-data">
+                    <x-elements.form-card title="Upload CSV with properties"
+                        form="create-priorities" submitButtonStyle="primary" submitButtonText="Upload CSV">
+
+                        <form action="{{ route('admin.properties.import') }}" method="POST" id="create-priorities" enctype="multipart/form-data">
                             @csrf
 
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="exampleInputFile">{{ __('admin.form_file_input') }}</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="file" name="file">
-                                            <label class="custom-file-label"
-                                                for="exampleInputFile">{{ __('admin.form_label_choose_file') }}</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <x-elements.form-file-field id="file" name="file" label="CSV file"
+                            placeholder="Choose file" value="{{ old('name') }}" />
 
-                            <div class="card-footer">
-                                <button type="submit"
-                                        class="btn btn-primary">{{ __('admin.button_upload_csv_property') }}</button>
-                            </div>
                         </form>
-                    </div>
+
+                    </x-elements.form-card>
                 </div>
             </div>
 

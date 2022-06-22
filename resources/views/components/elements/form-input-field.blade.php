@@ -5,10 +5,4 @@
             class="form-control  @error('{{ $name }}') is-invalid @enderror"
             id="{{ $id }}" name="{{ $name }}" placeholder="{{ __($placeholder) }}" value="{{ $value }}">
     </div>
-
-    @error('{{ $name }}')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ __($message) }}</strong>
-        </span>
-    @enderror
 </div>

@@ -36,7 +36,7 @@
                 <div class="col-md-6">
 
                     <x-elements.form-card title="Add new property" form="create-property" submitButtonStyle="primary"
-                        submitButtonText="Upload CSV">
+                        submitButtonText="Create">
 
                         <form action="{{ route('admin.properties.store') }}" method="POST" id="create-property">
                             @csrf

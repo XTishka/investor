@@ -5,7 +5,7 @@
         <x-elements.table-search />
 
         <x-elements.card-action-buttons :buttons="[
-            'Add new' => ['icon' => 'user-plus', 'route' => 'admin.rounds.create'],
+            'Add new' => ['icon' => 'recycle', 'route' => 'admin.rounds.create'],
         ]" />
     </div>
 

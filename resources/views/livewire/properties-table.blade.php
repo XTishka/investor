@@ -7,7 +7,7 @@
 
         <x-elements.card-action-buttons :buttons="[
             'Download' => ['icon' => 'download', 'route' => 'admin.properties.export'],
-            'Add new' => ['icon' => 'user-plus', 'route' => 'admin.properties.create'],
+            'Add new' => ['icon' => 'laptop-house', 'route' => 'admin.properties.create'],
         ]">
         </x-elements.card-action-buttons>
     </div>

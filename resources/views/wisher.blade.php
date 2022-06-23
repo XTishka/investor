@@ -7,9 +7,9 @@
             <div class="md:grid md:grid-cols-3 md:gap-6">
                 <div class="md:col-span-1">
                     <div class="px-4 sm:px-0">
-                        <h3 class="text-lg font-medium leading-6 text-gray-900">Available wishes: {{ $availableWishes }}</h3>
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">{{ __('front.available_wishes') }}: {{ $availableWishes }}</h3>
                         <p class="mt-1 text-sm text-gray-600">
-                            Select property, week and wishes qty
+                            {{ __('front.available_wishes_description') }}
                         </p>
                     </div>
 
@@ -45,10 +45,10 @@
                                 <div class="grid gap-6">
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="country"
-                                               class="block text-sm font-medium text-gray-700">Country</label>
+                                               class="block text-sm font-medium text-gray-700">{{ __('front.country') }}</label>
                                         <select id="country" name="country" autocomplete="country-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option value="">Select country</option>
+                                            <option value="">{{ __('front.select_country') }}</option>
                                             @foreach($countries as $country)
                                                 <option value="{{ $country->country }}">{{ $country->country }}</option>
                                             @endforeach
@@ -57,20 +57,20 @@
 
                                     <div id="property-selector" class="col-span-6 sm:col-span-3 hidden">
                                         <label for="property_id"
-                                               class="block text-sm font-medium text-gray-700">Property</label>
+                                               class="block text-sm font-medium text-gray-700">{{ __('front.property') }}</label>
                                         <select id="property_id" name="property_id" autocomplete="property-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option value="">Select country</option>
+                                            <option value="">{{ __('front.select_property') }}</option>
                                         </select>
                                     </div>
 
                                     <div id="week-selector" class="col-span-6 sm:col-span-3 hidden">
                                         <label for="week_id" class="block text-sm font-medium text-gray-700">
-                                            Week
+                                            {{ __('front.week') }}
                                         </label>
                                         <select id="week_id" name="week_id" autocomplete="week-name"
                                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                            <option value="" selected>Select week</option>
+                                            <option value="" selected>{{ __('front.select_week') }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                                 <button type="submit"
                                         class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Send wish
+                                        {{ __('front.button_send_wish') }}
                                 </button>
                             </div>
                         </div>
@@ -98,11 +98,9 @@
 
                 <div class="md:col-span-1">
                     <div class="px-4 sm:px-0">
-                        <h3 class="text-lg font-medium leading-6 text-gray-900">Send wishes</h3>
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">{{ __('front.sent_wishes') }}</h3>
                         <p class="mt-1 text-sm text-gray-600">
-                            Select property, week and wishes qty Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Accusamus at doloremque dolores itaque laborum odit sint sit. Dolores et facere
-                            facilis fuga minus, mollitia qui, quo quod sequi sunt, voluptas.
+                            {{ __('front.sent_wishes_description') }}
                         </p>
                     </div>
                 </div>
@@ -117,15 +115,15 @@
                                         <tr>
                                             <th scope="col" width="50"
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Wish
+                                                {{ __('front.wishes') }}
                                             </th>
                                             <th scope="col" width="50"
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Week
+                                                {{ __('front.week') }}
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Property
+                                                {{ __('front.property') }}
                                             </th>
                                             <th scope="col" class="px-6 py-3 bg-gray-50" width="50">
 
@@ -155,14 +153,14 @@
 
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                 <form class="inline-block" action="{{ route('wish.delete', $wish->wish_id) }}" method="POST"
-                                                      onsubmit="return confirm('Are you sure?');">
+                                                      onsubmit="return confirm('{{ __('admin.are_you_sure') }}?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="submit"
                                                            class="text-red-600 hover:text-red-900 mb-2 mr-2"
-                                                           value="Delete">
+                                                           value="{{ __('front.delete') }}">
                                                 </form>
                                             </td>
                                         </tr>

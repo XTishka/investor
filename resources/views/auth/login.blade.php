@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="card-body login-card-body">
-        <p class="login-box-msg">{{ __('Sign in to start your session') }}</p>
+        <p class="login-box-msg">{{ __('front.login_intro') }}</p>
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
@@ -11,7 +11,7 @@
             <div class="input-group mb-3">
                 <input id="email" type="email"
                        class="form-control @error('email') is-invalid @enderror" name="email"
-                       value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('Email') }}">
+                       value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="{{ __('admin.email') }}">
 
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -29,7 +29,7 @@
             <div class="input-group mb-3">
                 <input id="password" type="password"
                        class="form-control @error('password') is-invalid @enderror" name="password"
-                       required autocomplete="current-password" placeholder="{{ __('Password') }}">
+                       required autocomplete="current-password" placeholder="{{ __('admin.password') }}">
 
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -49,14 +49,14 @@
                         <input class="form-check-input" type="checkbox" name="remember"
                                id="remember" {{ old('remember') ? 'checked' : '' }}>
                         <label for="remember">
-                            {{ __('Remember Me') }}
+                            {{ __('front.remember_me') }}
                         </label>
                     </div>
                 </div>
 
                 <div class="col-4">
                     <button type="submit" class="btn btn-primary  btn-block">
-                        {{ __('Login') }}
+                        {{ __('front.login') }}
                     </button>
                 </div>
             </div>
@@ -65,7 +65,7 @@
         @if (Route::has('password.request'))
             <p class="mb-1">
                 <a href="{{ route('password.request') }}">
-                    {{ __('Forgot Your Password?') }}
+                    {{ __('front.forgot_password') }}?
                 </a>
             </p>
         @endif

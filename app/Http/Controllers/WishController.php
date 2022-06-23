@@ -45,10 +45,10 @@ class WishController extends Controller
 
         if ($wish->wasRecentlyCreated == true) {
             $flashType = 'success';
-            $message = 'Your wishes were successfully added!';
+            $message = __('front.success_message');
         } else {
             $flashType = 'warning';
-            $message = 'You have sent wish with same parameters before!';
+            $message = __('front.error_message');
         }
 
         return back()->with($flashType, $message);
@@ -73,7 +73,7 @@ class WishController extends Controller
             ->get();
 
         if ($request->country) {
-            $html = '<option value="" selected>Select property</option>';
+            $html = '<option value="" selected>' . __('front.property') . '</option>';
             foreach ($properties as $property) {
                 $html .= '<option value="' . $property->id . '">' . $property->name . '</option>';
             }
@@ -100,9 +100,9 @@ class WishController extends Controller
 
         $usedPropertyWeeks = $wish->usedPropertyRoundWishes($roundId, $request->property_id)->count();
 
-        if ($usedPropertyWeeks >= $maxAvailablePerWeek) return response()->json(['html' => '<option value="">You have reach limit for this property</option>']);
+        if ($usedPropertyWeeks >= $maxAvailablePerWeek) return response()->json(['html' => '<option value="">' . __('front.warning_weeks_limit') . '</option>']);
 
-        $html = '<option value="">Select week</option>';
+        $html = '<option value="">' . __('front.week') . '</option>';
         foreach ($weeks as $week) {
             $weekStartDate = date('j F, Y', strtotime($week->start_date));
             $weekEndDate = date('j F, Y', strtotime($week->end_date));
@@ -113,7 +113,7 @@ class WishController extends Controller
                 if ($weekIsAvailable == true) {
 
                     $html .= "<option value='$week->id'>";
-                    $html .= "Week $week->number ( $weekStartDate - $weekEndDate )";
+                    $html .= __('front.week') . " $week->number ( $weekStartDate - $weekEndDate )";
                     $html .= "</option>";
                 }
             }

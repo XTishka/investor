@@ -26,9 +26,9 @@ class UpdateRoundRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'round_range' => ['required'],
-            'start_round_date' => ['required', 'date'],
+            'end_wishes_date' => ['date', 'after:today', 'before:start_round_date'],
+            'start_round_date' => ['required', 'date', 'after:end_wishes_date'],
             'end_round_date' => ['date', 'after:start_round_date'],
-            'end_wishes_date' => ['date', 'before:start_round_date'],
             'description' => ['nullable'],
             'max_wishes' => ['required'],
         ];

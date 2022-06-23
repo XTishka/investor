@@ -28,7 +28,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/no_rounds', [StockholderWishes::class, 'noRounds'])->name('no_rounds');
-
+    
     Route::group(['middleware' => 'active_round'], function () {
         Route::controller(StockholderWishes::class)->group(function () {
             Route::get('/', 'index')->name('wishes');
@@ -39,9 +39,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/get_wishes_qty', 'getWishesQtyByWeekNumber')->name('wish.wish_qty');
         });
     });
-
+    
     Route::group(['middleware' => 'is_admin'], function () {
-
+        
         Route::prefix('admin')->group(function () {
 
             Route::controller(AdministratorController::class)->group(function () {
@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
 
             Route::group(['middleware' => 'active_round'], function () {
                 Route::controller(DashboardController::class)->group(function () {
+                    Route::get('/admin', 'index')->name('admin');
                     Route::get('/dashboard', 'index')->name('admin.dashboard');
                     Route::get('/dashboard/export', 'export')->name('admin.dashboard.export');
                     Route::get('/dashboard/distribute/{round}', 'distribute')->name('admin.dashboard.distribute');

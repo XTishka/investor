@@ -17,17 +17,24 @@ class RoundStartSeeder extends Seeder
     public function run()
     {
         Round::factory(1)->create([
-            'name' => 'Round 1',
-            'start_round_date' => '2022-04-16',
-            'end_wishes_date' => '2022-11-10',
-            'end_round_date' => '2022-11-20',
+            'name' => 'Round before',
+            'end_wishes_date' => '2022-01-01',
+            'start_round_date' => '2022-01-10',
+            'end_round_date' => '2022-05-01',
         ]);
 
         Round::factory(1)->create([
-            'name' => 'Round 2',
-            'start_round_date' => '2023-01-01',
-            'end_wishes_date' => '2023-05-20',
-            'end_round_date' => '2023-06-01',
+            'name' => 'Round current',
+            'end_wishes_date' => '2022-07-01',
+            'start_round_date' => '2022-07-10',
+            'end_round_date' => '2022-11-01',
+        ]);
+
+        Round::factory(1)->create([
+            'name' => 'Round after',
+            'end_wishes_date' => '2023-01-01',
+            'start_round_date' => '2023-01-10',
+            'end_round_date' => '2023-05-01',
         ]);
     }
 }

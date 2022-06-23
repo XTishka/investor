@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
 
             // Fake starter
-            // RoundStartSeeder::class,
+            RoundStartSeeder::class,
             // StockholderSeeder::class,
             // StockholderPrioritiesSeeder::class,
         ]);
 
         // Fake data generators
-        // Property::factory(50)->create();
+        Property::factory(50)->create();
     }
 }

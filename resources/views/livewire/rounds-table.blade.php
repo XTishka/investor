@@ -27,12 +27,12 @@
                     <tr>
                         <td>{{ $round->id }}</td>
                         <td>{{ $round->name }}</td>
-                        <td>{{ $round->description }}</td>
+                        <td>{{ substr($round->description, 0, 50) }}</td>
                         <td>{{ date('j F, Y', strtotime($round->end_wishes_date)) }}</td>
                         <td>{{ date('j F, Y', strtotime($round->start_round_date)) }}</td>
                         <td>{{ date('j F, Y', strtotime($round->end_round_date)) }}</td>
                         <td>
-                            <x-elements.table-action-buttons :id="$round->id" route="admin.rounds" />
+                            <x-elements.table-rounds-action-buttons :id="$round->id" />
                         </td>
                     </tr>
                 @endforeach

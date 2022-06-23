@@ -1,233 +1,114 @@
 @extends('layouts.admin.forms', ['title' => __('Edit round')])
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>{{ __('admin.page_title_edit_round') }}</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right text-capitalize">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.dashboard') }}">
-                                    <i class="nav-icon fas fa-tachometer-alt text-sm mr-2"></i>
-                                    {{ __('admin.dashboard') }}
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.rounds') }}">
-                                    {{ __('admin.rounds') }}
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.rounds.show', $round->id) }}">
-                                    {{ $round->name }}
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active">{{ __('admin.breadcrumbs_edit_round') }}</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </section>
+
+        <x-elements.page-header title="admin.round_edit" :breadcrumbs="['admin.rounds' => 'admin.rounds', 'admin.edit' => '#']" />
 
         <section class="content">
 
             <div class="row">
                 <div class="col-md-6">
 
-                    <div class="card card-secondary">
+                    <x-elements.form-card :title="$round->name" form="round-edit" submitButtonStyle="primary"
+                        submitButtonText="admin.save">
 
-                        <div class="card-header d-flex justify-content-between">
-                            <h3 class="card-title mr-auto pt-1">
-                                <i class="fas fa-user-alt mr-2"></i>
-                                <span class="mr-2">{{ $round->name  }}</span>
-                            </h3>
-                            <a href="{{ route('admin.rounds.show', $round) }}">
-                                <i class="fas fa-chevron-left"></i>
-                                Back
-                            </a>
-                        </div>
+                        <form action="{{ route('admin.rounds.update', $round) }}" method="POST" id="round-edit">
+                            @csrf
+                            @method('PUT')
 
+                            <x-elements.form-input-field id="name" type="text" name="name" label="admin.name"
+                                placeholder="{{ __('admin.enter_round_name') }}" :value="$round->name" />
 
-                        <div class="card-body">
-                            <form action="{{ route('admin.rounds.update', $round) }}" method="POST" id="round-edit">
-                                @csrf
-                                @method('PUT')
+                            <div class="form-group row">
+                                <label for="end_wishes_date" class="col-sm-3 col-form-label">
+                                    {{ __('admin.end_wishes_date') }}
+                                </label>
 
-                                @if ($errors->any())
-                                    <div class="alert alert-danger alert-dismissible">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
-                                        </button>
-                                        <h5><i class="icon fas fa-ban"></i> ERROR!</h5>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
+                                <div class="input-group date col-sm-9" id="end_wishes_date" data-target-input="nearest">
+                                    <div class="input-group-prepend" data-target="#end_wishes_date"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="far fa-calendar-times"></i></div>
                                     </div>
-                                @endif
-
-                                <div class="form-group">
-                                    <label for="name">{{ __('admin.form_field_round_name') }}</label>
-                                    <input type="text"
-                                           id="name"
-                                           name="name"
-                                           value="{{ $round->name }}"
-                                           class="form-control @error('name') is-invalid @enderror"
-                                           placeholder="{{ __('admin.form_field_round_name_placeholder') }}">
-
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <input type="text" id="end_wishes_date" name="end_wishes_date"
+                                        value="{{ $round->end_wishes_date }}"
+                                        class="form-control datetimepicker-input"
+                                        data-target="#end_wishes_date"
+                                        placeholder="{{ __('admin.enter_wishes_end_date') }}">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label>{{ __('admin.form_field_round_range') }}</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                        </div>
-
-                                        <input type="hidden" id="start_round_date" name="start_round_date"
-                                               value="{{ $round->start_round_date }}">
-
-                                        <input type="hidden" id="end_round_date" name="end_round_date"
-                                               value="{{ $round->end_round_date }}">
-
-                                        <input type="text"
-                                               id="round_range"
-                                               name="round_range"
-                                               value="{{ $round->start_round_date }} - {{ $round->end_round_date }}"
-                                               class="form-control float-right
-                                                   @error('round_range') is-invalid @enderror
-                                                   @error('start_round_date') is-invalid @enderror
-                                                   @error('end_round_date') is-invalid @enderror"
-                                               onchange="getRangeDates()">
+                            <div class="form-group row">
+                                <label  class="col-sm-3 col-form-label">{{ __('admin.round_range') }}</label>
+                                <div class="input-group  date col-sm-9">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
 
-                                    @error('round_range')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <input type="hidden" id="start_round_date" name="start_round_date"
+                                        value="{{ $round->start_round_date }}">
 
-                                    @error('start_round_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <input type="hidden" id="end_round_date" name="end_round_date"
+                                        value="{{ $round->end_round_date }}">
 
-                                    @error('end_round_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <input type="text" id="round_range" name="round_range"
+                                        value="{{ $round->start_round_date }} - {{ $round->end_round_date }}"
+                                        class="form-control float-right"
+                                        onchange="getRangeDates()">
                                 </div>
+                            </div>
 
-                                <script>
-                                    getRangeDates();
+                            <x-elements.form-input-field id="max_wishes" type="text" name="max_wishes" label="admin.max_wishes"
+                                placeholder="{{ __('admin.enter_max_wishes_for_round') }}" :value="20" />
 
-                                    function getRangeDates() {
-                                        let date_range_input = document.getElementById("round_range");
-                                        let date_range = date_range_input.value.split(' - ');
-                                        console.log(date_range);
+                            <x-elements.form-textarea-field id="description" name="description" label="admin.description"
+                                placeholder="{{ __('admin.enter_property_descriprion') }}" rows="3"
+                                :value="$round->description" />
 
-                                        let start_date = date_range[0];
-                                        let end_date = date_range[1];
-                                        console.log(start_date);
-                                        console.log(end_date);
+                        </form>
 
-                                        document.getElementById('start_round_date').value = start_date;
-                                        document.getElementById('end_round_date').value = end_date;
-                                    }
-                                </script>
+                    </x-elements.form-card>
 
-                                <div class="form-group">
-                                    <label
-                                        for="end_wishes_date">{{ __('admin.form_field_round_end_wishes_date') }}</label>
-                                    <div class="input-group date" id="end_wishes_date" data-target-input="nearest">
-                                        <div class="input-group-prepend" data-target="#end_wishes_date"
-                                             data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="far fa-calendar-times"></i></div>
-                                        </div>
-                                        <input type="text"
-                                               id="end_wishes_date"
-                                               name="end_wishes_date"
-                                               value="{{ $round->end_wishes_date }}"
-                                               class="form-control datetimepicker-input @error('end_wishes_date') is-invalid @enderror"
-                                               data-target="#end_wishes_date"
-                                               placeholder="{{ __('admin.form_field_round_end_wishes_date_placeholder') }}">
-                                    </div>
+                </div>
 
-                                    @error('end_wishes_date')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="max_wishes">{{ __('admin.form_field_round_max_wishes') }}</label>
-                                    <input type="text"
-                                           id="max_wishes"
-                                           name="max_wishes"
-                                           value="{{ $round->max_wishes }}"
-                                           class="form-control @error('max_wishes') is-invalid @enderror"
-                                           placeholder="{{ __('admin.form_field_round_max_wishes_placeholder') }}">
-
-                                    @error('max_wishes')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="description">{{ __('admin.form_field_round_description') }}</label>
-                                    <textarea id="description" name="description"
-                                              class="form-control @error('description') is-invalid @enderror" rows="3"
-                                              placeholder="{{ __('admin.form_field_round_description_placeholder') }}">{{ $round->description }}</textarea>
-
-                                    @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-
-                            </form>
-
-                        </div>
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary" form="round-edit">
-                                {{ __('admin.button_save_round') }}
+                <div class="col-md-6">
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                ×
                             </button>
-
-                            <form action="{{ route('admin.rounds.delete', $round) }}" method="POST"
-                                  class="float-right">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger" type="submit"
-                                        onclick="return confirm('{{ __('Are you sure?') }}')">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
+                            <h5><i class="icon fas fa-ban"></i> ERROR!</h5>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
-
-                    </div>
+                    @endif
                 </div>
 
             </div>
 
-
         </section>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    getRangeDates();
+
+    function getRangeDates() {
+        let date_range_input = document.getElementById("round_range");
+        let date_range = date_range_input.value.split(' - ');
+        console.log(date_range);
+
+        let start_date = date_range[0];
+        let end_date = date_range[1];
+        console.log(start_date);
+        console.log(end_date);
+
+        document.getElementById('start_round_date').value = start_date;
+        document.getElementById('end_round_date').value = end_date;
+    }
+</script>
+@endpush

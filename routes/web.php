@@ -44,7 +44,15 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::prefix('admin')->group(function () {
 
-            Route::resource('administrators', AdministratorController::class)->name('index', 'admin.administrators');
+            Route::controller(AdministratorController::class)->group(function () {
+                Route::get('/administrators', 'index')->name('admin.administrators');
+                Route::get('/administrators/create', 'create')->name('admin.administrators.create');
+                Route::post('/administrators/store', 'store')->name('admin.administrators.store');
+                Route::get('/administrators/show/{administrator}', 'edit')->name('admin.administrators.show');
+                Route::get('/administrators/edit/{administrator}', 'edit')->name('admin.administrators.edit');
+                Route::put('/administrators/update/{administrator}', 'update')->name('admin.administrators.update');
+                Route::delete('/administrators/delete/{administrator}', 'destroy')->name('admin.administrators.delete');
+            });
 
             Route::controller(RoundController::class)->group(function () {
                 Route::get('/rounds', 'index')->name('admin.rounds');

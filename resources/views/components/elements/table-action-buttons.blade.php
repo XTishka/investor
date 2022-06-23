@@ -2,19 +2,19 @@
 
     <a href="{{ route($showRoute, $id) }}" class="btn btn-sm btn-default">
         <i class="fa fa-eye mr-1"></i>
-        {{ __('Info') }}
+        {{ __('admin.info') }}
     </a>
 
     <a href="{{ route($editRoute, $id) }}" class="btn btn-sm btn-default">
         <i class="fas fa-edit mr-1"></i>
-        {{ __('Edit') }}
+        {{ __('admin.edit') }}
     </a>
 
 
     <button class="btn btn-sm btn-default" type="submit" form="delete-{{ $id }}"
-        onclick="return confirm('{{ __('Are you sure?') }}')">
+        onclick="return confirm('{{ __('admin.are_you_sure') }}')">
         <i class="fas fa-trash mr-1"></i>
-        {{ __('Delete') }}
+        {{ __('admin.delete') }}
     </button>
 
 </div>

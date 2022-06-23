@@ -1,10 +1,9 @@
-@extends('layouts.admin.datatables', ['title' => __('Stockholders')])
+@extends('layouts.admin.datatables', ['title' => __('stockholders')])
 
 @section('content')
     <div class="content-wrapper">
 
-        <x-elements.page-header title="Stockholders" :breadcrumbs="['Stockholders' => '#']">
-        </x-elements.page-header>
+        <x-elements.page-header title="admin.stockholders" :breadcrumbs="[ 'admin.stockholders' => '#']" />
 
         <section class="content">
             <div class="container-fluid">

@@ -5,7 +5,7 @@
         <x-elements.table-search />
 
         <x-elements.card-action-buttons :buttons="[
-            'Add new' => ['icon' => 'recycle', 'route' => 'admin.rounds.create'],
+            'admin.add_new' => ['icon' => 'recycle', 'route' => 'admin.rounds.create'],
         ]" />
     </div>
 
@@ -13,12 +13,12 @@
         <table id="table-stockholders" class="table table-hover text-nowrap  table-striped">
             <thead>
                 <tr>
-                    <th>{{ __('ID') }}</th>
-                    <th>{{ __('Name') }}</th>
-                    <th>{{ __('Description') }}</th>
-                    <th>{{ __('End wishes date') }}</th>
-                    <th>{{ __('Start date') }}</th>
-                    <th>{{ __('End date') }}</th>
+                    <th>{{ __('admin.id') }}</th>
+                    <th>{{ __('admin.name') }}</th>
+                    <th>{{ __('admin.description') }}</th>
+                    <th>{{ __('admin.end_wishes_date') }}</th>
+                    <th>{{ __('admin.start_date') }}</th>
+                    <th>{{ __('admin.end_date') }}</th>
                     <th></th>
                 </tr>
             </thead>

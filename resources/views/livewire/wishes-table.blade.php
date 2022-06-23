@@ -5,8 +5,8 @@
         <x-elements.table-search />
 
         <x-elements.card-action-buttons :buttons="[
-            'Download all' => ['icon' => 'download', 'route' => 'admin.wishes.export'],
-            'Download round wishes' => ['icon' => 'file-download', 'route' => 'admin.wishes.export'],
+            'admin.download_all' => ['icon' => 'download', 'route' => 'admin.wishes.export'],
+            'admin.download_round' => ['icon' => 'file-download', 'route' => 'admin.wishes.export'],
         ]" />
     </div>
 
@@ -14,13 +14,13 @@
         <table id="table-stockholders" class="table table-hover text-nowrap table-striped">
             <thead>
                 <tr>
-                    <th>{{ __('ID') }}</th>
-                    <th>{{ __('Week') }}</th>
-                    <th>{{ __('Stockholder') }}</th>
-                    <th>{{ __('Country') }}</th>
-                    <th>{{ __('Property') }}</th>
-                    <th>{{ __('Priority') }}</th>
-                    <th>{{ __('Status') }}</th>
+                    <th>{{ __('admin.id') }}</th>
+                    <th>{{ __('admin.week') }}</th>
+                    <th>{{ __('admin.stockholder') }}</th>
+                    <th>{{ __('admin.country') }}</th>
+                    <th>{{ __('admin.property') }}</th>
+                    <th>{{ __('admin.priority') }}</th>
+                    <th>{{ __('admin.status') }}</th>
                     <th></th>
                 </tr>
             </thead>

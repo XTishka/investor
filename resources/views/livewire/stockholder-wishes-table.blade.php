@@ -11,12 +11,12 @@
         <div class="p-2">
             <a href="{{ route('admin.stockholders') }}" class="btn btn-secondary mr-1">
                 <i class="fas fa-arrow-left mr-3"></i>
-                {{ __('Back') }}
+                {{ __('admin.back') }}
             </a>
 
             <a href="{{ route('admin.stockholders') }}" class="btn btn-secondary mr-1">
                 <i class="fas fa-edit mr-3"></i>
-                {{ __('Edit') }}
+                {{ __('admin.edit') }}
             </a>
         </div>
     </div>
@@ -25,11 +25,11 @@
         <table id="table-stockholders" class="table table-hover text-nowrap  table-striped">
             <thead>
                 <tr>
-                    <th>{{ __('Round') }}</th>
-                    <th>{{ __('Week') }}</th>
-                    <th>{{ __('Country') }}</th>
-                    <th>{{ __('Property') }}</th>
-                    <th class="text-center">{{ __('Status') }}</th>
+                    <th>{{ __('admin.round') }}</th>
+                    <th>{{ __('admin.week') }}</th>
+                    <th>{{ __('admin.country') }}</th>
+                    <th>{{ __('admin.property') }}</th>
+                    <th class="text-center">{{ __('admin.status') }}</th>
                     <th></th>
                 </tr>
             </thead>

@@ -3,7 +3,7 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <x-elements.page-header title="{{ __('Edit stockholder') }}" :breadcrumbs="['Stockholders' => 'admin.stockholders', 'Edit' => '#']" />
+        <x-elements.page-header title="{{ __('admin.edit_stockholder') }}" :breadcrumbs="['Stockholders' => 'admin.stockholders', 'Edit' => '#']" />
 
         <section class="content">
 
@@ -22,8 +22,8 @@
             <div class="row">
                 <div class="col-md-6">
 
-                    <x-elements.form-card title="Add new stockholder" form="update-stockholder" submitButtonStyle="primary"
-                        submitButtonText="Update">
+                    <x-elements.form-card :title="$stockholder->name" form="update-stockholder" submitButtonStyle="primary"
+                        submitButtonText="admin.save">
 
                         <form action="{{ route('admin.stockholders.update', $stockholder) }}" method="POST"
                             id="update-stockholder">
@@ -42,8 +42,8 @@
 
                 <div class="col-md-6">
 
-                    <x-elements.form-card title="Available weeks per property" form="update-available-weeks"
-                        submitButtonStyle="primary" submitButtonText="Update">
+                    <x-elements.form-card title="admin.available_weeks_per_property" form="update-available-weeks"
+                        submitButtonStyle="primary" submitButtonText="admin.save">
 
                         <form action="{{ route('admin.stockholders.update-available-weeks', $stockholder) }}" method="POST"
                             id="update-available-weeks">

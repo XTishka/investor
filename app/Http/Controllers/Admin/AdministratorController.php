@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\StoreAdministratorRequest;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,6 +14,7 @@ use App\Models\User;
 use App\Http\Requests\admin\StoreStockholderRequest;
 use App\Http\Requests\admin\UpdateAdministratorRequest;
 use Hash;
+use Illuminate\Support\Str;
 
 class AdministratorController extends Controller
 {
@@ -24,10 +26,11 @@ class AdministratorController extends Controller
 
     public function create(): Application|Factory|View
     {
-        return view('admin.administrators.create');
+        $random_password = Str::random(8);
+        return view('admin.administrators.create', compact('random_password'));
     }
 
-    public function store(StoreStockholderRequest $request): RedirectResponse
+    public function store(StoreAdministratorRequest $request): RedirectResponse
     {
         User::create([
             'name' => $request['name'],
@@ -58,6 +61,6 @@ class AdministratorController extends Controller
     public function destroy(User $administrator): RedirectResponse
     {
         $administrator->delete();
-        return redirect()->route('admin.administrator');
+        return redirect()->route('admin.administrators');
     }
 }

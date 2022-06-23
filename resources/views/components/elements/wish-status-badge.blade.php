@@ -1,3 +1,3 @@
 <span class="right badge badge-{{ $type }}">
-    {{ __($status) }}
+    {{ __('admin.' . $status) }}
 </span>

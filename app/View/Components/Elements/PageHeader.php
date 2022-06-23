@@ -14,7 +14,7 @@ class PageHeader extends Component
      *
      * @return void
      */
-    public function __construct($title, array $breadcrumbs)
+    public function __construct($title, array $breadcrumbs = [])
     {
         $this->title = $title;
         $this->breadcrumbs = $breadcrumbs;

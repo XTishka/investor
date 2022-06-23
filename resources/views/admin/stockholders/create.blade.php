@@ -1,9 +1,9 @@
-@extends('layouts.admin.forms', ['title' => __('New stockholder')])
+@extends('layouts.admin.forms', ['title' => __('admin.new_stockholder')])
 
 @section('content')
     <div class="content-wrapper">
 
-        <x-elements.page-header title="{{ __('Create/Import new stockholders') }}" :breadcrumbs="['Stockholders' => 'admin.stockholders', 'Create - Import' => '#']" />
+        <x-elements.page-header title="{{ __('admin.new_stockholder') }}" :breadcrumbs="['admin.stockholders' => 'admin.stockholders', 'admin.add_new' => '#']" />
 
         <section class="content">
 
@@ -11,52 +11,52 @@
                 <div class="col-md-6">
 
                     <x-elements.form-card title="Add new stockholder" form="create-stockholder" submitButtonStyle="primary"
-                        submitButtonText="Create">
+                        submitButtonText="admin.create">
 
                         <form action="{{ route('admin.stockholders.store') }}" method="POST" id="create-stockholder">
                             @csrf
 
-                            <x-elements.form-input-field id="name" type="text" name="name" label="Name"
-                                placeholder="Enter stockholders name" value="{{ old('name') }}" />
+                            <x-elements.form-input-field id="name" type="text" name="name" label="admin.name"
+                                placeholder="{{ __('admin.enter_stockholders_name') }}" value="{{ old('name') }}" />
 
-                            <x-elements.form-input-field id="email" type="email" name="email" label="Email"
-                                placeholder="Enter stockholders email" value="{{ old('email') }}" />
+                            <x-elements.form-input-field id="email" type="email" name="email" label="{{ __('admin.email') }}"
+                                placeholder="{{ __('admin.enter_stockholders_email') }}" value="{{ old('email') }}" />
 
-                            <x-elements.form-input-field id="password" type="password" name="password" label="Password: {{ $random_password }}"
-                                placeholder="Enter stockholders password" value="{{ $random_password }}" />
+                            <x-elements.form-input-field id="password" type="text" name="password" label="{{ __('admin.password') }}"
+                                placeholder="{{ __('admin.enter_stockholders_password') }}Enter stockholders password" value="{{ $random_password }}" />
 
                             <x-elements.form-checkbox-field id="send_password" name="send_password"
-                                label="Send password to stockholder" />
+                                label="{{ __('admin.send_password_to_stockholder') }}" />
 
                             <hr class="my-4">
 
-                            <x-elements.form-select-field id="round" name="round" label="Add to round"
+                            <x-elements.form-select-field id="round" name="round" label="{{ __('admin.add_to_round') }}"
                                 :rounds="$rounds" />
 
                             <x-elements.form-number-field id="available_weeks" name="available_weeks"
-                                label="Available weeks" placeholder="Enter weeks limit for one property"
-                                value="{{ old('available_weeks') }}" min="2" max="5" />
+                                label="{{ __('admin.available_weeks') }}" placeholder="{{ __('admin.enter_weeks_limit') }}"
+                                value="{{ old('available_weeks') }}" min="1" max="20" />
                         </form>
 
                     </x-elements.form-card>
                 </div>
 
                 <div class="col-md-6">
-                    <x-elements.form-card title="Add new stockholder" form="upload_csv" submitButtonStyle="primary"
-                        submitButtonText="Upload CSV">
+                    <x-elements.form-card title="{{ __('admin.upload_stockholders') }}" form="upload_csv" submitButtonStyle="primary"
+                        submitButtonText="admin.upload_csv">
 
                         <form action="{{ route('admin.stockholders.import') }}" id="upload_csv" method="POST"
                             enctype="multipart/form-data">
                             @csrf
 
-                            <x-elements.form-select-field id="round" name="round" label="Upload to round"
+                            <x-elements.form-select-field id="round" name="round" label="{{ __('admin.upload_to_round') }}"
                                 :rounds="$rounds" />
 
-                            <x-elements.form-file-field id="file" name="file" label="CSV file"
-                                placeholder="Choose file" value="{{ old('name') }}" />
+                            <x-elements.form-file-field id="file" name="file" label="{{ __('admin.csv_file') }}"
+                                placeholder="{{ __('admin.choose_file') }}" value="{{ old('name') }}" />
 
                             <x-elements.form-checkbox-field id="send_password" name="send_password"
-                                label="Send password to new stockholders" />
+                                label="{{ __('admin.send_passwords_to_new_stockholders') }}" />
                         </form>
 
                     </x-elements.form-card>

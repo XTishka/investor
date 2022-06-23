@@ -5,12 +5,12 @@
         <x-elements.table-search />
 
         <x-elements.card-action-buttons :buttons="[
-            'Download all' => ['icon' => 'download', 'route' => 'admin.stockholders.full-export'],
-            'Download by round' => [
+            'admin.download_all' => ['icon' => 'download', 'route' => 'admin.stockholders.full-export'],
+            'admin.download_round' => [
                 'icon' => 'file-download',
                 'route' => 'admin.stockholders.round-export',
             ],
-            'Add new' => ['icon' => 'user-plus', 'route' => 'admin.stockholders.create'],
+            'admin.add_new' => ['icon' => 'user-plus', 'route' => 'admin.stockholders.create'],
         ]" />
     </div>
 
@@ -18,9 +18,9 @@
         <table id="table-stockholders" class="table table-hover text-nowrap  table-striped">
             <thead>
                 <tr>
-                    <th>{{ __('Stockholder') }}</th>
-                    <th>{{ __('Email') }}</th>
-                    <th class="text-center">{{ __('Available weeks') }}</th>
+                    <th>{{ __('admin.stockholder') }}</th>
+                    <th>{{ __('admin.email') }}</th>
+                    <th class="text-center">{{ __('admin.available_weeks') }}</th>
                 </tr>
             </thead>
             <tbody id="stockholders-index">
@@ -38,8 +38,7 @@
                         </td>
 
                         <td>
-                            <x-elements.table-action-buttons :id="$stockholder->id" route="admin.stockholders">
-                            </x-elements.table-action-buttons>
+                            <x-elements.table-action-buttons :id="$stockholder->id" route="admin.stockholders" />
                         </td>
                     </tr>
                 @endforeach

@@ -1,26 +1,9 @@
-@extends('layouts.admin.dashboard', ['title' => __('Dashboard')])
+@extends('layouts.admin.dashboard', ['title' => __('admin.dashboard')])
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Dashboard</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Blank Page</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
 
-
+        <x-elements.page-header :title="__('admin.dashboard')" />
 
         <section class="content">
             <div class="container-fluid">
@@ -56,10 +39,10 @@
 
                                     <div id="upload_csv">
                                         <a href="{{ route('admin.dashboard.distribute', $round) }}" class="btn btn-secondary btn mr-1">
-                                            Automatic distribution
+                                            {{ __('admin.automatic_distribution') }}
                                         </a>
                                         <a href="{{ route('admin.dashboard.export', ['round_id' => $round->id, 'round_name' => $round->name]) }}" class="btn btn-secondary btn mr-1">
-                                            Download CSV
+                                            {{ __('admin.download_csv') }}
                                         </a>
                                     </div>
                                 </div>
@@ -69,10 +52,10 @@
                                 <table id="dashboard_distributions" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th width="30">{{ __('admin.table_th_dashboard_priority') }}</th>
-                                            <th>{{ __('admin.table_th_dashboard_stockholders') }}</th>
+                                            <th width="30" >{{ __('admin.priority') }}</th>
+                                            <th>{{ __('admin.stockholder') }}</th>
                                             @foreach ($weeks as $week)
-                                                <th>Week&nbsp;{{ $week->number }}</th>
+                                                <th>{{ __('admin.week') }}&nbsp;{{ $week->number }}</th>
                                             @endforeach
                                         </tr>
                                     </thead>
@@ -121,10 +104,10 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th width="30">{{ __('admin.table_th_dashboard_priority') }}</th>
-                                            <th>{{ __('admin.table_th_dashboard_stockholders') }}</th>
+                                            <th width="30" >{{ __('admin.priority') }}</th>
+                                            <th>{{ __('admin.stockholder') }}</th>
                                             @foreach ($weeks as $week)
-                                                <th>Week&nbsp;{{ $week->number }}</th>
+                                                <th>{{ __('admin.week') }}&nbsp;{{ $week->number }}</th>
                                             @endforeach
                                         </tr>
                                     </tfoot>

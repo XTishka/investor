@@ -150,10 +150,10 @@ class StockholderController extends Controller
         $priority = Priority::where('user_id', $stockholder->id)->where('round_id', $this->roundId)->first();
 
         // TODO:: Update priorities status after deleting
-        Priority::query()
-            ->where('round_id', $this->roundId)
-            ->where('priority', '>', $priority->priority)
-            ->update(['priority', \DB::raw('position - 1')]);
+        // Priority::query()
+        //     ->where('round_id', $this->roundId)
+        //     ->where('priority', '>', $priority->priority)
+        //     ->update(['priority', \DB::raw('position - 1')]);
         $priority->delete();
 
         return redirect()->route('admin.stockholders');

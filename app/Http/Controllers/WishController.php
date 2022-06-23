@@ -23,7 +23,7 @@ class WishController extends Controller
         if (auth()->user()->is_admin) return redirect()->route('admin.dashboard');
         
         $countries = Property::select('country')->distinct()->orderBy('country')->get();
-        $usedWishes = $wishes->usedRoundWishes($this->activeRound()->id);
+        $usedWishes = $wishes->usedRoundWishes($this->activeRound()->id)->sortBy('week_number');
         $maxRoundWishes = $round->find($this->activeRound()->id)->value('max_wishes');
         $availableWishes = $maxRoundWishes - $usedWishes->count();
 

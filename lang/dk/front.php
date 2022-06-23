@@ -17,4 +17,10 @@ return [
     'success_message' => 'Your wish was successfully added!',
     'error_message' => 'You have sent wish with same parameters before!',
     'warning_weeks_limit' => 'You have reach limit for this property',
+
+    // Auth
+    'login_intro' => 'Sign in to start your session',
+    'remember_me' => 'Remember me',
+    'login' => 'Login',
+    'forgot_password' => 'Forgot Your Password',
 ];

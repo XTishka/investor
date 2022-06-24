@@ -31,8 +31,8 @@
                         <td>
                             <strong>#{{ $wish->week_number }}</strong>
                             <span class="text-sm ml-2">
-                                ( {{ date('j F, Y', strtotime($wish->start_date)) }}  -
-                                {{ date('j F, Y', strtotime($wish->end_date)) }} )
+                                ( {{ date('j F, Y', strtotime($wish->week_start_date)) }}  -
+                                {{ date('j F, Y', strtotime($wish->week_end_date)) }} )
                             </span>
                         </td>
                         <td>{{ $wish->stockholder_name }}</td>

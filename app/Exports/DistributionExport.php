@@ -6,14 +6,17 @@ use Maatwebsite\Excel\Concerns\FromArray;
 use Illuminate\Support\Facades\DB;
 use App\Models\Round;
 use Illuminate\Support\Arr;
+use App\Http\Traits\ActiveRoundTrait;
 
 class DistributionExport implements FromArray
 {
+    use ActiveRoundTrait;
+
     protected $roundId;
 
     function __construct($round_id)
     {
-        $this->roundId = $round_id;
+        $this->roundId = ($round_id) ? $round_id : $this->activeRound()->id;
     }
 
     public function array(): array
@@ -45,6 +48,7 @@ class DistributionExport implements FromArray
                 'priorities.priority as priority',
             )
             ->where('users.is_admin', '=', 0)
+            ->where('priorities.round_id', '=', $this->roundId)
             ->orderBy('priorities.priority')
             ->get();
 

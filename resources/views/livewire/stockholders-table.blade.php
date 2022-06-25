@@ -5,12 +5,13 @@
         <x-elements.table-search />
 
         <x-elements.card-action-buttons :buttons="[
-            'admin.download_all' => ['icon' => 'download', 'route' => 'admin.stockholders.full-export'],
+            'admin.download_all' => ['icon' => 'download', 'route' => 'admin.stockholders.full-export', 'params' => null],
             'admin.download_round' => [
                 'icon' => 'file-download',
                 'route' => 'admin.stockholders.round-export',
+                'params' => 'round_id=' . $round->id,
             ],
-            'admin.add_new' => ['icon' => 'user-plus', 'route' => 'admin.stockholders.create'],
+            'admin.add_new' => ['icon' => 'user-plus', 'route' => 'admin.stockholders.create', 'params' => null],
         ]" />
     </div>
 

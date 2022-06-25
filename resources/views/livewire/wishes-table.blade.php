@@ -5,8 +5,8 @@
         <x-elements.table-search />
 
         <x-elements.card-action-buttons :buttons="[
-            'admin.download_all' => ['icon' => 'download', 'route' => 'admin.wishes.export'],
-            'admin.download_round' => ['icon' => 'file-download', 'route' => 'admin.wishes.export'],
+            'admin.download_all' => ['icon' => 'download', 'route' => 'admin.wishes.export', 'params' => null],
+            'admin.download_round' => ['icon' => 'file-download', 'route' => 'admin.wishes.export', 'params' => null],
         ]" />
     </div>
 

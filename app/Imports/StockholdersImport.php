@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Admin\MailController;
+use Debugbar;
 
 class StockholdersImport implements ToModel, WithHeadingRow
 {
@@ -28,7 +29,6 @@ class StockholdersImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        // dd($row);
         Validator::make($row, [
             'priority' => 'integer',
             'name' => 'required',

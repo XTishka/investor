@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Mail;
 class MailController extends Controller
 {
     public function newUser($request) {
-        // $objDemo = new \stdClass();
-        // $objDemo->user_name = $request->name;
-        // $objDemo->user_email = $request->email;
-        // $objDemo->user_password = $request->password;
-        // $objDemo->sender = config('app.name', 'Investering');
+        $objDemo = new \stdClass();
+        $objDemo->user_name = $request->name;
+        $objDemo->user_email = $request->email;
+        $objDemo->user_password = $request->password;
+        $objDemo->sender = config('app.name', 'Investering');
 
-        // Mail::to($request->email)->send(new NewUserMail($objDemo));
+        Mail::to($request->email)->send(new NewUserMail($objDemo));
     }
 }

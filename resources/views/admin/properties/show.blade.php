@@ -3,7 +3,7 @@
 @section('content')
     <div class="content-wrapper">
 
-        <x-elements.page-header title="admin.property_details" :breadcrumbs="[ 'admin.properties' => 'admin.properties', $property->name => '#' ]" />
+        <x-elements.page-header title="admin.property_details" :breadcrumbs="['admin.properties' => 'admin.properties', $property->name => '#']" />
 
         <section class="content">
             <div class="container-fluid">
@@ -73,7 +73,8 @@
                                     @endforeach
 
                                     <li class="dropdown-divider"></li>
-                                    <li class="dropdown-item"><a href="{{ route('admin.properties.show', [$property, $round]) }}">Current
+                                    <li class="dropdown-item"><a
+                                            href="{{ route('admin.properties.show', [$property, $round]) }}">Current
                                             round</a></li>
                                 </ul>
                             </div>
@@ -109,42 +110,7 @@
                                                                 {{ __('admin.changes_blocked') }}
                                                             </span>
                                                         @endif
-                                                        <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-focused bootstrap-switch-animate bootstrap-switch-on"
-                                                            style="width: 86px;">
-                                                            @if ($week->availibility($week->id, $property->id) == true)
-                                                                <a href="{{ route('admin.disable_week', ['week_id' => $week->id, 'property_id' => $property->id]) }}"
-                                                                    class="bootstrap-switch-on bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate"
-                                                                    style="width: 86px;">
-                                                                    <div class="bootstrap-switch-container"
-                                                                        style="width: 126px; margin-left: 0px;"><span
-                                                                            class="bootstrap-switch-handle-on bootstrap-switch-success"
-                                                                            style="width: 42px;">{{ __('admin.ON') }}</span><span
-                                                                            class="bootstrap-switch-label"
-                                                                            style="width: 42px;">&nbsp;</span><span
-                                                                            class="bootstrap-switch-handle-off bootstrap-switch-danger"
-                                                                            style="width: 42px;">{{ __('admin.OFF') }}</span><input
-                                                                            type="checkbox" name="my-checkbox" checked=""
-                                                                            data-bootstrap-switch="" data-off-color="danger"
-                                                                            data-on-color="success"></div>
-                                                                </a>
-                                                            @else
-                                                                <a href="{{ route('admin.enable_week', ['week_id' => $week->id, 'property_id' => $property->id]) }}"
-                                                                    class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-off"
-                                                                    style="width: 86px;">
-                                                                    <div class="bootstrap-switch-container"
-                                                                        style="width: 126px; margin-left: -42px;"><span
-                                                                            class="bootstrap-switch-handle-on bootstrap-switch-success"
-                                                                            style="width: 42px;">{{ __('admin.ON') }}</span><span
-                                                                            class="bootstrap-switch-label"
-                                                                            style="width: 42px;">&nbsp;</span><span
-                                                                            class="bootstrap-switch-handle-off bootstrap-switch-danger"
-                                                                            style="width: 42px;">{{ __('admin.OFF') }}</span><input
-                                                                            type="checkbox" name="my-checkbox" checked=""
-                                                                            data-bootstrap-switch="" data-off-color="danger"
-                                                                            data-on-color="success"></div>
-                                                                </a>
-                                                            @endif
-                                                        </div>
+                                                        @livewire('switcher', ['week' => $week, 'propertyId' => $property->id])
                                                     </td>
                                                 </tr>
                                             @endforeach

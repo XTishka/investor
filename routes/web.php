@@ -98,10 +98,6 @@ Route::group(['middleware' => 'auth'], function () {
                     Route::post('/properties/import', 'import')->name('admin.properties.import');
                     Route::get('/properties/export', 'export')->name('admin.properties.export');
                 });
-                Route::controller(PropertyAvailabiltyController::class)->group(function () {
-                    Route::get('/availability_disable/{week_id}/{property_id}', 'store')->name('admin.disable_week');
-                    Route::get('/availability_enable/{week_id}/{property_id}', 'destroy')->name('admin.enable_week');
-                });
 
                 Route::controller(StockholderController::class)->group(function () {
                     Route::get('/mail/new-user', 'newUser')->name('admin.mail.new_user');

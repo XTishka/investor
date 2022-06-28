@@ -17,25 +17,25 @@
                             @csrf
 
                             <x-elements.form-input-field id="name" type="text" name="name" label="admin.name"
-                                placeholder="{{ __('admin.enter_stockholders_name') }}" value="{{ old('name') }}" />
+                                placeholder="admin.enter_stockholders_name" value="{{ old('name') }}" />
 
-                            <x-elements.form-input-field id="email" type="email" name="email" label="{{ __('admin.email') }}"
-                                placeholder="{{ __('admin.enter_stockholders_email') }}" value="{{ old('email') }}" />
+                            <x-elements.form-input-field id="email" type="email" name="email" label="admin.email"
+                                placeholder="admin.enter_stockholders_email" value="{{ old('email') }}" />
 
-                            <x-elements.form-input-field id="password" type="text" name="password" label="{{ __('admin.password') }}"
-                                placeholder="{{ __('admin.enter_stockholders_password') }}Enter stockholders password" value="{{ $random_password }}" />
+                            <x-elements.form-input-field id="password" type="text" name="password" label="admin.password"
+                                placeholder="admin.enter_stockholders_password" value="{{ $random_password }}" />
 
                             <x-elements.form-checkbox-field id="send_password" name="send_password"
-                                label="{{ __('admin.send_password_to_stockholder') }}" />
+                                label="admin.send_password_to_stockholder" />
 
                             <hr class="my-4">
 
-                            <x-elements.form-select-field id="round" name="round" label="{{ __('admin.add_to_round') }}"
+                            <x-elements.form-select-field id="round" name="round" label="admin.add_to_round"
                                 :rounds="$rounds" />
 
-                            <x-elements.form-number-field id="available_weeks" name="available_weeks"
-                                label="{{ __('admin.available_weeks') }}" placeholder="{{ __('admin.enter_weeks_limit') }}"
-                                value="{{ old('available_weeks') }}" min="1" max="20" />
+                            <x-elements.form-number-field id="available_properties" name="available_properties"
+                                label="admin.available_properties" placeholder="admin.enter_properties_limit"
+                                value="{{ old('available_properties') }}" min="1" max="{{ $propertyQty }}" />
                         </form>
 
                     </x-elements.form-card>

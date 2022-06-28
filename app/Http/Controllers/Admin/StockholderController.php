@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Wish;
 use App\Http\Traits\ActiveRoundTrait;
+use App\Models\Property;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -51,13 +52,16 @@ class StockholderController extends Controller
         $rounds = Round::whereDate('end_wishes_date', '>', Carbon::today()->toDateString())
             ->orderBy('end_wishes_date')
             ->get();
-        return view('admin.stockholders.create', compact('rounds', 'random_password'));
+        $propertyQty = Property::all()->count();
+        return view('admin.stockholders.create', compact('rounds', 'random_password', 'propertyQty'));
     }
 
 
     public function store(StoreStockholderRequest $request): RedirectResponse
     {
         $stockholder = User::where('email', $request->email)->first();
+
+        // Get or Create stockholder
         if (!$stockholder) {
             $stockholder = User::create([
                 'name' => $request['name'],
@@ -66,28 +70,19 @@ class StockholderController extends Controller
             ]);
         }
 
-        $minPriority = Priority::where('round_id', $request->round)->max('priority');
-        Priority::create([
-            'user_id' => $stockholder->id,
-            'round_id' => $request->round,
-            'available_weeks' => $request->available_weeks,
-            'priority' => $minPriority + 1,
-        ]);
-
-        if ($request->send_password == 'on') {
-            $mail = new MailController();
-            $mail->newUser($request);
-        }
-
-        $priority = Priority::where('round_id', $request->round)->where('user_id', $stockholder->id)->first();
-        if (!$priority) {
+        if (!Priority::where('round_id', $request->round)->where('user_id', $stockholder->id)->first()) {
             $minPriority = Priority::where('round_id', $request->round)->max('priority');
             Priority::create([
                 'user_id' => $stockholder->id,
                 'round_id' => $request->round,
-                'available_weeks' => $request->available_weeks,
+                'available_properties' => $request->available_properties,
                 'priority' => $minPriority + 1,
             ]);
+
+            if ($request->send_password == 'on') {
+                $mail = new MailController();
+                $mail->newUser($request);
+            }
         }
 
         return redirect()->route('admin.stockholders');
@@ -123,19 +118,19 @@ class StockholderController extends Controller
 
     public function updatePriorities(Request $request)
     {
-        foreach ($request->all() as $round => $weeks) {
+        foreach ($request->all() as $round => $properties) {
             if (Str::contains($round, 'round_') == true) {
                 $stockholderId = $request->stockholder_id;
                 $roundId = Str::remove('round_', $round);
                 $priority = Priority::where('user_id', $stockholderId)->where('round_id', $roundId)->first();
                 if ($priority) {
-                    $priority->update(['available_weeks' => $weeks]);
+                    $priority->update(['available_properties' => $properties]);
                 } else {
                     $minPriority = Priority::where('round_id', $roundId)->max('priority');
                     Priority::create([
                         'user_id' => $stockholderId,
                         'round_id' => $roundId,
-                        'available_weeks' => $weeks,
+                        'available_properties' => $properties,
                         'priority' => $minPriority + 1,
                     ]);
                 }

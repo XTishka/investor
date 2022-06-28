@@ -30,11 +30,11 @@
                             @csrf
                             @method('PUT')
 
-                            <x-elements.form-input-field id="name" type="text" name="name" label="Name"
-                                placeholder="Enter stockholders name" value="{{ $stockholder->name }}" />
+                            <x-elements.form-input-field id="name" type="text" name="name" label="admin.name"
+                                placeholder="admin.enter_stockholders_name" value="{{ $stockholder->name }}" />
 
-                            <x-elements.form-input-field id="email" type="email" name="email" label="Email"
-                                placeholder="Enter stockholders email" value="{{ $stockholder->email }}" />
+                            <x-elements.form-input-field id="email" type="email" name="email" label="admin.email"
+                                placeholder="admin.enter_stockholders_email" value="{{ $stockholder->email }}" />
                         </form>
 
                     </x-elements.form-card>
@@ -60,8 +60,8 @@
                                 @endphp
 
                                 <x-elements.form-number-field id="{{ 'round_' .$round->id }}" name="{{ 'round_' . $round->id }}"
-                                    label="{{ $round->name }}" placeholder="Enter weeks limit for one property"
-                                    value="{{ $priorities->where('round_id', $round->id)->value('available_weeks') }}"
+                                    label="{{ $round->name }}" placeholder="admin.enter_properties_limit"
+                                    value="{{ $priorities->where('round_id', $round->id)->value('available_properties') }}"
                                     min="1" max="{{ $round->max_wishes }}" :disabled="$disabled" />
                             @endforeach
                         </form>

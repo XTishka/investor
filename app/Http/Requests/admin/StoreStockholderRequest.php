@@ -28,7 +28,7 @@ class StoreStockholderRequest extends FormRequest
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8|regex:/(^[a-zA-Z]+[a-zA-Z0-9\\-]*$)/u',
             'round' => 'required',
-            'available_weeks' => 'required|integer',
+            'available_properties' => 'required|integer',
         ];
     }
 }

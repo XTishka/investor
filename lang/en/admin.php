@@ -65,6 +65,7 @@ return [
     'Failed' => 'failed',
     'created_at' => 'Created at',
     'updated_at' => 'Updated_at',
+    'available_properties' => 'Available properties qty',
     
     // PAGE TITLES
     'new_stockholder' => 'Create/Import new stockholders',
@@ -101,6 +102,8 @@ return [
     'enter_round_name' => 'Enter round name',
     'enter_wishes_end_date' => 'Enter wishes end date',
     'enter_max_wishes_for_round' => 'Enter max wishes for this round',
+    'enter_properties_limit' => 'Enter properties limit',
+
 
     // BUTTONS
     'automatic_distribution' => 'Automatic distribution',

@@ -1,15 +1,23 @@
-Hello <i>{{ $userName }}</i>,
-<p>Your email was registered in our system.</p>
- 
+@component('mail::message')
+# {{ __('mail_new_user.greeting') }} <i>{{ $userName }}</i>,
+
+{{ __('mail_new_user.message_body') }}
+
 <ul>
-    <li><strong>Login: </strong>{{ $mailData->user_email }}</li>
-    <li><strong>Password: </strong>{{ $userPassword }}</li>
-    <li><strong>Link: </strong><a href="{{ route('login') }}">Login</a></li>
+    <li><strong>{{ __('mail_new_user.login_name') }}: </strong>{{ $mailData->user_email }}</li>
+    <li><strong>{{ __('mail_new_user.password') }}: </strong>{{ $userPassword }}</li>
 </ul>
 
-<p>Or you can setup your password here: <a href="{{ route('password.request') }}">Reset password</a> </p>
- 
- 
-Thank You,
-<br/>
-<i>{{ $sender }}</i>
+@component('mail::button', ['url' => route('login')])
+{{ __('mail_new_user.login_button') }}
+@endcomponent
+
+{{ __('mail_new_user.reset_button_description') }}
+
+@component('mail::button', ['url' => route('password.request')])
+{{ __('mail_new_user.reset_button') }}
+@endcomponent
+
+{{ __('mail_new_user.thanks') }}<br>
+{{ config('app.name') }}
+@endcomponent

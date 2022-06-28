@@ -30,15 +30,10 @@ class NewUserMail extends Mailable
      */
     public function build()
     {
-        return $this->from('info@investering.dk')
-            ->view('mails.new-user-mail')
-            ->text('mails.new-user-mail_plain')
-            ->with(
-                [
-                    'userName' => $this->mailData->user_name,
-                    'userPassword' => $this->mailData->user_password,
-                    'sender' => $this->mailData->sender,
-                ]
-            );
+        return $this->markdown('mails.new-user-mail')->with([
+            'userName' => $this->mailData->user_name,
+            'userPassword' => $this->mailData->user_password,
+            'sender' => $this->mailData->sender,
+        ]);
     }
 }

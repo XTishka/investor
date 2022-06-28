@@ -14,7 +14,7 @@ class MailController extends Controller
         $objDemo->user_name = $request->name;
         $objDemo->user_email = $request->email;
         $objDemo->user_password = $request->password;
-        $objDemo->sender = config('app.name', 'Investering');
+        $objDemo->sender = config('app.name', 'Investering & Feriebolig');
 
         Mail::to($request->email)->send(new NewUserMail($objDemo));
     }

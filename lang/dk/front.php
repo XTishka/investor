@@ -17,6 +17,7 @@ return [
     'success_message' => 'Dit ønske er blevet sendt!',
     'error_message' => 'Du har allerede sendt et tidligere ønske med samme indhold!',
     'warning_weeks_limit' => 'Du er nået grænsen for denne ejendom',
+    'wishes' => 'Ønsker',
 
     // Auth
     'login_intro' => 'Log ind for a starte din session',

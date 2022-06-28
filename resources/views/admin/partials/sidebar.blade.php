@@ -1,10 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
     <!-- Brand Logo -->
-    <a href="{{ route('admin.dashboard') }}" class="brand-link">
-        <img src="{{ asset('dist/img/investering-logo.png') }}" alt="{{ __('admin.logo_alt') }}"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light"><strong>Investering</strong></span>
+    <a href="{{ route('admin.dashboard') }}" class="brand-link d-block text-center ">
+        <span class="brand-text font-weight-light d-block text-center"><strong>Investering </strong>& Feriebolig</span>
     </a>
 
     <!-- Sidebar -->

@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    @livewireStyles
 </head>
 <body class="bg-gray-100">
 
@@ -43,28 +42,6 @@
 
 @yield('content')
 
-<script type="text/javascript">
-    $("#country").change(function () {
-        $.ajax({
-            url: "{{ route('wish.countries') }}?country=" + $(this).val(),
-            method: 'GET',
-            success: function (data) {
-                $('#property-selector').show();
-                $('#property_id').html(data.html);
-            }
-        });
-    });
-
-    $("#property_id").change(function () {
-        $.ajax({
-            url: "{{ route('wish.weeks') }}?property_id=" + $(this).val(),
-            method: 'GET',
-            success: function (data) {
-                $('#week-selector').show();
-                $('#week_id').html(data.html);
-            }
-        });
-    });
-</script>
+@livewireScripts
 </body>
 </html>

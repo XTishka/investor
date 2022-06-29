@@ -21,13 +21,16 @@ class WishController extends Controller
     public function index(Round $round, Wish $wishes)
     {
         if (auth()->user()->is_admin) return redirect()->route('admin.dashboard');
-        
+
+        $userId = auth()->user()->id;
+        $roundId = $this->activeRound()->id;
+
         $countries = Property::select('country')->distinct()->orderBy('country')->get();
         $usedWishes = $wishes->usedRoundWishes($this->activeRound()->id)->sortBy('week_number');
         $maxRoundWishes = $round->find($this->activeRound()->id)->value('max_wishes');
         $availableWishes = $maxRoundWishes - $usedWishes->count();
 
-        return view('wisher', compact('countries', 'usedWishes', 'availableWishes'));
+        return view('wisher', compact('userId', 'roundId', 'countries', 'usedWishes', 'availableWishes'));
     }
 
     public function store(WishRequest $request, Wish $wishes)

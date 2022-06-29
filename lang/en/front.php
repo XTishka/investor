@@ -9,7 +9,7 @@ return [
     'country' => 'Country',
     'select_country' => 'Select country',
     'property' => 'Property',
-    'select property' => 'Select property',
+    'select_property' => 'Select property',
     'week' => 'Week',
     'select_week' => 'Select week',
     'delete' => 'delete',

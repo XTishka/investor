@@ -9,7 +9,7 @@ return [
     'country' => 'Land',
     'select_country' => 'Vælg land',
     'property' => 'Ejendom',
-    'select property' => 'Vælg ejendom',
+    'select_property' => 'Vælg ejendom',
     'week' => 'Uge',
     'select_week' => 'Vælg uge',
     'delete' => 'slet',

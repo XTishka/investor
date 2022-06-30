@@ -32,14 +32,32 @@ class AdministratorController extends Controller
 
     public function store(StoreAdministratorRequest $request): RedirectResponse
     {
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'created_at' => date(now()),
-            'updated_at' => date(now()),
-            'is_admin' => 1,
-        ]);
+        $admin = User::onlyTrashed()->where('email', $request['email']);
+        if ($admin->count() > 0) {
+            $admin->restore();
+            $admin->update([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'updated_at' => date(now()),
+                'is_admin' => 1,
+            ]);
+        } else {
+            User::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'created_at' => date(now()),
+                'updated_at' => date(now()),
+                'is_admin' => 1,
+            ]);
+        }
+
+        if ($request->send_password == 'on') {
+            $mail = new MailController();
+            $mail->newUser($request);
+        }
+
         return redirect()->route('admin.administrators');
     }
 

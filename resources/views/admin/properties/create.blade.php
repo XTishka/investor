@@ -25,9 +25,6 @@
                             <x-elements.form-input-field id="address" type="text" name="address" label="admin.address"
                                 placeholder="{{ __('admin.enter_property_address') }}" :value="old('address')" />
 
-                            <x-elements.form-textarea-field id="description" name="description" label="admin.description"
-                                placeholder="{{ __('admin.enter_property_descriprion') }}" rows="3" :value="old('description')" />
-
                         </form>
 
                     </x-elements.form-card>

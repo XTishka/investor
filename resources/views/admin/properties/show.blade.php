@@ -43,8 +43,7 @@
                                 </div>
 
                                 <div class="col-sm-4 invoice-col">
-                                    <strong>{{ __('admin.description') }}</strong><br>
-                                    {{ $property->description }}
+                                    
                                 </div>
 
                             </div>

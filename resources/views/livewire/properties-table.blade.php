@@ -19,7 +19,6 @@
                     <th>{{ __('admin.name') }}</th>
                     <th>{{ __('admin.country') }}</th>
                     <th>{{ __('admin.address') }}</th>
-                    <th>{{ __('admin.description') }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -30,7 +29,6 @@
                         <td>{{ $property->name }}</td>
                         <td>{{ $property->country }}</td>
                         <td>{{ $property->address }}</td>
-                        <td>{{ $property->description }}</td>
                         <td>
                             <x-elements.table-action-buttons :id="$property->id" route="admin.properties">
                             </x-elements.table-action-buttons>

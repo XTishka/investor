@@ -14,12 +14,12 @@ class PropertiesExport implements FromCollection, WithHeadings
     public function collection()
     {
         return Property::query()
-            ->select('id', 'name', 'country', 'address', 'description')
+            ->select('id', 'name', 'country', 'address')
             ->get();
     }
 
     public function headings(): array
     {
-        return ['id', 'name', 'country', 'address', 'description'];
+        return ['id', 'name', 'country', 'address'];
     }
 }

@@ -21,14 +21,12 @@ class PropertyImport implements ToModel, WithHeadingRow
                 'name' =>  $row['name'],
                 'country' =>  $row['country'],
                 'address' => $row['address'],
-                'description' => $row['description'],
             ]);
         } else {
             $property = new Property([
                 'name' => $row['name'],
                 'country' => $row['country'],
                 'address' => $row['address'],
-                'description' => $row['description'],
             ]);
         }
         return $property;

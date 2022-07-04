@@ -29,7 +29,7 @@ class StockholdersRoundExport implements FromCollection, WithHeadings
                 'priorities.priority as priority',
                 'users.name as name',
                 'users.email as email',
-                'priorities.available_weeks as available_weeks',
+                'priorities.available_properties as available_properties',
             )
             ->where('rounds.id', $this->roundId)
             ->orderBy('priorities.priority')
@@ -38,6 +38,6 @@ class StockholdersRoundExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['priority', 'name', 'email', 'available_weeks'];
+        return ['priority', 'name', 'email', 'available_properties'];
     }
 }

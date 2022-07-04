@@ -25,8 +25,8 @@ class RoundStartSeeder extends Seeder
 
         Round::factory(1)->create([
             'name' => 'Round current',
-            'end_wishes_date' => '2022-07-01',
-            'start_round_date' => '2022-07-10',
+            'end_wishes_date' => '2022-07-20',
+            'start_round_date' => '2022-07-30',
             'end_round_date' => '2022-11-01',
         ]);
 

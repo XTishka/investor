@@ -33,7 +33,7 @@ class StockholdersImport implements ToModel, WithHeadingRow
             'priority' => 'integer',
             'name' => 'required',
             'email' => 'required|email',
-            'available_weeks' => 'required|integer',
+            'available_properties' => 'required|integer',
         ])->validate();
 
         $stockholder = User::where('email', $row['email'])->first();
@@ -66,14 +66,14 @@ class StockholdersImport implements ToModel, WithHeadingRow
                 'user_id' => $stockholder->id,
                 'round_id' => $this->roundId,
                 'priority' => $row['priority'],
-                'available_weeks' => $row['available_weeks'],
+                'available_properties' => $row['available_properties'],
             ]);
         } else {
             $priority = new Priority([
                 'user_id' => $stockholder->id,
                 'round_id' => $this->roundId,
                 'priority' => $row['priority'],
-                'available_weeks' => $row['available_weeks'],
+                'available_properties' => $row['available_properties'],
             ]);
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Wish as ModelsWish;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +12,7 @@ class Wish extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'week_id', 'property_id', 'status'];
+    protected $fillable = ['user_id', 'week_id', 'property_id', 'status', 'priority'];
 
     public function user()
     {

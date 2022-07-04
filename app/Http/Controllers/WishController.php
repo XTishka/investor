@@ -38,11 +38,14 @@ class WishController extends Controller
         $validatedRequest = $request->validated();
         $validatedRequest['user_id'] = auth()->user()->id;
 
+        $wishesQty = $wishes->usedRoundWishes($this->activeRound()->id)->count();
+
         $wish = Wish::firstOrCreate(
             [
                 'user_id' => $validatedRequest['user_id'],
                 'week_id' => $validatedRequest['week_id'],
                 'property_id' => $validatedRequest['property_id'],
+                'priority' => $wishesQty + 1,
             ]
         );
 
@@ -59,6 +62,7 @@ class WishController extends Controller
 
     public function delete($id)
     {
+        // TODO:: Add updating of priorities after delete
         $wish = Wish::find($id);
         $wish->delete();
         return back();

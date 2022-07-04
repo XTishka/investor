@@ -42,12 +42,10 @@
                                     @if (is_null(
                                         $not_available->where('week_id', $week->id)->where('property_id', $this->selectedProperty)->first(),
                                     ))
-                                        @if (is_null($used_weeks->where('week_id', $week->id)->where('user_id', $userId)->where('property_id', $selectedProperty)->first()))
-                                            <option value="{{ $week->id }}">
-                                                <strong>#{{ $week->number }}</strong>
-                                                <small>( {{ $week->start_date }} - {{ $week->end_date }} )</small>
-                                            </option>
-                                        @endif
+                                        <option value="{{ $week->id }}">
+                                            <strong>#{{ $week->number }}</strong>
+                                            <small>( {{ $week->start_date }} - {{ $week->end_date }} )</small>
+                                        </option>
                                     @endif
                                 @endforeach
                             </select>

@@ -65,6 +65,7 @@ return [
     'Failed' => 'fejlet',
     'created_at' => 'Oprette d.',
     'updated_at' => 'Opdateret d.',
+    'available_properties' => 'Antal ledige ejendomme',
     
     // PAGE TITLES
     'new_stockholder' => 'Opret/importer nye aktionærer',

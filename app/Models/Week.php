@@ -23,6 +23,10 @@ class Week extends Model
         return $this->belongsTo(Round::class);
     }
 
+    public function wishes() {
+        return $this->hasMany(Wish::class);
+    }
+
     public function availibility($week_id, $property_id)
     {
         $qty = PropertyAvailability::where('week_id', $week_id)->where('property_id', $property_id)->count();

@@ -30,7 +30,7 @@ class WishController extends Controller
         $maxRoundWishes = $round->find($this->activeRound()->id)->value('max_wishes');
         $availableWishes = $maxRoundWishes - $usedWishes->count();
 
-        return view('wisher', compact('userId', 'roundId', 'countries', 'usedWishes', 'availableWishes'));
+        return view('wisher', compact('userId', 'roundId', 'countries', 'availableWishes'));
     }
 
     public function store(WishRequest $request, Wish $wishes)

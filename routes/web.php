@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
     
     Route::group(['middleware' => 'is_admin'], function () {
+
+        Route::view('/admin', 'admin.layout');
         
         Route::prefix('admin')->group(function () {
 

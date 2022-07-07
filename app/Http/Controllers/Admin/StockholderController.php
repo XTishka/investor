@@ -142,14 +142,18 @@ class StockholderController extends Controller
 
     public function destroy(User $stockholder): RedirectResponse
     {
-        $priority = Priority::where('user_id', $stockholder->id)->where('round_id', $this->roundId)->first();
+        Priority::where('user_id', $stockholder->id)->where('round_id', $this->roundId)->delete();
+        Wish::query()
+            ->join('weeks', 'wishes.week_id', '=', 'weeks.id')
+            ->where('user_id', $stockholder->id)
+            ->where('weeks.round_id', $this->roundId)
+            ->delete();
 
         // TODO:: Update priorities status after deleting
         // Priority::query()
         //     ->where('round_id', $this->roundId)
         //     ->where('priority', '>', $priority->priority)
         //     ->update(['priority', \DB::raw('position - 1')]);
-        $priority->delete();
 
         return redirect()->route('admin.stockholders');
     }

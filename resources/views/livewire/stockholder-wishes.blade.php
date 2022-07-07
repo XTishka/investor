@@ -29,8 +29,8 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <strong>#{{ $wish->week->number }}</strong><br>
                     <span class="text-xs">
-                        {{ date('j F, Y', strtotime($wish->week_start_date)) }} -
-                        {{ date('j F, Y', strtotime($wish->week_end_date)) }}
+                        {{ date('j F, Y', strtotime($wish->week->start_date)) }} -
+                        {{ date('j F, Y', strtotime($wish->week->end_date)) }}
                     </span>
                 </td>
 

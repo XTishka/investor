@@ -1,4 +1,4 @@
-@extends('layouts.admin.forms', ['title' => __('Edit wish')])
+@extends('layouts.admin.forms', ['title' => __('admin.wish')])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>{{ __('admin.page_title_edit_wish') }}</h1>
+                        <h1>{{ __('admin.wish') }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right text-capitalize">
@@ -18,7 +18,7 @@
                                     {{ __('admin.dashboard') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Wish #{{ __('admin.breadcrumbs_edit_wish') }}</li>
+                            <li class="breadcrumb-item active">Wish #{{ $wish->id }}</li>
                         </ol>
                     </div>
                 </div>
@@ -105,18 +105,8 @@
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary" form="wish-edit">
-                                {{ __('admin.button_save_round') }}
+                                {{ __('admin.save') }}
                             </button>
-
-                            <form action="#" method="POST"
-                                  class="float-right">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger" type="submit"
-                                        onclick="return confirm('{{ __('Are you sure?') }}')">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
                         </div>
 
                     </div>

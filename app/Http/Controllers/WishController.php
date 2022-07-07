@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\WishRequest;
 use App\Http\Traits\ActiveRoundTrait;
 use App\Models\Priority;
+use Debugbar;
 use Illuminate\Http\JsonResponse;
 
 class WishController extends Controller
@@ -20,10 +21,12 @@ class WishController extends Controller
 
     public function index(Round $round, Wish $wishes)
     {
-        if (auth()->user()->is_admin) return redirect()->route('admin.dashboard');
-
         $userId = auth()->user()->id;
         $roundId = $this->activeRound()->id;
+
+        if (auth()->user()->is_admin) return redirect()->route('admin.dashboard');
+        Debugbar::info(Priority::where('user_id', $userId)->where('round_id', $roundId)->exists());
+        if (Priority::where('user_id', $userId)->where('round_id', $roundId)->exists() == false) return redirect()->route('no_rounds');
 
         $countries = Property::select('country')->distinct()->orderBy('country')->get();
         $usedWishes = $wishes->usedRoundWishes($this->activeRound()->id)->sortBy('week_number');
@@ -69,7 +72,7 @@ class WishController extends Controller
     }
 
     public function noRounds() {
-        if ($this->activeRound()) return redirect()->route('wisher');
+        // if ($this->activeRound()) return redirect()->route('wishes');
         return view('noRounds');
     }
 }

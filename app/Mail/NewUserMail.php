@@ -34,6 +34,6 @@ class NewUserMail extends Mailable
             'userName' => $this->mailData->user_name,
             'userPassword' => $this->mailData->user_password,
             'sender' => $this->mailData->sender,
-        ]);
+        ])->subject(__('mail_new_user.mail_subject'));
     }
 }

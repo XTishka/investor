@@ -1,5 +1,6 @@
 <?php
 return [
+    'mail_subject' => 'New user mail title',
     'greeting' => 'Dear stockholder, ',
     'message_body' => 'Here is your login information for our prioritization system, where you can enter up to 20 wishes in the upcoming prioritization round.<br>
     You have received information about the homes in a separate email, and can also see our homes on the website.

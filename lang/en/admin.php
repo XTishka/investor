@@ -66,6 +66,7 @@ return [
     'created_at' => 'Created at',
     'updated_at' => 'Updated_at',
     'available_properties' => 'Available properties qty',
+    'available_wishes' => 'Available wishes',
     
     // PAGE TITLES
     'new_stockholder' => 'Create/Import new stockholders',
@@ -103,6 +104,7 @@ return [
     'enter_wishes_end_date' => 'Enter wishes end date',
     'enter_max_wishes_for_round' => 'Enter max wishes for this round',
     'enter_properties_limit' => 'Enter properties limit',
+    'enter_wishes_limit' => 'Enter wishes limit',
 
 
     // BUTTONS

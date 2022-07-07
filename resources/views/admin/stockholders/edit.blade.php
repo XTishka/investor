@@ -60,8 +60,8 @@
                                 @endphp
 
                                 <x-elements.form-number-field id="{{ 'round_' .$round->id }}" name="{{ 'round_' . $round->id }}"
-                                    label="{{ $round->name }}" placeholder="admin.enter_properties_limit"
-                                    value="{{ $priorities->where('round_id', $round->id)->value('available_properties') }}"
+                                    label="{{ $round->name }}" placeholder="admin.enter_wishes_limit"
+                                    value="{{ $priorities->where('round_id', $round->id)->value('available_wishes') }}"
                                     min="1" max="{{ $round->max_wishes }}" :disabled="$disabled" />
                             @endforeach
                         </form>

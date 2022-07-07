@@ -75,7 +75,7 @@ class StockholderController extends Controller
             Priority::create([
                 'user_id' => $stockholder->id,
                 'round_id' => $request->round,
-                'available_properties' => $request->available_properties,
+                'available_wishes' => $request->available_wishes,
                 'priority' => $minPriority + 1,
             ]);
 
@@ -118,19 +118,19 @@ class StockholderController extends Controller
 
     public function updatePriorities(Request $request)
     {
-        foreach ($request->all() as $round => $properties) {
+        foreach ($request->all() as $round => $wishes) {
             if (Str::contains($round, 'round_') == true) {
                 $stockholderId = $request->stockholder_id;
                 $roundId = Str::remove('round_', $round);
                 $priority = Priority::where('user_id', $stockholderId)->where('round_id', $roundId)->first();
                 if ($priority) {
-                    $priority->update(['available_properties' => $properties]);
+                    $priority->update(['available_wishes' => $wishes]);
                 } else {
                     $minPriority = Priority::where('round_id', $roundId)->max('priority');
                     Priority::create([
                         'user_id' => $stockholderId,
                         'round_id' => $roundId,
-                        'available_properties' => $properties,
+                        'available_wishes' => $wishes,
                         'priority' => $minPriority + 1,
                     ]);
                 }

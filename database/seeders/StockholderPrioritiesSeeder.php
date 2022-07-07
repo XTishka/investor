@@ -19,7 +19,7 @@ class StockholderPrioritiesSeeder extends Seeder
             'user_id' => 3,
             'round_id' => 1,
             'priority' => 1,
-            'available_weeks' => 3
+            'available_wishes' => 3
         ]);
     }
 }

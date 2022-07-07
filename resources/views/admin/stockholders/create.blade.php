@@ -33,9 +33,9 @@
                             <x-elements.form-select-field id="round" name="round" label="admin.add_to_round"
                                 :rounds="$rounds" />
 
-                            <x-elements.form-number-field id="available_properties" name="available_properties"
-                                label="admin.available_properties" placeholder="admin.enter_properties_limit"
-                                value="{{ old('available_properties') }}" min="1" max="{{ $propertyQty }}" />
+                            <x-elements.form-number-field id="available_wishes" name="available_wishes"
+                                label="admin.available_wishes" placeholder="admin.enter_wishes_limit"
+                                value="{{ old('available_wishes') }}" min="1" max="{{ $propertyQty }}" />
                         </form>
 
                     </x-elements.form-card>

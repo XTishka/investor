@@ -6,6 +6,7 @@ use App\Models\Priority;
 use App\Models\Round;
 use App\Models\Week;
 use App\Models\Wish;
+use Debugbar;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Support\Facades\Request;
 
@@ -14,6 +15,66 @@ class AutomaticDistributionAction
     use AsAction;
 
     public function handle(Round $round)
+    {
+        $this->resetWishesToFailed($round);
+
+        $stockholders = Priority::where('round_id', $round->id)->orderBy('priority')->get();
+        foreach ($stockholders as $stockholder) {
+            $wishes = Wish::query()
+                ->select([
+                    'wishes.id as id',
+                    'wishes.user_id as user_id',
+                    'wishes.priority as priority',
+                    'wishes.week_id as week_id',
+                    'wishes.property_id as property_id',
+                    'wishes.status as status',
+                    'weeks.id as week_id',
+                ])
+                ->join('weeks', 'wishes.week_id', '=', 'weeks.id')
+                ->where('user_id', $stockholder->user_id)
+                ->where('weeks.round_id', $round->id)
+                ->orderBy('wishes.priority')
+                ->get();
+
+            $wishesCounter = 0;
+            foreach ($wishes as $wish) {
+                if ($wishesCounter < $stockholder->available_wishes) {
+                    $saveWish = $this->saveConfirmed($wish);
+                    if ($saveWish == true) $wishesCounter++;
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Save Wish
+     *
+     * @param  mixed $wish
+     * @return void
+     */
+    private function saveConfirmed($wish)
+    {
+        $save = false;
+        $notFree = Wish::query()
+            ->where('week_id', $wish->week_id)
+            ->where('property_id', $wish->property_id)
+            ->where('status', 'Confirmed')
+            ->exists();
+        if ($notFree == false) {
+            $wish->status = 'Confirmed';
+            $wish->save();
+            $save = true;
+        }
+        return $save;
+    }
+
+    /**
+     * Set Failes status for all wishes
+     *
+     * @return void
+     */
+    private function resetWishesToFailed($round)
     {
         $wishesReset = Wish::query()
             ->select([
@@ -27,52 +88,5 @@ class AutomaticDistributionAction
             $wish->status = 'Failed';
             $wish->save();
         }
-
-        $highestPrioritiesWishes = Wish::query()
-            ->select([
-                'wishes.id as id',
-                'wishes.status as status',
-                'wishes.property_id as property_id',
-                'weeks.round_id as round_id',
-                'weeks.id as week_id',
-                'users.id as stockholder_id',
-                'priorities.priority as priority',
-            ])
-            ->join('weeks', 'wishes.week_id', '=', 'weeks.id')
-            ->join('priorities', function ($join) {
-                $join->on('wishes.user_id', '=', 'priorities.user_id');
-                $join->on('weeks.round_id', '=', 'priorities.round_id');
-            })
-            ->join('users', 'wishes.user_id', '=', 'users.id')
-            ->where('weeks.round_id', $round->id)
-            ->orderBy('weeks.id')
-            ->orderBy('wishes.property_id')
-            ->orderBy('priorities.priority')
-            ->get();
-
-        $week = null;
-        $property = null;
-        $stockholder = null;
-        foreach ($highestPrioritiesWishes as $wish) {
-            if ($wish->week_id != $week) {
-                $wish->status = 'Confirmed';
-                $wish->save();
-            } else {
-                if ($stockholder == $wish->stockholder_id) {
-                    $wish->status = 'Confirmed';
-                    $wish->save();
-                } else {
-                    if ($property != $wish->property_id) {
-                        $wish->status = 'Confirmed';
-                        $wish->save();
-                    }
-                }
-            }
-            $week = $wish->week_id;
-            $property = $wish->property_id;
-            $stockholder = $wish->stockholder_id;
-        }
-
-        return $highestPrioritiesWishes;
     }
 }

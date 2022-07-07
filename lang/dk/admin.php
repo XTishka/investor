@@ -66,6 +66,7 @@ return [
     'created_at' => 'Oprette d.',
     'updated_at' => 'Opdateret d.',
     'available_properties' => 'Antal ledige ejendomme',
+    'available_wishes' => 'Antal ønsker',
     
     // PAGE TITLES
     'new_stockholder' => 'Opret/importer nye aktionærer',
@@ -102,6 +103,7 @@ return [
     'enter_round_name' => 'Indtast rundens navn',
     'enter_wishes_end_date' => 'Indtast ønsker og dato',
     'enter_max_wishes_for_round' => 'Indtast maks. antal ønsker for denne runde',
+    'enter_wishes_limit' => 'Indtast antal ønsker for denne runde',
 
     // BUTTONS
     'automatic_distribution' => 'Automatisk distribuering',

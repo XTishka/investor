@@ -77,8 +77,7 @@ class User extends Authenticatable
                 'priorities.id as priority_id',
                 'priorities.round_id as round_id',
                 'priorities.priority as priority',
-                'priorities.available_weeks as available_weeks',
-                'priorities.available_properties as available_properties',
+                'priorities.available_wishes as available_wishes',
                 'rounds.name as round'
             )
             ->where('users.is_admin', 0)
@@ -102,8 +101,7 @@ class User extends Authenticatable
                 'priorities.id as priority_id',
                 'priorities.round_id as round_id',
                 'priorities.priority as priority',
-                'priorities.available_weeks as available_weeks',
-                'priorities.available_properties as available_properties',
+                'priorities.available_wishes as available_wishes',
                 'rounds.name as round'
             )
             ->where('users.is_admin', 0)
@@ -129,8 +127,7 @@ class User extends Authenticatable
                 'users.status as status',
                 'priorities.round_id as round_id',
                 'priorities.priority as priority',
-                'priorities.available_weeks as available_weeks',
-                'priorities.available_properties as available_properties',
+                'priorities.available_wishes as available_wishes',
                 'rounds.name as round'
             )
             ->where('users.id', $stockholder_id)

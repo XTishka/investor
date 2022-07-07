@@ -9,7 +9,7 @@ class Priority extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'round_id', 'priority', 'available_weeks', 'available_properties'];
+    protected $fillable = ['user_id', 'round_id', 'priority', 'available_wishes'];
 
     public function user()
     {

@@ -21,7 +21,7 @@
                 <tr>
                     <th>{{ __('admin.stockholder') }}</th>
                     <th>{{ __('admin.email') }}</th>
-                    <th class="text-center">{{ __('admin.available_properties') }}</th>
+                    <th class="text-center">{{ __('admin.available_wishes') }}</th>
                 </tr>
             </thead>
             <tbody id="stockholders-index">
@@ -35,7 +35,7 @@
                         </td>
 
                         <td class="text-center">
-                            {{ $stockholder->available_properties }}
+                            {{ $stockholder->available_wishes }}
                         </td>
 
                         <td>

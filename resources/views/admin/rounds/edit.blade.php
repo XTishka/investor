@@ -1,4 +1,4 @@
-@extends('layouts.admin.forms', ['title' => __('Edit round')])
+@extends('layouts.admin.forms', ['title' => __('admin.edit') . ' ' . __('admin.round')])
 
 @section('content')
     <div class="content-wrapper">

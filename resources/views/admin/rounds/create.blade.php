@@ -1,4 +1,4 @@
-@extends('layouts.admin.forms', ['title' => __('New round')])
+@extends('layouts.admin.forms', ['title' => __('admin.create') . ' ' . __('admin.round')])
 
 @section('content')
 

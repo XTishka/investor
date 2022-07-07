@@ -1,4 +1,4 @@
-@extends('layouts.admin.forms', ['title' => __('Stockholder details')])
+@extends('layouts.admin.forms', ['title' => __('admin.stockholder')])
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->

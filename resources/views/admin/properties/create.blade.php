@@ -1,4 +1,4 @@
-@extends('layouts.admin.forms', ['title' => __('New property')])
+@extends('layouts.admin.forms', ['title' => __('admin.create') . ' ' . __('admin.property')])
 
 @section('content')
     <div class="content-wrapper">

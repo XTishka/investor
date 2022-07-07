@@ -18,7 +18,7 @@
                                     {{ __('admin.dashboard') }}
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active">Wish #{{ $wish->id }}</li>
+                            <li class="breadcrumb-item active">{{ __('admin.wish') }} #{{ $wish->id }}</li>
                         </ol>
                     </div>
                 </div>
@@ -35,11 +35,11 @@
                         <div class="card-header d-flex justify-content-between">
                             <h3 class="card-title mr-auto pt-1">
                                 <i class="fas fa-star-half-alt mr-2"></i>
-                                <span>Week: {{ $wish->week->number }}</span>
+                                <span>{{ __('admin.week') }}: {{ $wish->week->number }}</span>
                             </h3>
                             <a href="{{ route('admin.dashboard') }}">
                                 <i class="fas fa-chevron-left"></i>
-                                Back
+                                {{ __('admin.back') }}
                             </a>
                         </div>
 
@@ -94,9 +94,9 @@
                                             <span class="input-group-text"><i class="nav-icon fas fa-calendar-check"></i></span>
                                         </div>
                                         <select class="form-control" name="status" id="status">
-                                            <option value="Not confirmed" {{ $wish->status == 'Not confirmed' ? 'selected' : '' }}>{{ __('Not confirmed') }}</option>
-                                            <option value="Confirmed" {{ $wish->status == 'Confirmed' ? 'selected' : '' }}>{{ __('Confirmed') }}</option>
-                                            <option value="Failed" {{ $wish->status == 'Failed' ? 'selected' : '' }}>{{ __('Failed') }}</option>
+                                            <option value="Not confirmed" {{ $wish->status == 'Not confirmed' ? 'selected' : '' }}>{{ __('admin.not_confirmed') }}</option>
+                                            <option value="Confirmed" {{ $wish->status == 'Confirmed' ? 'selected' : '' }}>{{ __('admin.confirmed') }}</option>
+                                            <option value="Failed" {{ $wish->status == 'Failed' ? 'selected' : '' }}>{{ __('admin.failed') }}</option>
                                         </select>
                                     </div>
                                 </form>

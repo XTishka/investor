@@ -13,9 +13,7 @@
     <div class="flex">
         <aside class="w-72 border-r border-zinc-700 h-screen bg-zinc-700 text-zinc-300 shadow-xl shadow-zinc-600">
             <section>
-                <a href="#" class="block text-center text-xl py-3 hover:text-white border-b border-zinc-500">
-                    <span><strong>Investering</strong> & Feriebolig</span>
-                </a>
+                <x-admin.sidebar.app-title/>
 
                 <div class="flex items-center justify-between text-center px-3 py-3 hover:text-white border-b border-zinc-500">
                     <img src=" {{ asset('dist/img/user-avatar-160x160.jpg') }}" class="w-8 rounded-full drop-shadow-2xl shadow-zinc-800"

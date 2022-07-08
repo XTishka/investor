@@ -1,4 +1,12 @@
-@extends('layouts.admin.admin', ['title' => __('admin.dashboard')])
+@extends('layouts.admin.admin', [
+    'title' => __('admin.dashboard'),
+    'page_title' => __('admin.dashboard'),
+    'breadcrumbs' => [
+        'Item 1' => route('admin.dashboard'),
+        'Item 2' => route('admin.dashboard'),
+        'Item 3' => '#',
+    ]
+    ])
 
 @section('content')
     <div class="mx-auto py-10 sm:px-6 lg:px-10">

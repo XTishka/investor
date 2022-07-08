@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <title>@isset($title){{ $title }} @endisset | {{ config('app.name', 'Investering') }}</title>
 
     @livewireStyles
 </head>
@@ -13,8 +14,11 @@
     <div class="flex">
         <aside class="w-72 border-r border-zinc-700 h-screen bg-zinc-700 text-zinc-300 shadow-xl shadow-zinc-600">
             <section>
+
+                {{-- Page title --}}
                 <x-admin.sidebar.app-title/>
 
+                {{-- User info --}}
                 <x-admin.sidebar.user/>
 
                 <ul class="p-2">
@@ -68,28 +72,14 @@
         </aside>
 
         <main class="w-full">
-            <header class="flex justify-between items-center px-4 border-b border-zinc-400 bg-zinc-300">
-                <h1 class="text-xl py-3 text-zinc-500 font-semibold">
-                    Dashboard
-                </h1>
+            {{-- Page header --}}
+            <x-admin.page.header :pageTitle="$page_title" :breadcrumbs="$breadcrumbs"/>
 
-                <ul class="flex items-center text-zinc-500 px-4 ">
-                    <li>Dashboard</li>
-                    <li class="px-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </li>
-                    <li>Stockholders</li>
-                </ul>
-            </header>
+            {{-- Content --}}
             @yield('content')
         </main>
 
     </div>
-
-
 
     @livewireScripts
 

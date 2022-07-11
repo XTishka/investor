@@ -36,9 +36,9 @@ class DashboardController extends Controller
         $rounds = Round::all();
         $roundId = ($request->round_id) ? $request->round_id : $this->activeRound()->id;
         $round = $rounds->where('id', $roundId)->first();
-        $weeks = Week::where('round_id', $roundId)->get();
-        $weeksCount = Week::where('round_id', $roundId)->count();
-        $priorities = Priority::where('round_id', $roundId)->get();
+        $weeks = Week::whereRoundId($roundId)->get();
+        $weeksCount = Week::whereRoundId($roundId)->count();
+        $priorities = Priority::whereRoundId($roundId)->get();
 
         return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
     }

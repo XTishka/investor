@@ -93,7 +93,7 @@
 
                                                                 <a href="{{ route('admin.wishes.edit', $wish->id) }}"
                                                                     class="badge badge-{{ $wishStatus }} w-100">
-                                                                    {{ $wish->property->name }}
+                                                                    {!! $wish->property->name !!}
                                                                 </a>
                                                             @endforeach
                                                         </td>

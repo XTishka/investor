@@ -26,7 +26,7 @@ class Wish extends Model
 
     public function property()
     {
-        return $this->belongsTo(Property::class);
+        return $this->belongsTo(Property::class)->withTrashed();
     }
 
     public function usedRoundWishes($round_id): \Illuminate\Support\Collection

@@ -55,8 +55,8 @@
                             <x-elements.form-file-field id="file" name="file" label="{{ __('admin.csv_file') }}"
                                 placeholder="{{ __('admin.choose_file') }}" value="{{ old('name') }}" />
 
-                            <x-elements.form-checkbox-field id="send_password" name="send_password"
-                                label="{{ __('admin.send_passwords_to_new_stockholders') }}" />
+                            <x-elements.form-checkbox-field id="send_emails" name="send_emails"
+                                label="{{ __('admin.send_emails_to_new_stockholders') }}" />
                         </form>
 
                     </x-elements.form-card>

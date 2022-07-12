@@ -40,6 +40,7 @@ return [
     'csv_file' => 'CSV-fil',
     'send_password_to_stockholder' => 'Send kodeord til aktionær',
     'send_passwords_to_new_stockholders' => 'Send kodeord til aktionærer',
+    'send_emails_to_new_stockholders' => 'Send e-mail til nye aktionærer',
     'send_password_to_user' => 'Send kodeord til bruger',
     'are_you_sure' => 'Er du sikker?',
     'week_number' => 'Uge nummer',

@@ -173,7 +173,7 @@ class StockholderController extends Controller
     public function import(ImportStockholdersRequest $request)
     {
         Priority::where('round_id', $request->round)->delete();
-        Excel::import(new StockholdersImport($request->round), $request->file('file')->store('temp'));
+        Excel::import(new StockholdersImport($request->round, $request->send_emails), $request->file('file')->store('temp'));
         return redirect()->route('admin.stockholders');
     }
 

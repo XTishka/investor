@@ -40,6 +40,7 @@ return [
     'csv_file' => 'CSV file',
     'send_password_to_stockholder' => 'Send password to stockholder',
     'send_passwords_to_new_stockholders' => 'Send passwords to new stockholders',
+    'send_emails_to_new_stockholders' => 'Send email to new stockholders',
     'send_password_to_user' => 'Send password to user',
     'are_you_sure' => 'Are you sure?',
     'week_number' => 'Week number',

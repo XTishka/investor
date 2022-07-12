@@ -15,10 +15,12 @@ use Debugbar;
 class StockholdersImport implements ToModel, WithHeadingRow
 {
     protected $roundId;
+    protected $sendEmail;
 
-    public function __construct($roundId)
+    public function __construct($roundId, $sendEmail)
     {
         $this->roundId = $roundId;
+        $this->sendEmail = $sendEmail;
     }
 
 
@@ -47,9 +49,12 @@ class StockholdersImport implements ToModel, WithHeadingRow
                 'is_admin' => 0
             ]);
 
-            $mail = new MailController();
-            $stockholder->password = $password;
-            $mail->newUser($stockholder);
+            if ($this->email == 'on') {
+                $mail = new MailController();
+                $stockholder->password = $password;
+                $mail->newUser($stockholder);
+            }
+            
         } else {
             $stockholder->update([
                 'name' => $row['name'],

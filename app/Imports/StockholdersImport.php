@@ -49,7 +49,7 @@ class StockholdersImport implements ToModel, WithHeadingRow
                 'is_admin' => 0
             ]);
 
-            if ($this->email == 'on') {
+            if ($this->sendEmail == 'on') {
                 $mail = new MailController();
                 $stockholder->password = $password;
                 $mail->newUser($stockholder);

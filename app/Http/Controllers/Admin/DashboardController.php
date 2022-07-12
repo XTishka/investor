@@ -18,7 +18,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
-
     use ActiveRoundTrait;
 
     public function __construct()
@@ -38,7 +37,7 @@ class DashboardController extends Controller
         $round = $rounds->where('id', $roundId)->first();
         $weeks = Week::whereRoundId($roundId)->get();
         $weeksCount = Week::whereRoundId($roundId)->count();
-        $priorities = Priority::whereRoundId($roundId)->get();
+        $priorities = Priority::whereRoundId($roundId)->paginate();
 
         return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
     }

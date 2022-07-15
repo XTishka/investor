@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Actions\GenerateRoundWeeksAction;
+use App\Actions\SetWeekNumberAndDates;
 
 class RoundController extends Controller
 {
@@ -56,7 +57,7 @@ class RoundController extends Controller
      * @param Round $round
      * @return Application|Factory|View
      */
-    public function show(Round $round): View|Factory|Application
+    public function show(Round $round, SetWeekNumberAndDates $weeksUpdate): View|Factory|Application
     {
         $weeks = Week::where('round_id', $round->id)->get()->sortBy('start_date');
         return view('admin.rounds.show', [

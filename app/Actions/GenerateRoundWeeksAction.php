@@ -28,11 +28,11 @@ class GenerateRoundWeeksAction
                 'round_id' => $round_id,
                 'year' => $date->year,
                 'number' => $date->weekOfYear,
-                'start_date' => $date->startOfWeek()->format('Y-m-d'),
-                'end_date' => $date->endOfWeek()->format('Y-m-d'),
+                'start_date' => $date->format('Y-m-d'),
+                'end_date' => $date->addWeek()->addDay()->format('Y-m-d'),
             ]);
 
-            $date = $date->addWeek();
+            // $date = $date->addWeek()->addDay();
         }
 
         // Remove after round end date weeks

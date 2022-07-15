@@ -30,34 +30,6 @@ class AutomaticDistributionAction
 class GenerateRoundWeeksAction
 {
 }
-/**
- * @method static \Lorisleiva\Actions\Decorators\JobDecorator|\Lorisleiva\Actions\Decorators\UniqueJobDecorator makeJob(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static \Lorisleiva\Actions\Decorators\UniqueJobDecorator makeUniqueJob(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static \Illuminate\Foundation\Bus\PendingDispatch dispatch(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static \Illuminate\Foundation\Bus\PendingDispatch|\Illuminate\Support\Fluent dispatchIf(bool $boolean, \Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static \Illuminate\Foundation\Bus\PendingDispatch|\Illuminate\Support\Fluent dispatchUnless(bool $boolean, \Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static dispatchSync(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static dispatchNow(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static dispatchAfterResponse(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static mixed run(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- */
-class StockholderPriorityDownAction
-{
-}
-/**
- * @method static \Lorisleiva\Actions\Decorators\JobDecorator|\Lorisleiva\Actions\Decorators\UniqueJobDecorator makeJob(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static \Lorisleiva\Actions\Decorators\UniqueJobDecorator makeUniqueJob(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static \Illuminate\Foundation\Bus\PendingDispatch dispatch(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static \Illuminate\Foundation\Bus\PendingDispatch|\Illuminate\Support\Fluent dispatchIf(bool $boolean, \Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static \Illuminate\Foundation\Bus\PendingDispatch|\Illuminate\Support\Fluent dispatchUnless(bool $boolean, \Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static dispatchSync(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static dispatchNow(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static dispatchAfterResponse(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- * @method static mixed run(\Illuminate\Http\Request $request, \App\Models\User $users, \App\Models\Priority $priorities)
- */
-class StockholderPriorityUpAction
-{
-}
 namespace Lorisleiva\Actions\Concerns;
 
 /**

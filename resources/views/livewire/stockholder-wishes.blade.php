@@ -43,8 +43,7 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <form class="inline-block"
                         action="{{ route('wish.delete', $wish->id) }}"
-                        method="POST"
-                        onsubmit="return confirm('{{ __('admin.are_you_sure') }}?');">
+                        method="POST" >
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="_method" value="DELETE">

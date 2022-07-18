@@ -38,8 +38,9 @@ class DashboardController extends Controller
         $weeks = Week::whereRoundId($roundId)->get();
         $weeksCount = Week::whereRoundId($roundId)->count();
         $priorities = Priority::whereRoundId($roundId)->paginate();
+        $wishesAll = $wishes->dashboardWishes($roundId);
 
-        return view('admin.dashboard', compact('priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
+        return view('admin.dashboard_alt', compact('wishesAll', 'priorities', 'rounds', 'round', 'weeks', 'wishes', 'weeksCount'));
     }
 
     public function distribute(Round $round, AutomaticDistributionAction $action)

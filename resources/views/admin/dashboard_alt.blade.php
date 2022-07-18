@@ -71,20 +71,23 @@
                                         <td>{{ $stockholder->user_name }}</td>
                                         @endIf
 
-                                        @if ($stockholder->user_id != $currentStockholderId)
-                                            <td>
-                                        @endIf
-
                                             @foreach ($weeks as $week)
+
+                                                @if ($stockholder->user_id != $currentStockholderId)
+                                                    <td>
+                                                @endIf
 
                                                 @if($week->id == $stockholder->week_id)
                                                     {{ $stockholder->property_name }}
                                                 @endif
+
+                                                @if ($stockholder->user_id != $currentStockholderId)
+                                                    </td> 
+                                                @endIf
+
                                             @endforeach
 
-                                        @if ($stockholder->user_id != $currentStockholderId)
-                                            </td> 
-                                        @endIf
+                                       
                                     @php $currentStockholderId = $stockholder->user_id @endphp
                                     @if ($stockholder->user_id != $currentStockholderId) </tr> @endIf
                                     @endforeach

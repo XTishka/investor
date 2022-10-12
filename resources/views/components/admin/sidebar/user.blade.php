@@ -38,6 +38,35 @@
                     {{ __('Log Out') }}
                 </x-jet-dropdown-link>
             </form>
+
+            <!-- Language switcher -->
+            <div class="block px-4 py-2 text-xs text-gray-400">
+                {{ __('Select language') }}
+            </div>
+
+            <x-jet-dropdown-link href="" class="flex items-center">
+                <img src=" {{ asset('img/uk_flag_icon.png') }}"
+                    class="w-8 rounded-full drop-shadow-2xl shadow-zinc-800" alt="{{ __('English language') }}">
+                {{ __('English') }}
+            </x-jet-dropdown-link>
+
+            <x-jet-dropdown-link href="" class="flex items-center">
+                <img src=" {{ asset('img/denmark_flag_icon.png') }}"
+                    class="w-8 rounded-full drop-shadow-2xl shadow-zinc-800" alt="{{ __('Danish language') }}">
+                {{ __('Danish') }}
+            </x-jet-dropdown-link>
+
+            <x-jet-dropdown-link href="" class="flex items-center">
+                <img src=" {{ asset('img/ukraine_flag_icon.png') }}"
+                    class="w-8 rounded-full drop-shadow-2xl shadow-zinc-800" alt="{{ __('Ukraine language') }}">
+                {{ __('Ukrainian') }}
+            </x-jet-dropdown-link>
+
+            <x-jet-dropdown-link href="" class="flex items-center">
+                <img src=" {{ asset('img/russia_flag_icon.png') }}"
+                    class="w-8 rounded-full drop-shadow-2xl shadow-zinc-800" alt="{{ __('Russian language') }}">
+                {{ __('Russian') }}
+            </x-jet-dropdown-link>
         </x-slot>
     </x-jet-dropdown>
 </div>

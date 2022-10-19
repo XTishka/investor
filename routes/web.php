@@ -13,15 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/{locale?}', function ($locale = null) {
-    if (isset($locale) && in_array($locale, config('app.available_locales'))) {
-        app()->setLocale($locale);
-    }
-
+Route::get('/', function () {
     return view('welcome');
 });
 
@@ -36,10 +28,5 @@ Route::middleware([
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('admin.dashboard');
-
     });
-
-
-
-
 });

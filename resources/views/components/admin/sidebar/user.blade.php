@@ -1,8 +1,7 @@
 <div class="px-3 py-3 hover:text-white border-b border-zinc-600">
     <x-jet-dropdown align="right" width="48">
         <x-slot name="trigger">
-            <button
-                class="flex w-full text-sm border-2 border-transparent rounded-full focus:outline-none focus:outline-none transition">
+            <button class="flex w-full text-sm border-2 border-transparent rounded-full focus:outline-none transition">
                 <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
                     alt="{{ Auth::user()->name }}" />
                 <div class="w-full text-lg mx-2 hover:text-white flex items-center justify-between ml-7">
@@ -40,33 +39,23 @@
             </form>
 
             <!-- Language switcher -->
-            <div class="block px-4 py-2 text-xs text-gray-400">
-                {{ __('Select language') }}
-            </div>
+            @if (count(config('app.languages')) > 1)
+                <div class="block px-4 py-2 text-xs text-gray-400">
+                    {{ __('Select language') }}
+                </div>
 
-            <x-jet-dropdown-link href="" class="flex items-center">
-                <img src=" {{ asset('img/uk_flag_icon.png') }}"
-                    class="w-8 rounded-full drop-shadow-2xl shadow-zinc-800" alt="{{ __('English language') }}">
-                {{ __('English') }}
-            </x-jet-dropdown-link>
+                @foreach (config('app.languages') as $langLocale => $language)
+                    <x-jet-dropdown-link href="{{ url()->current() }}?change_language={{ $langLocale }}"
+                        class="flex items-center justify-between">
 
-            <x-jet-dropdown-link href="" class="flex items-center">
-                <img src=" {{ asset('img/denmark_flag_icon.png') }}"
-                    class="w-8 rounded-full drop-shadow-2xl shadow-zinc-800" alt="{{ __('Danish language') }}">
-                {{ __('Danish') }}
-            </x-jet-dropdown-link>
+                        {{ __($language['title']) }}
 
-            <x-jet-dropdown-link href="" class="flex items-center">
-                <img src=" {{ asset('img/ukraine_flag_icon.png') }}"
-                    class="w-8 rounded-full drop-shadow-2xl shadow-zinc-800" alt="{{ __('Ukraine language') }}">
-                {{ __('Ukrainian') }}
-            </x-jet-dropdown-link>
-
-            <x-jet-dropdown-link href="" class="flex items-center">
-                <img src=" {{ asset('img/russia_flag_icon.png') }}"
-                    class="w-8 rounded-full drop-shadow-2xl shadow-zinc-800" alt="{{ __('Russian language') }}">
-                {{ __('Russian') }}
-            </x-jet-dropdown-link>
+                        <img src=" {{ asset('img/' . $language['icon']) }}"
+                            class="w-6 mr-4 rounded-full drop-shadow-2xl shadow-zinc-800"
+                            alt="{{ __($language['title'] . ' language') }}">
+                    </x-jet-dropdown-link>
+                @endforeach
+            @endif
         </x-slot>
     </x-jet-dropdown>
 </div>

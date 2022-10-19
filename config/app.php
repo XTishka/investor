@@ -113,6 +113,27 @@ return [
         'Russian'   => 'ru',
     ],
 
+    'languages' => [
+        'en'   => [
+            'title' => 'English',
+            'icon'  => 'uk_flag_icon.png'
+        ],
+        'da'   => [
+            'title' => 'Danish',
+            'icon'  => 'da_flag_icon.png'
+        ],
+        'ua'   =>
+        [
+            'title' => 'Ukraine',
+            'icon'  => 'ua_flag_icon.png'
+        ],
+        'ru'   =>
+        [
+            'title' => 'Russian',
+            'icon'  => 'ru_flag_icon.png'
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Faker Locale
@@ -227,7 +248,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-    'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

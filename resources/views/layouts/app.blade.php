@@ -29,10 +29,9 @@
                 <x-admin.sidebar.user />
 
                 <ul class="p-2">
-
                     <li> {{-- Dashboard --}}
                         <x-admin.sidebar.single-link route="admin.dashboard" :text="__('admin.dashboard')">
-                            <x-admin.icons.chart-bar class="h-5 w-5"/>
+                            <x-admin.icons.chart-bar class="h-5 w-5" />
                         </x-admin.sidebar.single-link>
                     </li>
 

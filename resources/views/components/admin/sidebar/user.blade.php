@@ -6,7 +6,7 @@
                     alt="{{ Auth::user()->name }}" />
                 <div class="w-full text-lg mx-2 hover:text-white flex items-center justify-between ml-7">
                     {{ Auth::user()->name }}
-                    <x-admin.icons.chevron-right class="h-5 w-5 text-zinc-500" />
+                    <x-admin.icons.chevron-down class="h-5 w-5 text-zinc-500" />
                 </div>
             </button>
         </x-slot>

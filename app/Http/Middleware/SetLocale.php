@@ -43,18 +43,9 @@ class SetLocale
             $language = config('app.locale');
         }
 
-
         if (isset($language) && in_array($language, $languages)) {
             app()->setLocale($language);
-            debug('Set locale: ' . $language);
         }
-
-        if (App::isLocale('en')) {
-            debug('Current language: English');
-        } elseif (App::isLocale('ua')) {
-            debug('Current language: Ukraine');
-        }
-
 
         return $next($request);
     }

@@ -1,10 +1,10 @@
 @props(['pageTitle', 'breadcrumbs'])
-<header class="flex justify-between items-center px-4 border-b border-zinc-400 bg-zinc-300">
-    <h1 class="text-xl py-3 text-zinc-500 font-semibold">
+<header class="flex h-14 justify-between items-center px-4 border-b border-zinc-100 bg-zinc-300">
+    <h1 class="py-3 text-zinc-500 font-semibold">
         {{ __($pageTitle) }}
     </h1>
 
-    <ul class="flex items-center text-zinc-500 px-4 ">
+    <ul class="flex items-center text-zinc-500 px-4 text-sm">
         <li>
             <a href="{{ route('admin.dashboard') }}" class="hover:text-zinc-700">
                 {{ __('admin.dashboard') }}

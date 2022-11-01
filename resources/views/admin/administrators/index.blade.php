@@ -4,6 +4,11 @@
 
     <div class="py-12">
         <div class="w-full px-8">
+
+            <div class="mb-4 flex justify-end">
+                @livewire('users.register-administrator')
+            </div>
+
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200 w-full">
                     <thead>

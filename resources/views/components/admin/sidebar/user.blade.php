@@ -4,9 +4,9 @@
             <button class="flex w-full text-sm border-2 border-transparent rounded-full focus:outline-none transition">
                 <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
                     alt="{{ Auth::user()->name }}" />
-                <div class="w-full text-lg mx-2 hover:text-white flex items-center justify-between ml-7">
+                <div class="w-full text-lg mx-2 flex items-center justify-between ml-7">
                     {{ Auth::user()->name }}
-                    <x-admin.icons.chevron-down class="h-5 w-5 text-zinc-500" />
+                    <x-admin.icons.chevron-down class="h-4 w-4 text-zinc-500 hover:text-white transition" />
                 </div>
             </button>
         </x-slot>

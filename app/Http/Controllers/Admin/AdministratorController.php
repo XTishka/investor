@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAdministratorRequest;
+use App\Http\Requests\UpdateAdminisratorDetailsRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdministratorController extends Controller
 {
@@ -14,7 +18,8 @@ class AdministratorController extends Controller
      */
     public function index()
     {
-        return view('admin.administrators.index');
+        $administrators = User::where('is_admin', 1)->orderBy('name')->paginate(10);
+        return view('admin.administrators.index', compact('administrators'));
     }
 
     /**
@@ -24,7 +29,7 @@ class AdministratorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.administrators.create');
     }
 
     /**
@@ -33,9 +38,15 @@ class AdministratorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAdministratorRequest $request)
     {
-        //
+        User::factory()->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'is_admin' => 1
+        ]);
+        return redirect(route('admin.administrators'));
     }
 
     /**
@@ -46,7 +57,7 @@ class AdministratorController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect(route('admin.administrators.edit', $id));
     }
 
     /**
@@ -57,7 +68,8 @@ class AdministratorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $administrator = User::find($id);
+        return view('admin.administrators.edit', compact('administrator'));
     }
 
     /**
@@ -67,9 +79,14 @@ class AdministratorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAdminisratorDetailsRequest $request, $id)
     {
-        //
+        $administrator = User::find($id);
+        $administrator->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+        ]);
+        return redirect(route('admin.administrators.edit', $id));
     }
 
     /**

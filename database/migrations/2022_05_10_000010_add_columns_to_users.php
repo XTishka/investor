@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_admin')->after('remember_token')->default(false);
-            $table->text('notes')->after('is_admin')->nullable(true);
             $table->boolean('status')->default(true);
             $table->softDeletes();
         });

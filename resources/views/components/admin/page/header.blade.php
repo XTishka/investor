@@ -10,15 +10,15 @@
                 {{ __('admin.dashboard') }}
         </li>
         </a>
-        @foreach ($breadcrumbs as $text => $route)
+        @foreach ($breadcrumbs as $text => $link)
             <li class="px-1">
                 <x-admin.icons.chevron-right class="w-4 h-4" />
             </li>
             <li>
-                @if ($route === '#')
+                @if ($link === '#')
                     {{ __($text) }}
                 @else
-                    <a href="{{ $route }}" class="hover:text-zinc-700">
+                    <a href="{{ route($link) }}" class="hover:text-zinc-700">
                         {{ __($text) }}
                     </a>
                 @endif

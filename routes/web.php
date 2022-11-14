@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdministratorController;
+use App\Http\Controllers\Admin\RoundController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,14 +31,22 @@ Route::middleware([
             return view('dashboard');
         })->name('admin.dashboard');
 
+        // Rounds
+        Route::controller(RoundController::class)->group(function () {
+            Route::get('/rounds', 'index')->name('admin.rounds');
+            Route::get('/rounds/create', 'create')->name('admin.rounds.create');
+            Route::get('/rounds/edit/{id}', 'create')->name('admin.rounds.edit');
+            Route::get('/rounds/show/{id}', 'show')->name('admin.rounds.show');
+            Route::delete('/rounds/delete/{id}', 'destroy')->name('admin.rounds.delete');
+        });
+
+        // Administrators
         Route::controller(AdministratorController::class)->group(function () {
             Route::get('/administrators', 'index')->name('admin.administrators');
             Route::get('/administrators/create', 'create')->name('admin.administrators.create');
-            Route::post('/administrators/store', 'store')->name('admin.administrators.store');
             Route::get('/administrators/show/{id}', 'show')->name('admin.administrators.show');
             Route::get('/administrators/edit/{id}', 'edit')->name('admin.administrators.edit');
-            Route::put('/administrators/update/{id}', 'update')->name('admin.administrators.update');
-            Route::delete('/administrators/delete/{id}', 'edit')->name('admin.administrators.delete');
+            Route::delete('/administrators/delete/{id}', 'destroy')->name('admin.administrators.delete');
         });
     });
 });

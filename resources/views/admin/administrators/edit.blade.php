@@ -9,7 +9,8 @@
 
         <x-admin.forms.elements.section-border />
 
-        <x-admin.forms.admin-update-password :administrator="$administrator" />
+        @livewire('admin.users.admin-password-update-form', ['administrator' => $administrator])
+
     </div>
 
 </x-app-layout>

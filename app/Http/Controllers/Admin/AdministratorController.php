@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdministratorRequest;
-use App\Http\Requests\UpdateAdminisratorDetailsRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 
 class AdministratorController extends Controller
@@ -33,23 +32,6 @@ class AdministratorController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreAdministratorRequest $request)
-    {
-        User::factory()->create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'is_admin' => 1
-        ]);
-        return redirect(route('admin.administrators'));
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -73,30 +55,14 @@ class AdministratorController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAdminisratorDetailsRequest $request, $id)
-    {
-        $administrator = User::find($id);
-        $administrator->update([
-            'name' => $request['name'],
-            'email' => $request['email'],
-        ]);
-        return redirect(route('admin.administrators.edit', $id));
-    }
-
-    /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
-        //
+        $superadminEmail = 'takhir.berdyiev@gmail.com';
+        $administrator = User::query()->findOrFail($id);
+        if ($administrator->email == $superadminEmail) return redirect()->route('admin.administrators');
+        $administrator->delete();
+        return redirect()->route('admin.administrators');
     }
 }

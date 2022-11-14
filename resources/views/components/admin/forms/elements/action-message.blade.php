@@ -1,10 +1,17 @@
-@props(['on'])
+@props(['anchor'])
 
-<div x-data="{ shown: false, timeout: null }"
-    x-init="@this.on('{{ $on }}', () => { clearTimeout(timeout); shown = true; timeout = setTimeout(() => { shown = false }, 2000);  })"
-    x-show.transition.out.opacity.duration.1500ms="shown"
-    x-transition:leave.opacity.duration.1500ms
-    style="display: none;"
-    {{ $attributes->merge(['class' => 'text-sm text-gray-600']) }}>
-    {{ $slot->isEmpty() ? 'Saved.' : $slot }}
+<div>
+    <div x-data="{ message: @entangle('message') }" x-show="message" x-init="() => { setTimeout(() => message = false, 3000) }">
+        @if (session()->has($anchor))
+            <span class="text-green-700 text-sm">
+                {{ session($anchor) }}
+            </span>
+        @endif
+
+        @if (session()->has('form_save__error'))
+            <span class="text-red-700 text-sm" x-data="{ message: false }" x-show="!message" x-init="() => { setTimeout(() => message = true, 6000) }">
+                {{ session('form_save__error') }}
+            </span>
+        @endif
+    </div>
 </div>

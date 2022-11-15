@@ -15,7 +15,13 @@ class RoundController extends Controller
         return view('admin.rounds.index');
     }
 
-    public function create() {
+    public function create()
+    {
         return view('admin.rounds.create');
+    }
+
+    public function edit(Round $round)
+    {
+        return view('admin.rounds.edit', compact('round'));
     }
 }

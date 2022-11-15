@@ -13,7 +13,7 @@ class RoundRegistrationForm extends Component
     public $stop_wishes_date;
     public $start_date;
     public $end_date;
-    public $max_wishes;
+    public $max_wishes = 20;
     public $description;
 
     public function rules()

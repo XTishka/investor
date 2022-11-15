@@ -1,10 +1,10 @@
 <x-admin.forms.elements.form-section submit="storeRound">
     <x-slot name="title">
-        {{ __('Create new round') }}
+        {{ __('Edit round') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Please, fill all neccessary fields to add new round.') }}
+        {{ __('Please, fill all neccessary fields.') }}
     </x-slot>
 
     <x-slot name="form">
@@ -128,3 +128,4 @@
         });
     </script>
 @endpush
+

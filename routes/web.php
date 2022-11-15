@@ -35,9 +35,9 @@ Route::middleware([
         Route::controller(RoundController::class)->group(function () {
             Route::get('/rounds', 'index')->name('admin.rounds');
             Route::get('/rounds/create', 'create')->name('admin.rounds.create');
-            Route::get('/rounds/edit/{id}', 'create')->name('admin.rounds.edit');
-            Route::get('/rounds/show/{id}', 'show')->name('admin.rounds.show');
-            Route::delete('/rounds/delete/{id}', 'destroy')->name('admin.rounds.delete');
+            Route::get('/rounds/edit/{round}', 'edit')->name('admin.rounds.edit');
+            Route::get('/rounds/show/{round}', 'show')->name('admin.rounds.show');
+            Route::delete('/rounds/delete/{round}', 'destroy')->name('admin.rounds.delete');
         });
 
         // Administrators

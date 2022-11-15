@@ -53,7 +53,7 @@
 
     <x-slot name="actions">
         <div class="w-full flex justify-between items-center">
-            <x-admin.forms.elements.action-message anchor="success" />
+            <x-admin.forms.elements.action-message anchor="{{ $flashAnchor }}" />
 
             <x-admin.forms.elements.button wire:loading.attr="disabled">
                 {{ __('Save') }}
@@ -128,4 +128,3 @@
         });
     </script>
 @endpush
-

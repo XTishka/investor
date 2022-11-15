@@ -1,7 +1,7 @@
 @props(['anchor'])
 
 <div>
-    <div x-data="{ message: @entangle('message') }" x-show="message" x-init="() => { setTimeout(() => message = false, 3000) }">
+    <div>
         @if (session()->has($anchor))
             <span class="text-green-700 text-sm">
                 {{ session($anchor) }}

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Actions\Fortify\PasswordValidationRules;
+use Exception;
 
 class AdminRegistrationForm extends Component
 {
@@ -37,7 +38,7 @@ class AdminRegistrationForm extends Component
                 'password' => Hash::make($this->password),
                 'is_admin' => 1
             ]);
-        } catch (\Throwable $th) {
+        } catch (Exception $ex) {
             $this->message = true;
             session()->flash('form_save__error', __('Error! Data has not beed saved'));
         }

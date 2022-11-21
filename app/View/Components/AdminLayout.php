@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\admin;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class scripts extends Component
+class AdminLayout extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class scripts extends Component
      */
     public function render()
     {
-        return view('components.admin.scripts');
+        return view('layouts.admin');
     }
 }

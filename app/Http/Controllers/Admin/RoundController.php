@@ -24,4 +24,9 @@ class RoundController extends Controller
     {
         return view('admin.rounds.edit', compact('round'));
     }
+
+    public function show(Round $round)
+    {
+        return view('admin.rounds.show', compact('round'));
+    }
 }

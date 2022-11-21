@@ -5,7 +5,7 @@
     <div class="py-6">
         <div class="w-full px-8">
 
-            <div class="flex mb-4 justify-end">
+            <div class="flex mb-4 justify-end py-1">
                 <x-admin.button-link link="{{ route('admin.administrators.create') }}">
                     {{ __('Add new') }}
                 </x-admin.button-link>
@@ -65,7 +65,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-right">
-                                    <x-admin.tables.action-buttons link="admin.administrators" :id="$administrator"/>
+                                    <x-admin.tables.action-buttons link="admin.administrators" :id="$administrator" />
                                 </td>
                             </tr>
                         @endforeach

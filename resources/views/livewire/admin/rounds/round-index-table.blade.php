@@ -2,8 +2,8 @@
     <div class="w-full px-8">
 
         <div class="flex mb-4 justify-between items-center">
-            <x-admin.forms.elements.input id="search" name="search" wire:model="search" type="text"
-                class="mt-1 block" autocomplete="name" placeholder="{{ __('admin.search_by_round_name') }}" />
+            <x-admin.forms.elements.input id="search" name="search" wire:model="search" type="text" class="block"
+                autocomplete="name" placeholder="{{ __('admin.search_by_round_name') }}" />
 
             <x-admin.button-link link="{{ route('admin.rounds.create') }}">
                 {{ __('Add new') }}
@@ -49,15 +49,18 @@
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <span class="block">{{ \Carbon\Carbon::parse($round->stop_wishes_date)->format('j F, Y')  }}</span>
+                                <span
+                                    class="block">{{ \Carbon\Carbon::parse($round->stop_wishes_date)->format('j F, Y') }}</span>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <span class="block">{{ \Carbon\Carbon::parse($round->start_date)->format('j F, Y')  }}</span>
+                                <span
+                                    class="block">{{ \Carbon\Carbon::parse($round->start_date)->format('j F, Y') }}</span>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <span class="block">{{ \Carbon\Carbon::parse($round->end_date)->format('j F, Y')  }}</span>
+                                <span
+                                    class="block">{{ \Carbon\Carbon::parse($round->end_date)->format('j F, Y') }}</span>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-right">

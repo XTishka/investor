@@ -9,19 +9,10 @@
 
     <x-slot name="details">
         <ul class='list-disc ml-4'>
-            <li>
-                <strong> {{ __('Stop wishes date') }}: </strong>
-                {{ \Carbon\Carbon::parse($round->stop_wishes_date)->format('j F, Y') }}
-            </li>
-            <li>
-                <strong> {{ __('Round start date') }}: </strong>
-                {{ \Carbon\Carbon::parse($round->start_date)->format('j F, Y') }}
-            </li>
-            <li>
-                <strong> {{ __('Round end date') }}: </strong>
-                {{ \Carbon\Carbon::parse($round->end_date)->format('j F, Y') }}
-            </li>
-            <li><strong> {{ __('Total weeks') }}: </strong> xxx </li>
+            <li><strong> {{ __('Stop wishes date') }}: </strong> {{ $roundStopWishesDate }}</li>
+            <li><strong> {{ __('Round start date') }}: </strong> {{ $roundStartDate }}</li>
+            <li><strong> {{ __('Round end date') }}: </strong> {{ $roundEndDate }}</li>
+            <li><strong> {{ __('Total weeks') }}: </strong> {{ count($roundWeeks) }} </li>
         </ul>
     </x-slot>
 

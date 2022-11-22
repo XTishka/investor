@@ -30,14 +30,14 @@ class Weeks
         ) {
             $roundWeeksArray = Arr::add($roundWeeksArray, $week, [
                 'week_start' => [
-                    'number' => $week,
+                    'number' => $weekStartDate->weekOfYear,
                     'date' => $weekStartDate->format('Y-m-d'),
                     'human_date' => $weekStartDate->format('j F, Y'),
                     'status' => $weekStartDate->isPast(),
                     'day' => $weekStartDate->englishDayOfWeek,
                 ],
                 'week_end' => [
-                    'number' => $week + 1,
+                    'number' => $weekEndDate->weekOfYear,
                     'date' => $weekEndDate->format('Y-m-d'),
                     'human_date' => $weekEndDate->format('j F, Y'),
                     'status' => $weekEndDate->isFuture(),
@@ -48,8 +48,6 @@ class Weeks
             $weekStartDate->addDays(7);
             $weekEndDate->addDays(7);
         }
-
-        Debugbar::info($roundWeeksArray);
 
         return $roundWeeksArray;
     }

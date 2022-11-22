@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout page_title="Round details">
 
     <x-admin.page.header pageTitle="admin.administrators" :breadcrumbs="['admin.administrators' => 'admin.administrators']" />
 
@@ -8,4 +8,4 @@
 
     </div>
 
-</x-app-layout>
+</x-admin-layout>

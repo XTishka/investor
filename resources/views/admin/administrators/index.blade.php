@@ -1,11 +1,11 @@
-<x-app-layout>
+<x-admin-layout page_title="Administrators">
 
     <x-admin.page.header pageTitle="admin.administrators" :breadcrumbs="['admin.administrators' => '#']" />
 
     <div class="py-6">
         <div class="w-full px-8">
 
-            <div class="flex mb-4 justify-end py-1">
+            <div class="flex mb-4 justify-end py-bw1">
                 <x-admin.button-link link="{{ route('admin.administrators.create') }}">
                     {{ __('Add new') }}
                 </x-admin.button-link>
@@ -78,4 +78,4 @@
         </div>
     </div>
 
-</x-app-layout>
+</x-admin-layout>

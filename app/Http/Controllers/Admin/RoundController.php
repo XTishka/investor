@@ -29,4 +29,11 @@ class RoundController extends Controller
     {
         return view('admin.rounds.show', compact('round'));
     }
+
+    public function destroy(Round $round)
+    {
+        // TODO:Add check for dates and wishes
+        $round->delete();
+        return redirect()->route('admin.rounds');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Property;
 use App\Models\Round;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create(['is_admin' => 1]);
         Round::factory(10)->create();
+        Property::factory(10)->create();
     }
 }

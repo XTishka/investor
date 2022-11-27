@@ -5,6 +5,12 @@
          </x-admin.sidebar.single-link>
      </li>
 
+     <li> {{-- Properties --}}
+         <x-admin.sidebar.single-link route="admin.properties" :text="__('admin.properties')">
+             <x-admin.icons.house-modern class="h-5 w-5" />
+         </x-admin.sidebar.single-link>
+     </li>
+
      <li> {{-- Rounds --}}
          <x-admin.sidebar.single-link route="admin.rounds" :text="__('admin.rounds')">
              <x-admin.icons.arrow-path class="h-5 w-5" />

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdministratorController;
 use App\Http\Controllers\Admin\RoundController;
+use App\Http\Livewire\Admin\Users\IndexAdministrators;
 use Illuminate\Support\Facades\Route;
 
 /*

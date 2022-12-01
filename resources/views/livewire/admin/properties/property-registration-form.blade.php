@@ -1,10 +1,10 @@
-<x-admin.forms.elements.form-section submit="updateRound">
+<x-admin.forms.elements.form-section submit="storeProperty">
     <x-slot name="title">
-        {{ __('Edit round') }}
+        {{ __('Register new property') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Please, fill all neccessary fields.') }}
+        {{ __('Please, fill all neccessary fields to add new property.') }}
     </x-slot>
 
     <x-slot name="form">
@@ -16,31 +16,17 @@
         </div>
 
         <div class="col-span-6 sm:col-span-4">
-            <x-admin.forms.elements.label for="stop_wishes_date" value="{{ __('admin.wishes_stop_date') }}" />
-            <x-admin.forms.elements.input id="stop_wishes_date" name="stop_wishes_date"
-                wire:model.lazy='stop_wishes_date' type="text" class="mt-1 block w-full" onchange="runTest" />
-            <x-admin.forms.elements.input-error for="stop_wishes_date" class="mt-2" />
+            <x-admin.forms.elements.label for="country" value="{{ __('Country') }}" />
+            <x-admin.forms.elements.input id="country" name="country" wire:model='country' type="text"
+                class="mt-1 block w-full" autocomplete="country" />
+            <x-admin.forms.elements.input-error for="country" class="mt-2" />
         </div>
 
         <div class="col-span-6 sm:col-span-4">
-            <x-admin.forms.elements.label for="start_date" value="{{ __('Round start date') }}" />
-            <x-admin.forms.elements.input id="start_date" name="start_date" wire:model.lazy='start_date' type="text"
-                class="mt-1 block w-full" />
-            <x-admin.forms.elements.input-error for="start_date" class="mt-2" />
-        </div>
-
-        <div class="col-span-6 sm:col-span-4">
-            <x-admin.forms.elements.label for="end_date" value="{{ __('Round end date') }}" />
-            <x-admin.forms.elements.input id="end_date" name="end_date" wire:model.lazy='end_date' type="text"
-                class="mt-1 block w-full" />
-            <x-admin.forms.elements.input-error for="end_date" class="mt-2" />
-        </div>
-
-        <div class="col-span-6 sm:col-span-4">
-            <x-admin.forms.elements.label for="max_wishes" value="{{ __('Max available wishes for this round') }}" />
-            <x-admin.forms.elements.input id="max_wishes" name="max_wishes" wire:model='max_wishes' type="number"
-                class="mt-1 block w-full" />
-            <x-admin.forms.elements.input-error for="max_wishes" class="mt-2" />
+            <x-admin.forms.elements.label for="address" value="{{ __('Address') }}" />
+            <x-admin.forms.elements.input id="address" name="address" wire:model='address' type="text"
+                class="mt-1 block w-full" autocomplete="address" />
+            <x-admin.forms.elements.input-error for="address" class="mt-2" />
         </div>
 
         <div class="col-span-6 sm:col-span-4">
@@ -53,7 +39,7 @@
 
     <x-slot name="actions">
         <div class="w-full flex justify-between items-center">
-            <x-admin.forms.elements.action-message anchor="{{ $flashAnchor }}" />
+            <x-admin.forms.elements.action-message anchor="success" />
 
             <x-admin.forms.elements.button wire:loading.attr="disabled">
                 {{ __('Save') }}

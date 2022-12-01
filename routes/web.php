@@ -36,10 +36,11 @@ Route::middleware([
         Route::controller(PropertyController::class)->group(function () {
             Route::get('/properties', 'index')->name('admin.properties');
             Route::get('/properties/create', 'create')->name('admin.properties.create');
-            Route::get('/properties/edit/{round}', 'edit')->name('admin.properties.edit');
-            Route::get('/properties/show/{round}', 'show')->name('admin.properties.show');
-            Route::delete('/properties/delete/{round}', 'destroy')->name('admin.properties.delete');
+            Route::get('/properties/edit/{property}', 'edit')->name('admin.properties.edit');
+            Route::get('/properties/show/{property}', 'show')->name('admin.properties.show');
+            Route::delete('/properties/delete/{property}', 'destroy')->name('admin.properties.delete');
         });
+
         // Rounds
         Route::controller(RoundController::class)->group(function () {
             Route::get('/rounds', 'index')->name('admin.rounds');

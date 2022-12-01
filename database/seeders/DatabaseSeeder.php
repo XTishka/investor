@@ -25,8 +25,43 @@ class DatabaseSeeder extends Seeder
             'is_admin' => 1,
         ]);
 
-        User::factory(10)->create(['is_admin' => 1]);
-        Round::factory(10)->create();
+        User::factory(5)->create(['is_admin' => 1]);
+
+        Round::factory()->create([
+            'name' => 'Passed round 1',
+            'stop_wishes_date' => '2021-01-20',
+            'start_date' => '2021-02-01',
+            'end_date' => '2021-06-01',
+        ]);
+
+        Round::factory()->create([
+            'name' => 'Passed round 2',
+            'stop_wishes_date' => '2022-01-20',
+            'start_date' => '2022-02-01',
+            'end_date' => '2022-06-01',
+        ]);
+
+        Round::factory()->create([
+            'name' => 'Current round',
+            'stop_wishes_date' => '2022-07-20',
+            'start_date' => '2022-08-01',
+            'end_date' => '2022-12-30',
+        ]);
+
+        Round::factory()->create([
+            'name' => 'Future round 1',
+            'stop_wishes_date' => '2023-01-20',
+            'start_date' => '2023-02-10',
+            'end_date' => '2023-07-20',
+        ]);
+
+        Round::factory()->create([
+            'name' => 'Future round 2',
+            'stop_wishes_date' => '2024-01-20',
+            'start_date' => '2024-02-10',
+            'end_date' => '2024-07-20',
+        ]);
+
         Property::factory(10)->create();
     }
 }

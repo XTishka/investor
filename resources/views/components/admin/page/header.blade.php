@@ -4,12 +4,14 @@
         {{ __($pageTitle) }}
     </h1>
 
+    <x-admin.page.round-switcher />
+
     <ul class="flex items-center text-zinc-500 px-4 text-sm">
         <li>
             <a href="{{ route('admin.dashboard') }}" class="hover:text-zinc-700">
                 {{ __('admin.dashboard') }}
+            </a>
         </li>
-        </a>
         @foreach ($breadcrumbs as $text => $link)
             <li class="px-1">
                 <x-admin.icons.chevron-right class="w-4 h-4" />

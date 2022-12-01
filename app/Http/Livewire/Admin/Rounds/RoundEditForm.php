@@ -27,7 +27,7 @@ class RoundEditForm extends Component
         $this->description = $this->round->description;
     }
 
-    public function storeRound()
+    public function updateRound()
     {
         $this->validate();
 

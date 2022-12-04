@@ -40,7 +40,7 @@
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                    {{-- @foreach ($roundWeeks as $week)
+                    @foreach ($roundWeeks as $week)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {{ $loop->iteration }}
@@ -50,22 +50,55 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-600 ml-4 text-center">
                                 {{ $week['week_start']['human_date'] }} - {{ $week['week_end']['human_date'] }}
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right flex justify-end">
                                 @if ($week['week_start']['status'] === true and $week['week_end']['status'] === false)
-                                    <x-admin.elements.badge-disabled>passed</x-admin.elements.badge-disabled>
+                                    <x-admin.elements.badge-disabled>
+                                        {{ __('passed') }}
+                                    </x-admin.elements.badge-disabled>
                                 @elseif ($week['week_start']['status'] === true and $week['week_end']['status'] === true)
-                                    <x-admin.elements.badge-success>current</x-admin.elements.badge-success>
+                                    <x-admin.elements.badge-success>
+                                        {{ __('current') }}
+                                    </x-admin.elements.badge-success>
                                 @elseif ($week['week_start']['status'] === false and $week['week_end']['status'] === true)
-                                    <x-admin.elements.badge-primary>waiting</x-admin.elements.badge-primary>
+                                    <x-admin.elements.badge-primary>
+                                        {{ __('waiting') }}
+                                    </x-admin.elements.badge-primary>
                                 @else
-                                    <x-admin.elements.badge-error>error</x-admin.elements.badge-error>
+                                    <x-admin.elements.badge-error>
+                                        {{ __('error') }}
+                                    </x-admin.elements.badge-error>
                                 @endif
+
+                                <div class="flex items-center ml-4 text-xs font-bold text-gray-400">
+                                    @if ($week['disabled'])
+                                        <button wire:click="enable({{ $week['code'] }})"
+                                            class="bg-gray-100 px-2 rounded-l-full @if ($week['week_end']['status'] == true) hover:bg-green-100 hover:text-green-400 transition @endif"
+                                            @if ($week['week_end']['status'] == false) disabled @endif>
+                                            {{ __('On') }}
+                                        </button>
+                                    @else
+                                        <button class="px-2 rounded-l-full bg-green-100 text-green-400" disabled>
+                                            {{ __('On') }}
+                                        </button>
+                                    @endif
+
+                                    @if ($week['disabled'])
+                                        <button class="px-2 rounded-r-full bg-red-100 text-red-400 transition" disabled>
+                                            {{ __('Off') }}
+                                        </button>
+                                    @else
+                                        <button wire:click="disable({{ $week['code'] }})"
+                                            class="bg-gray-100 px-2 rounded-r-full @if ($week['week_end']['status'] == true) hover:bg-red-100 hover:text-red-400 transition @endif"
+                                            @if ($week['week_end']['status'] == false) disabled @endif>
+                                            {{ __('Off') }}
+                                        </button>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </x-slot>
 </x-admin.page.details-section>
-

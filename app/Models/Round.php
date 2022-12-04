@@ -19,23 +19,4 @@ class Round extends Model
         'max_wishes',
         'description',
     ];
-
-    public function current()
-    {
-        // return $this->query()
-        //     ->firstOrFail()
-        //     ->where('start_date', '<=', Carbon::now()->format('Y-m-d'))
-        //     ->where('end_date', '>=', Carbon::now()->format('Y-m-d'))
-        //     ->get();
-
-        return $this->query()->find(1);
-    }
-
-    public function future()
-    {
-    }
-
-    public function passed()
-    {
-    }
 }

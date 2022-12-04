@@ -24,7 +24,7 @@ class PropertiesIndexTable extends Component
             ->where('name', 'like', '%' . $this->search . '%')
             ->orWhere('country', 'like', '%' . $this->search . '%')
             ->orWhere('address', 'like', '%' . $this->search . '%')
-            // ->orderBy('name')
+            ->orderBy('name')
             ->paginate(10);
 
         return view('livewire.admin.properties.properties-index-table', compact('properties'));

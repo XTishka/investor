@@ -31,7 +31,7 @@
                     @foreach ($properties as $property)
                         <tr>
                             <td class="px-6 py-4 text-sm text-gray-700 flex items-center">
-                                <x-admin.icons.arrow-path class="h-9 w-9 bg-blue-50 text-blue-300 rounded-full p-2" />
+                                <x-admin.icons.house class="h-9 w-9 bg-blue-50 text-blue-300 rounded-full p-2" />
 
                                 <div class="ml-4">
                                     <span class="text-black font-bold break-words">{{ $property->name }}</span>

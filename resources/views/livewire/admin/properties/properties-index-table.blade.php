@@ -5,9 +5,19 @@
             <x-admin.forms.elements.input id="search" name="search" wire:model="search" type="text" class="block"
                 autocomplete="name" placeholder="{{ __('admin.search_by_property_name') }}" />
 
-            <x-admin.button-link link="{{ route('admin.properties.create') }}">
-                {{ __('Add new') }}
-            </x-admin.button-link>
+            <div>
+                <x-admin.button-link link="{{ route('admin.properties.export') }}">
+                    {{ __('Export') }}
+                </x-admin.button-link>
+
+                <x-admin.button-link link="{{ route('admin.properties.import') }}">
+                    {{ __('Import') }}
+                </x-admin.button-link>
+
+                <x-admin.button-link link="{{ route('admin.properties.create') }}">
+                    {{ __('Add new') }}
+                </x-admin.button-link>
+            </div>
         </div>
 
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">

@@ -64,7 +64,7 @@ class WeeksService
                 ->where('property_id', $propertyId)
                 ->exists();
 
-            $weeks[$key]['disabled'] = $status;
+            $weeks[$key]['available'] = $status;
         }
         return $weeks;
     }

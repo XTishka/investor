@@ -39,6 +39,8 @@ Route::middleware([
             Route::get('/properties/edit/{property}', 'edit')->name('admin.properties.edit');
             Route::get('/properties/show/{property}', 'show')->name('admin.properties.show');
             Route::delete('/properties/delete/{property}', 'destroy')->name('admin.properties.delete');
+            Route::get('/properties/import', 'import')->name('admin.properties.import');
+            Route::get('/properties/export', 'export')->name('admin.properties.export');
         });
 
         // Rounds

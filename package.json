@@ -17,6 +17,7 @@
         "vite": "^2.9.11"
     },
     "dependencies": {
-        "pikaday": "^1.8.2"
+        "pikaday": "^1.8.2",
+        "tw-elements": "^1.0.0-alpha13"
     }
 }

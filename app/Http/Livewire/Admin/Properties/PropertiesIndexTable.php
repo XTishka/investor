@@ -12,10 +12,29 @@ class PropertiesIndexTable extends Component
     use WithPagination;
 
     public $search = '';
+    public $importModal = false;
+    public $confirmingItemAdd = false;
 
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function openTest()
+    {
+        $this->confirmingItemAdd = true;
+    }
+
+    public function openImportModal()
+    {
+        debugbar()->info('import property');
+        $this->importModal = true;
+    }
+
+    public function close()
+    {
+        debugbar()->info('close modal');
+        $this->importModal = false;
     }
 
     public function render()

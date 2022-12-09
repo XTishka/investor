@@ -27,7 +27,6 @@
                                         {{ __('Week') }}
                                     </th>
 
-
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-left tracking-wider"></th>
 
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-right tracking-wider">
@@ -56,35 +55,6 @@
 
                                             @livewire('admin.properties.property-week-switcher', ['week' => $week, 'roundId' => $roundId, 'property' => $property])
 
-                                            {{-- <div class="flex items-center ml-4 text-xs font-bold text-gray-400">
-                                                @if ($week['disabled'])
-                                                    <button wire:click="enable({{ $week['code'] }})"
-                                                        class="bg-gray-100 px-2 rounded-l-full @if ($week['week_end']['status'] == true) hover:bg-green-100 hover:text-green-400 transition @endif"
-                                                        @if ($week['week_end']['status'] == false) disabled @endif>
-                                                        {{ __('On') }}
-                                                    </button>
-                                                @else
-                                                    <button class="px-2 rounded-l-full bg-green-100 text-green-400"
-                                                        disabled>
-                                                        {{ __('On') }}
-                                                    </button>
-                                                @endif
-
-                                                @if ($week['disabled'])
-                                                    <button
-                                                        class="px-2 rounded-r-full bg-red-100 text-red-400 transition"
-                                                        disabled>
-                                                        {{ __('Off') }}
-                                                    </button>
-                                                @else
-                                                    <button wire:click="disable({{ $week['code'] }})"
-                                                        class="bg-gray-100 px-2 rounded-r-full @if ($week['week_end']['status'] == true) hover:bg-red-100 hover:text-red-400 transition @endif"
-                                                        @if ($week['week_end']['status'] == false) disabled @endif>
-                                                        {{ __('Off') }}
-                                                    </button>
-                                                @endif
-                                            </div> --}}
-
                                         </td>
                                     </tr>
                                 @endforeach
@@ -99,8 +69,6 @@
                     @endif
                 </div>
             </x-slot>
-
-            {{-- @livewire('admin.properties.property-details', ['property' => $property]) --}}
 
         </x-admin.page.details-section>
     </div>

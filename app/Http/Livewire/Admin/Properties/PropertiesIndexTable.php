@@ -3,38 +3,35 @@
 namespace App\Http\Livewire\Admin\Properties;
 
 use App\Models\Property;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\PropertiesImport;
 
 class PropertiesIndexTable extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     public $search = '';
-    public $importModal = false;
-    public $confirmingItemAdd = false;
+    public $file;
+    public $importModalForm = false;
+
+    public function rules()
+    {
+        return [
+            'file' => 'required|mimes:csv|max:2048',
+        ];
+    }
 
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function openTest()
+    public function importModal()
     {
-        $this->confirmingItemAdd = true;
-    }
-
-    public function openImportModal()
-    {
-        debugbar()->info('import property');
-        $this->importModal = true;
-    }
-
-    public function close()
-    {
-        debugbar()->info('close modal');
-        $this->importModal = false;
+        $this->importModalForm = true;
     }
 
     public function render()
@@ -47,5 +44,12 @@ class PropertiesIndexTable extends Component
             ->paginate(10);
 
         return view('livewire.admin.properties.properties-index-table', compact('properties'));
+    }
+
+    public function importProperties() {
+        $this->validate();
+        Excel::import(new PropertiesImport(), $this->file->store('temp'));
+        return redirect()->route('admin.properties');
+        $this->importModalForm = false;
     }
 }

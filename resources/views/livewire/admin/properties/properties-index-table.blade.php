@@ -10,6 +10,10 @@
                     {{ __('Export') }}
                 </x-admin.button-link>
 
+                <x-admin.elements.button wire:click='importModal'>
+                    {{ __('Import') }}
+                </x-admin.elements.button>
+
                 <x-admin.button-link link="{{ route('admin.properties.create') }}">
                     {{ __('Add new') }}
                 </x-admin.button-link>
@@ -60,78 +64,35 @@
             <div class="bg-gray-50 py-2 px-4">
                 {{ $properties->links() }}
             </div>
+
+            <!-- Import Properties Modal Form -->
+            <x-admin.elements.dialog-modal wire:model="importModalForm">
+                <x-slot name="title">
+                    {{ __('Import Properties') }}
+                </x-slot>
+
+                <x-slot name="content">
+                    <form wire:submit.prevent="importProperties" >
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-jet-label for="file" value="{{ __('Select file to import') }}" class="mb-4" />
+                            <x-jet-input id="file" type="file" class="mt-1 block w-3/4"
+                                wire:model.defer="file" />
+                            <x-jet-input-error for="file" class="mt-2" />
+                        </div>
+                    </form>
+                </x-slot>
+
+                <x-slot name="footer">
+                    <x-jet-secondary-button wire:click="$set('importModalForm', false)" wire:loading.attr="disabled">
+                        {{ __('Cancel') }}
+                    </x-jet-secondary-button>
+
+                    <x-jet-danger-button class="ml-2"  wire:click="importProperties" wire:loading.attr="disabled">
+                        {{ __('Import') }}
+                    </x-jet-danger-button>
+                </x-slot>
+            </x-admin.elements.dialog-modal>
+
         </div>
     </div>
 </div>
-
-<!-- Delete User Confirmation Modal -->
-<x-admin.elements.dialog-modal wire:model="importModal">
-    <x-slot name="title">
-        {{ __('Import Properties') }}
-    </x-slot>
-
-    <x-slot name="content">
-
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="name" value="{{ __('Name') }}" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-3/4" wire:model.defer="item.name" />
-            <x-jet-input-error for="item.name" class="mt-2" />
-        </div>
-
-        <x-jet-input type="password" class="mt-1 block w-3/4" placeholder="{{ __('Password') }}" x-ref="password"
-            wire:model.defer="password" wire:keydown.enter="deleteUser" />
-        <x-jet-input-error for="password" class="mt-2" />
-    </x-slot>
-
-    <x-slot name="footer">
-        <x-jet-secondary-button wire:click="closeImportModal" wire:loading.attr="disabled">
-            {{ __('Cancel') }}
-        </x-jet-secondary-button>
-
-        <x-admin.elements.button wire:click="close" class="ml-3">
-            {{ __('Cancel') }}
-        </x-admin.elements.button>
-
-        <x-admin.elements.button wire:click="import" wire:loading.attr="disabled" class="ml-3">
-            {{ __('Import Properties') }}
-        </x-admin.elements.button>
-    </x-slot>
-</x-admin.elements.dialog-modal>
-
-
-<x-jet-dialog-modal wire:model="confirmingItemAdd">
-    <x-slot name="title">
-        {{ isset($this->item->id) ? 'Edit Item' : 'Add Item' }}
-    </x-slot>
-
-    <x-slot name="content">
-        <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="name" value="{{ __('Name') }}" />
-            <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="item.name" />
-            <x-jet-input-error for="item.name" class="mt-2" />
-        </div>
-
-        <div class="col-span-6 sm:col-span-4 mt-4">
-            <x-jet-label for="price" value="{{ __('Price') }}" />
-            <x-jet-input id="price" type="text" class="mt-1 block w-full" wire:model.defer="item.price" />
-            <x-jet-input-error for="item.price" class="mt-2" />
-        </div>
-
-        <div class="col-span-6 sm:col-span-4 mt-4">
-            <label class="flex items-center">
-                <input type="checkbox" wire:model.defer="item.status" class="form-checkbox" />
-                <span class="ml-2 text-sm text-gray-600">Active</span>
-            </label>
-        </div>
-    </x-slot>
-
-    <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$set('confirmingItemAdd', false)" wire:loading.attr="disabled">
-            {{ __('Nevermind') }}
-        </x-jet-secondary-button>
-
-        <x-jet-danger-button class="ml-2" wire:click="saveItem()" wire:loading.attr="disabled">
-            {{ __('Save') }}
-        </x-jet-danger-button>
-    </x-slot>
-</x-jet-dialog-modal>

@@ -2,6 +2,6 @@
 
     <x-admin.page.header pageTitle="admin.stockholders" :breadcrumbs="['admin.stockholders' => '#']" />
 
-    @livewire('admin.stockholders.index')
+    @livewire('admin.stockholders-page')
 
 </x-admin-layout>

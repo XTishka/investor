@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(5)->create(['is_admin' => 1]);
+        User::factory(100)->create();
 
         Round::factory()->create([
             'name' => 'Passed round 1',

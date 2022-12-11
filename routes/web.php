@@ -32,6 +32,11 @@ Route::middleware([
             return view('dashboard');
         })->name('admin.dashboard');
 
+        // Stockholders
+        Route::get('/stockholders', function () {
+            return view('admin.stockholders.index');
+        })->name('admin.stockholders');
+
         // Properties
         Route::controller(PropertyController::class)->group(function () {
             Route::get('/properties', 'index')->name('admin.properties');

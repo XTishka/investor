@@ -2,6 +2,8 @@
 return [
     'dashboard' => 'Dashboard',
     'administrators' => 'Administrators',
+    'stockholder' => 'Stockholder',
+    'stockholders' => 'Stockholders',
     'property' => 'Property',
     'properties' => 'Properties',
     'round' => 'Round',
@@ -13,7 +15,9 @@ return [
     'round_end_date' => 'Round end',
     'search_by_round_name' => 'Search by round name',
     'search_by_property_name' => 'Search by property name',
+    'search_by_stockholders_name' => 'Search by stockholders name',
     'country' => 'Country',
     'countries' => 'Countries',
     'address' => 'Address',
+    'email' => 'Email',
 ];

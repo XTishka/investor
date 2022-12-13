@@ -39,11 +39,6 @@ class StockholdersPage extends Component
         debugbar()->info('create stockholder');
     }
 
-    public function store()
-    {
-        debugbar()->info('store stockholder');
-    }
-
     public function generatePassword()
     {
         $this->stockholder['password'] = Str::random(16);

@@ -20,6 +20,9 @@ class Round extends Model
         'description',
     ];
 
+    public function users() {
+        return $this->belongsToMany(Round::class);
+    }
 
     static public function running()
     {

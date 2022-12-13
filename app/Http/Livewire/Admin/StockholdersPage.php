@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Round;
 use App\Models\User;
 use Livewire\Component;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class StockholdersPage extends Component
@@ -37,6 +36,7 @@ class StockholdersPage extends Component
     {
         $this->validate();
         debugbar()->info('create stockholder');
+        session()->flash('message', __('Account was successfully created.'));
     }
 
     public function generatePassword()

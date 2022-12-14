@@ -1,6 +1,9 @@
 <div class="py-6">
     <div class="w-full px-8">
 
+        {{-- Notifications --}}
+        <x-admin.elements.notifications />
+
         <div class="flex mb-4 justify-between items-center">
             <x-admin.forms.elements.input id="search" name="search" wire:model="search" type="text" class="block"
                 autocomplete="name" placeholder="{{ __('admin.search_by_stockholders_name') }}" />
@@ -64,6 +67,11 @@
                                     wire:click='view({{ $stockholder->id }})'>
                                     <x-admin.icons.eye class="w-4 h-4 mr-2" />
                                     {{ __('View') }}
+                                </x-admin.tables.action-button>
+
+                                <x-admin.tables.action-button wire:click='edit({{ $stockholder->id }})'>
+                                    <x-admin.icons.edit class="w-4 h-4 mr-2" />
+                                    {{ __('Send password') }}
                                 </x-admin.tables.action-button>
 
                                 <x-admin.tables.action-button wire:click='edit({{ $stockholder->id }})'>

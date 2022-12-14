@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_round', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->nullable(false)->constrained();
-            $table->foreignId('round_id')->nullable(false)->constrained();
-            $table->integer(3)->nullable(false);
-            $table->timestamps();
+        Schema::create('round_user', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('round_id')->constrained();
+            $table->integer('wishes')->default(0);
         });
     }
 

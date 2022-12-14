@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
             'is_admin' => 1,
         ]);
 
-        User::factory(5)->create(['is_admin' => 1]);
-        User::factory(100)->create();
+        // User::factory(5)->create(['is_admin' => 1]);
+        User::factory(4)->create();
 
         Round::factory()->create([
             'name' => 'Passed round 1',
@@ -64,5 +64,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Property::factory(10)->create();
+
+        foreach (Round::all() as $round) {
+            $users = User::inRandomOrder()->take(rand(1,3))->pluck('id');
+            $round->users()->attach($users);
+        }
     }
 }

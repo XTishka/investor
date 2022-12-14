@@ -21,7 +21,7 @@ class Round extends Model
     ];
 
     public function users() {
-        return $this->belongsToMany(Round::class);
+        return $this->belongsToMany(User::class)->withPivot(['wishes']);
     }
 
     static public function running()

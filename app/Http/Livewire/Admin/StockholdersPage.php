@@ -4,6 +4,9 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Round;
 use App\Models\User;
+use App\Models\UserRound;
+use Exception;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
@@ -15,6 +18,7 @@ class StockholdersPage extends Component
     public $wishes_max = 20;
 
     public $modal_create = false;
+    public $notifications = false;
 
     public function rules()
     {
@@ -35,8 +39,43 @@ class StockholdersPage extends Component
     public function create()
     {
         $this->validate();
-        debugbar()->info('create stockholder');
-        session()->flash('message', __('Account was successfully created.'));
+        try {
+            $stockholder = $this->storeStockholder();
+            $this->storePriorities($stockholder->id);
+            $this->sendEmail();
+            $this->reset(['stockholder']);
+            $this->modal_create = false;
+            $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'New account was successfully created.']);
+        } catch (Exception $e) {
+            $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Something goes wrong while account creation.']);
+        }
+    }
+
+    public function storeStockholder()
+    {
+        return User::create([
+            'name'      => $this->stockholder['name'],
+            'email'     => $this->stockholder['email'],
+            'password'  => Hash::make($this->stockholder['password']),
+            'is_admin'  => 0,
+        ]);
+    }
+
+    public function storePriorities($stockholderId)
+    {
+        try {
+            $round = Round::find($this->stockholder['round']);
+            $round->users()->attach([$stockholderId]);
+        } catch (Exception $e) {
+            $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Something went wrong on priority save.']);
+        }
+    }
+
+    public function sendEmail()
+    {
+        debugbar()->info('Send email');
+        $message = 'Email with user details was sent.';
+        session()->flash('send_email', $message);
     }
 
     public function generatePassword()
@@ -47,9 +86,11 @@ class StockholdersPage extends Component
     public function render()
     {
         $stockholders = User::query()
-            ->where('name', 'like', '%' . $this->search . '%')
-            ->orWhere('email', 'like', '%' . $this->search . '%')
-            ->orderBy('name')
+            ->where('is_admin', '=', 0)
+            ->where(function ($query) {
+                $query->orWhere('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%');
+            })
             ->paginate(10);
 
         $groupedRounds = [
@@ -57,8 +98,6 @@ class StockholdersPage extends Component
             'future' => Round::future()->toArray(),
             'passed' => Round::passed()->toArray(),
         ];
-
-        debugbar()->info($this->stockholder);
 
         return view('livewire.admin.stockholders-page', compact('stockholders', 'groupedRounds'));
     }

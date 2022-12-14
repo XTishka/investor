@@ -52,6 +52,7 @@
 
                                 <div class="ml-4">
                                     <span class="text-black font-bold break-words">{{ $stockholder->name }}</span>
+                                    <span class="block text-gray-500 text-xs">ID: {{ $stockholder->id }}</span>
                                 </div>
                             </td>
 

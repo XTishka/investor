@@ -41,7 +41,7 @@ class StockholdersPage extends Component
         $this->validate();
         try {
             $stockholder = $this->storeStockholder();
-            $this->storePriorities($stockholder->id);
+            $this->storePriorities($stockholder);
             $this->sendEmail();
             $this->reset(['stockholder']);
             $this->modal_create = false;
@@ -61,11 +61,11 @@ class StockholdersPage extends Component
         ]);
     }
 
-    public function storePriorities($stockholderId)
+    public function storePriorities($stockholder)
     {
         try {
             $round = Round::find($this->stockholder['round']);
-            $round->users()->attach([$stockholderId]);
+            $round->users()->attach($stockholder->id, ['wishes' => $this->stockholder['wishes']]);
         } catch (Exception $e) {
             $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Something went wrong on priority save.']);
         }

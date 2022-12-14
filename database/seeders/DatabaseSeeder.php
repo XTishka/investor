@@ -66,8 +66,10 @@ class DatabaseSeeder extends Seeder
         Property::factory(10)->create();
 
         foreach (Round::all() as $round) {
-            $users = User::inRandomOrder()->take(rand(1,3))->pluck('id');
-            $round->users()->attach($users);
+            $users = User::inRandomOrder()->take(rand(1, 3))->pluck('id');
+            foreach ($users as $user) {
+                $round->users()->attach($user, ['wishes' => rand(1, 20)]);
+            }
         }
     }
 }

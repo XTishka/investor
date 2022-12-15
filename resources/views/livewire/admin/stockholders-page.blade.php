@@ -106,7 +106,7 @@
 
 
             {{-- Modals --}}
-            <x-admin.modals.stockholders.export-stockholder :groupedRounds="$groupedRounds" />
+            <x-admin.modals.stockholders.export-stockholder :groupedRounds="$groupedRounds" :export="$export" />
 
             <x-admin.modals.stockholders.create-stockholder :groupedRounds="$groupedRounds" :stockholder="$stockholder" :wishes_min="$wishes_min"
                 :wishes_max="$wishes_max" />

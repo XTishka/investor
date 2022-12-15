@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Exports\StockholderRoundExport;
+use App\Exports\StockholdersAllExport;
+use App\Exports\StockholdersRoundExport;
 use App\Models\Round;
 use App\Models\User;
 use Exception;
@@ -10,6 +13,7 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StockholdersPage extends Component
 {
@@ -17,22 +21,30 @@ class StockholdersPage extends Component
 
     public $search;
     public $stockholder;
-    public $export;
+    public $export = ['type' => 'all'];
     public $perPage = 20;
     public $wishes_min = 1;
     public $wishes_max = 20;
+
+    public $timestamp;
+    public $roundId;
 
     public $modal_create = false;
     public $modal_import = false;
     public $modal_export = false;
     public $notifications = false;
 
-    public function render(Request $request)
+    public function mount(Request $request)
+    {
+        $this->timestamp = now()->timestamp;
+        $this->roundId = $request->session()->get('active_round');
+    }
+
+    public function render()
     {
         $users = new User;
-        if ($request->session()->get('active_round')) {
-            $roundId = $request->session()->get('active_round');
-            $stockholders = $users->searchRoundStockholders($roundId, $this->search, $this->perPage);
+        if ($this->roundId) {
+            $stockholders = $users->searchRoundStockholders($this->roundId, $this->search, $this->perPage);
         } else {
             $stockholders = $users->searchAllStockholders($this->search, $this->perPage);
         }
@@ -94,7 +106,7 @@ class StockholdersPage extends Component
     {
         try {
             $round = Round::find($this->stockholder['round']);
-            $round->users()->attach($stockholder->id, ['wishes' => $this->stockholder['wishes']]);
+            $priority = Round::query()->$round->users()->attach($stockholder->id, ['wishes' => $this->stockholder['wishes'], 'priority' => $priority]);
         } catch (Exception $e) {
             $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Something went wrong on priority save.']);
         }
@@ -102,9 +114,28 @@ class StockholdersPage extends Component
 
     public function export()
     {
-        $this->validate(['export.round' => 'required']);
-        $this->reset(['stockholder']);
-        $this->modal_export = false;
+        debugbar()->info('1', $this->export);
+        if ($this->export['type'] == 'all') {
+            $this->reset(['export']);
+            $this->modal_export = false;
+            return Excel::download(new StockholdersAllExport, 'stockholders_' . $this->timestamp . '.csv');
+        }
+
+        if ($this->export['type'] == 'round') {
+            $this->validate(['export.round' => 'required']);
+            $file = Excel::download(new StockholderRoundExport($this->export['round']), 'stockholders.csv');
+            $this->reset(['export']);
+            $this->modal_export = false;
+            return $file;
+
+            // $this->validate(['export.round' => 'required']);
+            // debugbar()->info('round: ' . $this->export['round']);
+            // debugbar()->info($this->export['round']);
+            // $exportFile = Excel::download(new StockholdersRoundExport($this->export['round']), 'stockholders_' . Round::find($this->roundId)->value('name') . '_' . $this->timestamp . '.csv');
+            // $this->reset(['export']);
+            // $this->modal_export = false;
+            // return $exportFile;
+        }
     }
 
     public function sendEmail()

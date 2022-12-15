@@ -80,6 +80,7 @@ class User extends Authenticatable
     {
         $round = Round::query()->find($roundId);
         return $round->users()
+            ->where('is_admin', '!=', 1)
             ->where(
                 fn ($query) => $query
                     ->orWhere('name', 'like', '%' . $search . '%')

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('round_id')->constrained();
             $table->integer('wishes')->default(0);
+            $table->integer('priority')->default(0);
         });
     }
 

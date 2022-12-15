@@ -63,4 +63,28 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Round::class);
     }
+
+    public function searchAllStockholders($search, $perPage)
+    {
+        return  $this->query()
+            ->where('is_admin', 0)
+            ->where(
+                fn ($query) => $query
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+            )
+            ->paginate($perPage);
+    }
+
+    public function searchRoundStockholders($roundId, $search, $perPage)
+    {
+        $round = Round::query()->find($roundId);
+        return $round->users()
+            ->where(
+                fn ($query) => $query
+                    ->orWhere('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+            )
+            ->paginate($perPage);
+    }
 }

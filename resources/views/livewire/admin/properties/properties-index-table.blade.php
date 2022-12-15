@@ -24,22 +24,31 @@
             <table class="w-full">
                 <thead>
                     <tr class="font-bold text-xs uppercase text-black">
-                        <th scope="col" class="px-6 py-3 bg-gray-50 text-left tracking-wider">
-                            {{ __('admin.properties') }}
+                        <th scope="col" class="px-6 py-3 bg-gray-50 text-left">
+                            {{ __('#') }}
                         </th>
 
                         <th scope="col" class="px-6 py-3 bg-gray-50 text-left tracking-wider">
-                            {{ __('admin.country') }} /
-                            {{ __('admin.address') }}
+                            {{ __('Properties') }}
+                        </th>
+
+                        <th scope="col" class="px-6 py-3 bg-gray-50 text-left tracking-wider">
+                            {{ __('Country') }} /
+                            {{ __('Address') }}
                         </th>
 
                         <th scope="col" class="px-6 py-3 bg-gray-50 text-center tracking-wider">
                         </th>
+                    </tr>
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($properties as $property)
                         <tr>
+                            <td class="px-6 py-4 text-sm text-gray-700">
+                                {{ $loop->iteration }}
+                            </td>
+
                             <td class="px-6 py-4 text-sm text-gray-700 flex items-center">
                                 <x-admin.icons.house class="h-9 w-9 bg-blue-50 text-blue-300 rounded-full p-2" />
 
@@ -72,7 +81,7 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <form wire:submit.prevent="importProperties" >
+                    <form wire:submit.prevent="importProperties">
                         <div class="col-span-6 sm:col-span-4">
                             <x-jet-label for="file" value="{{ __('Select file to import') }}" class="mb-4" />
                             <x-jet-input id="file" type="file" class="mt-1 block w-3/4"
@@ -87,7 +96,7 @@
                         {{ __('Cancel') }}
                     </x-jet-secondary-button>
 
-                    <x-jet-danger-button class="ml-2"  wire:click="importProperties" wire:loading.attr="disabled">
+                    <x-jet-danger-button class="ml-2" wire:click="importProperties" wire:loading.attr="disabled">
                         {{ __('Import') }}
                     </x-jet-danger-button>
                 </x-slot>

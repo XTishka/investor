@@ -4,41 +4,70 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Round;
 use App\Models\User;
-use App\Models\UserRound;
 use Exception;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\WithPagination;
 
 class StockholdersPage extends Component
 {
+    use WithPagination;
+
     public $search;
     public $stockholder;
+    public $export;
+    public $perPage = 20;
     public $wishes_min = 1;
     public $wishes_max = 20;
 
     public $modal_create = false;
+    public $modal_import = false;
+    public $modal_export = false;
     public $notifications = false;
 
-    public function rules()
+    public function render(Request $request)
     {
-        return [
-            'stockholder.name' => 'required|string|max:255',
-            'stockholder.email' => 'required|string|email|max:255',
-            'stockholder.password' => 'required|string|min:8|regex:/(^[a-zA-Z]+[a-zA-Z0-9\\-]*$)/u',
-            'stockholder.round' => 'required',
-            'stockholder.wishes' => 'required|integer',
+        $users = new User;
+        if ($request->session()->get('active_round')) {
+            $roundId = $request->session()->get('active_round');
+            $stockholders = $users->searchRoundStockholders($roundId, $this->search, $this->perPage);
+        } else {
+            $stockholders = $users->searchAllStockholders($this->search, $this->perPage);
+        }
+
+        $groupedRounds = [
+            'running' => Round::running()->toArray(),
+            'future' => Round::future()->toArray(),
+            'passed' => Round::passed()->toArray(),
         ];
+
+        return view('livewire.admin.stockholders-page', compact('stockholders', 'groupedRounds'));
     }
 
     public function openModal($modal)
     {
         if ($modal == 'create') $this->modal_create = true;
+        if ($modal == 'import') $this->modal_import = true;
+        if ($modal == 'export') $this->modal_export = true;
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function create()
     {
-        $this->validate();
+        $this->validate([
+            'stockholder.name'      => 'required|string|max:255',
+            'stockholder.email'     => 'required|string|email|max:255',
+            'stockholder.password'  => 'required|string|min:8|regex:/(^[a-zA-Z]+[a-zA-Z0-9\\-]*$)/u',
+            'stockholder.round'     => 'required',
+            'stockholder.wishes'    => 'required|integer',
+        ]);
+
         try {
             $stockholder = $this->storeStockholder();
             $this->storePriorities($stockholder);
@@ -71,6 +100,13 @@ class StockholdersPage extends Component
         }
     }
 
+    public function export()
+    {
+        $this->validate(['export.round' => 'required']);
+        $this->reset(['stockholder']);
+        $this->modal_export = false;
+    }
+
     public function sendEmail()
     {
         debugbar()->info('Send email');
@@ -81,24 +117,5 @@ class StockholdersPage extends Component
     public function generatePassword()
     {
         $this->stockholder['password'] = Str::random(16);
-    }
-
-    public function render()
-    {
-        $stockholders = User::query()
-            ->where('is_admin', '=', 0)
-            ->where(function ($query) {
-                $query->orWhere('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%');
-            })
-            ->paginate(10);
-
-        $groupedRounds = [
-            'running' => Round::running()->toArray(),
-            'future' => Round::future()->toArray(),
-            'passed' => Round::passed()->toArray(),
-        ];
-
-        return view('livewire.admin.stockholders-page', compact('stockholders', 'groupedRounds'));
     }
 }

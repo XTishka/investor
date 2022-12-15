@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class UserRound extends Pivot
+class RoundUser extends Pivot
 {
     protected $fillable = ['wishes'];
 

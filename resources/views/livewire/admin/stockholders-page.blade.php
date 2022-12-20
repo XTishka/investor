@@ -24,10 +24,6 @@
                 <thead>
                     <tr>
                         <x-admin.tables.thead.th value="#" />
-                        <x-admin.tables.thead.th>
-                            <x-admin.forms.elements.checkbox id="select_all" name="select_all"
-                                wire:model='select_all' />
-                        </x-admin.tables.thead.th>
                         <x-admin.tables.thead.th value="{{ __('Stockholders') }}" class="tracking-wider" />
                         <x-admin.tables.thead.th value="Rounds" class="tracking-wider" />
                         <x-admin.tables.thead.th value="Actions" class="tracking-wider text-center" />
@@ -39,16 +35,6 @@
                             {{-- Counter --}}
                             <x-admin.tables.tbody.td>
                                 {{ ($stockholders->currentpage() - 1) * $perPage + $loop->index + 1 }}
-                            </x-admin.tables.tbody.td>
-
-                            {{-- Checkboxes --}}
-                            <x-admin.tables.tbody.td class="tracking-wider">
-                                <div class="flex items-center">
-                                    <x-admin.forms.elements.checkbox id="select_all" name="select_all"
-                                        wire:model='select' />
-                                    <x-admin.forms.elements.label for="send_password" value="ID: {{ $stockholder->id }}"
-                                        class="ml-4 text-xs mb-0 text-gray-500" />
-                                </div>
                             </x-admin.tables.tbody.td>
 
                             {{-- Stockholders --}}
@@ -106,10 +92,10 @@
 
 
             {{-- Modals --}}
-            <x-admin.modals.stockholders.export-stockholder :groupedRounds="$groupedRounds" :export="$export" />
+            {{-- <x-admin.modals.stockholders.import-stockholders :import="$import" />
+            <x-admin.modals.stockholders.export-stockholder :groupedRounds="$groupedRounds" :export="$export" /> --}}
 
-            <x-admin.modals.stockholders.create-stockholder :groupedRounds="$groupedRounds" :stockholder="$stockholder" :wishes_min="$wishes_min"
-                :wishes_max="$wishes_max" />
+            {{-- <x-admin.modals.stockholders.create-stockholder :stockholder="$stockholder" :wishes_min="$wishes_min" :wishes_max="$wishes_max" /> --}}
         </div>
     </div>
 </div>

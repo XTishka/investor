@@ -1,34 +1,18 @@
-@props(['groupedRounds', 'stockholder', 'wishes_min', 'wishes_max'])
+{{-- @props(['stockholder', 'wishes_min', 'wishes_max']) --}}
 
 <x-admin.elements.dialog-modal wire:model="modal_create">
-    <x-slot name="title">
-        {{ __('Add new stockholder') }}
-    </x-slot>
+    <x-slot name="title">{{ __('Add new stockholder') }}</x-slot>
 
     <x-slot name="content">
 
-        <div class="mt-4">
-            <x-admin.forms.elements.label for="round" value="{{ __('Rounds') }}" />
+        {{-- <x-admin.forms.elements.label value="{{ __('Rounds') }}" />
+        <x-admin.forms.elements.select-round model="stockholder.round" />
+        <x-admin.forms.elements.input-error for="stockholder.round" class="mt-2" /> --}}
 
-            <select id="round" autocomplete="round" wire:model='stockholder.round'
-                class="mt-4 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                @foreach ($groupedRounds as $group => $rounds)
-                    <optgroup label="{{ __('admin.' . $group . '_rounds') }}" class="font-bold text-gray-600">
-                        @foreach ($rounds as $round)
-                            <option value="{{ $round['id'] }}">{{ $round['name'] }}</option>
-                        @endforeach
-                    </optgroup>
-                @endforeach
-            </select>
-            <x-admin.forms.elements.input-error for="stockholder.round" class="mt-2" />
-        </div>
-
-        <div class="mt-4">
-            <x-admin.forms.elements.label for="name" value="{{ __('Name') }}" />
-            <x-admin.forms.elements.input id="name" wire:model.defer='stockholder.name' type="text"
-                class="mt-1 block w-full" />
-            <x-admin.forms.elements.input-error for="stockholder.name" class="mt-2" />
-        </div>
+        <x-admin.forms.elements.label for="name" value="{{ __('Name') }}" />
+        <x-admin.forms.elements.input id="name" wire:model.defer='stockholder.name' type="text"
+            class="mt-1 block w-full" />
+        <x-admin.forms.elements.input-error for="stockholder.name" class="mt-2" />
 
         <div class="mt-4">
             <x-admin.forms.elements.label for="email" value="{{ __('Email') }}" />
@@ -50,12 +34,12 @@
             <x-admin.forms.elements.input-error for="stockholder.password" class="mt-2" />
         </div>
 
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <x-admin.forms.elements.label for="wishes" value="{{ __('Available wishes') }}" />
             <x-admin.forms.elements.input id="wishes" name="wishes" wire:model.defer='stockholder.wishes'
                 type="number" min="{{ $wishes_min }}" max="{{ $wishes_max }}" class="mt-1 block w-full" />
             <x-admin.forms.elements.input-error for="stockholder.wishes" class="mt-2" />
-        </div>
+        </div> --}}
 
         <div class="mt-4 flex items-center">
             <x-admin.forms.elements.checkbox id="send_password" name="send_password"

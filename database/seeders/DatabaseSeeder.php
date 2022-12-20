@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Current round',
             'stop_wishes_date' => '2022-07-20',
             'start_date' => '2022-08-01',
-            'end_date' => '2022-12-30',
+            'end_date' => '2023-01-07',
         ]);
 
         Round::factory()->create([
@@ -65,11 +65,11 @@ class DatabaseSeeder extends Seeder
 
         Property::factory(10)->create();
 
-        foreach (Round::all() as $round) {
-            $users = User::inRandomOrder()->take(rand(1, 1000))->pluck('id');
-            foreach ($users as $user) {
-                $round->users()->attach($user, ['wishes' => rand(1, 20)]);
-            }
-        }
+        // foreach (Round::all() as $round) {
+        //     $users = User::inRandomOrder()->take(rand(1, 1000))->pluck('id');
+        //     foreach ($users as $user) {
+        //     $round->users()->attach($user, ['wishes' => rand(1, 20)]);
+        //     }
+        // }
     }
 }

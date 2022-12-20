@@ -26,26 +26,4 @@ class Round extends Model
     {
         return $this->belongsToMany(User::class)->withPivot(['wishes', 'priority']);
     }
-
-    static public function running()
-    {
-        return Round::query()
-            ->where('start_date', '<=', Carbon::now()->format('Y-m-d'))
-            ->where('end_date', '>=', Carbon::now()->format('Y-m-d'))
-            ->get();
-    }
-
-    static public function future()
-    {
-        return Round::query()
-            ->where('start_date', '>=', Carbon::now()->format('Y-m-d'))
-            ->get();
-    }
-
-    static public function passed()
-    {
-        return Round::query()
-            ->where('end_date', '<=', Carbon::now()->format('Y-m-d'))
-            ->get();
-    }
 }

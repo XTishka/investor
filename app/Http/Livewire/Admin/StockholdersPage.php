@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Admin;
 
 use App\Exports\StockholderRoundExport;
 use App\Exports\StockholdersAllExport;
-use App\Exports\StockholdersRoundExport;
 use App\Models\Round;
 use App\Models\User;
 use Exception;
@@ -14,14 +13,14 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Livewire\WithFileUploads;
 
 class StockholdersPage extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     public $search;
     public $stockholder;
-    public $export = ['type' => 'all'];
     public $perPage = 20;
     public $wishes_min = 1;
     public $wishes_max = 20;
@@ -33,6 +32,18 @@ class StockholdersPage extends Component
     public $modal_import = false;
     public $modal_export = false;
     public $notifications = false;
+
+    public $export = ['type' => 'all'];
+    public $import = [
+        'to'                        => false,
+        'from'                      => 'round',
+        'from_resource'             => false,
+        'option_remove_all'         => false,
+        'option_update'             => false,
+        'option_update_by'          => 'id',
+        'option_create'             => false,
+        'option_create_with_email'  => false,
+    ];
 
     public function mount(Request $request)
     {
@@ -49,13 +60,7 @@ class StockholdersPage extends Component
             $stockholders = $users->searchAllStockholders($this->search, $this->perPage);
         }
 
-        $groupedRounds = [
-            'running' => Round::running()->toArray(),
-            'future' => Round::future()->toArray(),
-            'passed' => Round::passed()->toArray(),
-        ];
-
-        return view('livewire.admin.stockholders-page', compact('stockholders', 'groupedRounds'));
+        return view('livewire.admin.stockholders-page', compact('stockholders'));
     }
 
     public function openModal($modal)
@@ -74,19 +79,20 @@ class StockholdersPage extends Component
     {
         $this->validate([
             'stockholder.name'      => 'required|string|max:255',
-            'stockholder.email'     => 'required|string|email|max:255',
+            'stockholder.email'     => 'required|string|email|max:255|unique:users,email',
             'stockholder.password'  => 'required|string|min:8|regex:/(^[a-zA-Z]+[a-zA-Z0-9\\-]*$)/u',
             'stockholder.round'     => 'required',
             'stockholder.wishes'    => 'required|integer',
         ]);
 
         try {
-            $stockholder = $this->storeStockholder();
-            $this->storePriorities($stockholder);
-            $this->sendEmail();
-            $this->reset(['stockholder']);
-            $this->modal_create = false;
-            $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'New account was successfully created.']);
+            if ($stockholder = $this->storeStockholder()) {
+                $this->storePriorities($stockholder->id, $this->stockholder['round'], $this->stockholder['wishes']);
+                $this->sendEmail();
+                $this->dispatchBrowserEvent('alert', ['type' => 'success',  'message' => 'New account was successfully created.']);
+                $this->reset(['stockholder']);
+                $this->modal_create = false;
+            }
         } catch (Exception $e) {
             $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Something goes wrong while account creation.']);
         }
@@ -102,19 +108,55 @@ class StockholdersPage extends Component
         ]);
     }
 
-    public function storePriorities($stockholder)
+    public function storePriorities($stockholderId, $roundId, $wishes = 0, $priority = 1)
     {
         try {
-            $round = Round::find($this->stockholder['round']);
-            $priority = Round::query()->$round->users()->attach($stockholder->id, ['wishes' => $this->stockholder['wishes'], 'priority' => $priority]);
+            // debugbar()->info($stockholderId, $roundId, $wishes, $priority);
+            $round = Round::find($roundId);
+            $round->users()->detach($stockholderId);
+            $round->users()->attach($stockholderId, ['wishes' => $wishes, 'priority' => $priority]);
         } catch (Exception $e) {
             $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Something went wrong on priority save.']);
+            debugbar()->info($e);
         }
+    }
+
+    public function import()
+    {
+        if ($this->import['from'] == 'round') $this->importFromRound();
+        if ($this->import['from'] == 'all') $this->importFromAll();
+        if ($this->import['from'] == 'file') $this->importFromFile();
+        $this->modal_import = false;
+    }
+
+    public function importFromRound()
+    {
+        $this->validate(['import.to' => 'required', 'import.from_resource' => 'required|numeric']);
+        $round = Round::query()->find($this->import['from_resource']);
+        $stockholders = $round->users()->where('is_admin', '!=', 1)->get();
+        foreach ($stockholders as $stockholder) {
+            debugbar()->info($this->import['from_resource']);
+            $this->storePriorities($stockholder->id, $this->import['from_resource']);
+        }
+    }
+
+    public function importAll()
+    {
+        $this->validate(['import.to' => 'required']);
+        $count = 0;
+        foreach (User::query()->where('is_admin', '!=', 1) as $stockholder) {
+            debugbar()->error($count++);
+            // $this->storePriorities($stockholder);
+        }
+    }
+
+    public function importFromFile()
+    {
+        debugbar()->info('Import from file');
     }
 
     public function export()
     {
-        debugbar()->info('1', $this->export);
         if ($this->export['type'] == 'all') {
             $this->reset(['export']);
             $this->modal_export = false;
@@ -127,20 +169,11 @@ class StockholdersPage extends Component
             $this->reset(['export']);
             $this->modal_export = false;
             return $file;
-
-            // $this->validate(['export.round' => 'required']);
-            // debugbar()->info('round: ' . $this->export['round']);
-            // debugbar()->info($this->export['round']);
-            // $exportFile = Excel::download(new StockholdersRoundExport($this->export['round']), 'stockholders_' . Round::find($this->roundId)->value('name') . '_' . $this->timestamp . '.csv');
-            // $this->reset(['export']);
-            // $this->modal_export = false;
-            // return $exportFile;
         }
     }
 
     public function sendEmail()
     {
-        debugbar()->info('Send email');
         $message = 'Email with user details was sent.';
         session()->flash('send_email', $message);
     }

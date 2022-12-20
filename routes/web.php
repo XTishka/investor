@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AdministratorController;
 use App\Http\Controllers\Admin\RoundController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\StockholderController;
+use App\Models\Stockholder;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,16 +27,18 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-
     Route::prefix('admin')->group(function () {
-
         Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('admin.dashboard');
 
         // Stockholders
+        // Route::controller(StockholderController::class)->group(function () {
+        //     Route::get('/stockholders', 'index')->name('admin.stockholders');
+        // });
+
         Route::get('/stockholders', function () {
-            return view('admin.stockholders.index');
+            return view('admin.stockholders');
         })->name('admin.stockholders');
 
         // Properties

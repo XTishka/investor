@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Livewire\App\WishesTable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -64,6 +65,11 @@ class User extends Authenticatable
     public function rounds()
     {
         return $this->belongsToMany(Round::class)->withPivot(['wishes', 'priority']);
+    }
+
+    public function wishes()
+    {
+        return $this->hasMany(Wish::class);
     }
 
     public function searchAllStockholders($search, $perPage)

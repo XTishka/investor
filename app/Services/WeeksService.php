@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
-use Barryvdh\Debugbar\Facades\Debugbar;
+use App\Models\Round;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Arr;
 use App\Models\Week;
+use App\Models\Wish;
 
 class WeeksService
 {
@@ -56,6 +57,7 @@ class WeeksService
 
     public function roundWeeksWithStatus($start_date, $end_date, $roundId, $propertyId)
     {
+        // TODO::Better to make via DB request without foreach
         $weeks = $this->roundWeeks($start_date, $end_date);
         foreach ($weeks as $key => $week) {
             $status = Week::query()
@@ -67,5 +69,51 @@ class WeeksService
             $weeks[$key]['available'] = $status;
         }
         return $weeks;
+    }
+
+    public function roundPropertyAvailableWeeks($start_date, $end_date, $roundId, $propertyId, $userId)
+    {
+        // TODO::Better to make via DB request without foreach
+        $weeks = $this->roundWeeks($start_date, $end_date);
+
+        // Check in unavailable weeks
+        foreach ($weeks as $key => $week) {
+            $unavailable = Week::query()
+                ->where('code', $week['code'])
+                ->where('round_id', $roundId)
+                ->where('property_id', $propertyId)
+                ->exists();
+            if ($unavailable === true) unset($weeks[$key]);
+        }
+
+        // Check in wishes
+        foreach ($weeks as $key => $week) {
+            $wishes = Wish::query()
+                ->where('user_id', $userId)
+                ->where('week_code', $week['code'])
+                ->where('round_id', $roundId)
+                ->where('property_id', $propertyId)
+                ->exists();
+            if ($wishes === true) unset($weeks[$key]);
+        }
+
+        return $weeks;
+    }
+
+    public function getWeekDatesFromCode($code)
+    {
+        $start = Carbon::now();
+        $weekNumber = substr($code, 4);
+        $year = substr($code, 0, 4);
+        $startDate = $start->setISODate($year, $weekNumber);
+
+        $end = Carbon::parse($startDate->format('Y-m-d'));
+        $endDate = $end->addWeek();
+
+        $dates = [
+            'start' => $startDate->startOfWeek(Carbon::SATURDAY),
+            'end' => $endDate->startOfWeek(Carbon::SATURDAY),
+        ];
+        return $dates;
     }
 }

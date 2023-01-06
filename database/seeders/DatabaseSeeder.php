@@ -21,12 +21,19 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Takhir Berdyiev',
             'email' => 'takhir.berdyiev@gmail.com',
-            'password' => Hash::make('3141592654XTf'),
+            'password' => '$2y$10$MZAi8CD4QcuDOXOT...qOu8gfsKuMfPr9jiI9dvGci..JFFER32yO',
             'is_admin' => 1,
         ]);
 
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@email.com',
+            'password' => Hash::make('password'),
+            'is_admin' => 0,
+        ]);
+
         User::factory(5)->create(['is_admin' => 1]);
-        User::factory(1000)->create();
+        User::factory(500)->create();
 
         Round::factory()->create([
             'name' => 'Passed round 1',
@@ -46,7 +53,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Current round',
             'stop_wishes_date' => '2022-07-20',
             'start_date' => '2022-08-01',
-            'end_date' => '2023-01-07',
+            'end_date' => '2023-01-20',
         ]);
 
         Round::factory()->create([

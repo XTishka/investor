@@ -23,6 +23,12 @@
          </x-admin.sidebar.single-link>
      </li>
 
+     <li> {{-- Wishes --}}
+         <x-admin.sidebar.single-link route="admin.wishes" :text="__('Wishes')">
+             <x-admin.icons.star class="h-5 w-5" />
+         </x-admin.sidebar.single-link>
+     </li>
+
      <li> {{-- Administrators --}}
          <x-admin.sidebar.single-link route="admin.administrators" :text="__('admin.administrators')">
              <x-admin.icons.users class="h-5 w-5" />

@@ -3,10 +3,8 @@
 namespace App\Services;
 
 use App\Interfaces\RoundRepositoryInterface;
-use App\Models\Round;
 use App\Repositories\RoundRepository;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class RoundServices
 {
@@ -37,5 +35,10 @@ class RoundServices
         }
 
         return $rounds;
+    }
+
+    public function getActiveRound()
+    {
+        return $this->roundRepository->getFirstRunningRound();
     }
 }

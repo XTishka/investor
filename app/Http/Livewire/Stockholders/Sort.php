@@ -25,10 +25,8 @@ class Sort extends Component
 
     public function updatePriority($list)
     {
-        debugbar()->info('update priority action');
         $round = Round::query()->find($this->roundId);
         foreach ($list as $item) {
-            // Wish::find($item['value'])->update(['priority' => $item['order']]);
             $round->users()->updateExistingPivot($item['value'], [
                 'priority' => $item['order'],
             ]);

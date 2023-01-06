@@ -1,5 +1,8 @@
 <div class="flex items-center ml-4 text-xs font-bold text-gray-400">
-    <label for="toggle_{{ $week['code'] }}" @class(['flex items-center', 'cursor-pointer' => $week['week_end']['status']]) @if ($week['week_end']['status'] == true)
+    <label for="toggle_{{ $week['code'] }}" @class([
+        'flex items-center',
+        'cursor-pointer' => $week['week_end']['status'],
+    ]) @if ($week['week_end']['status'] == true)
         wire:click='switcher({{ $week['code'] }}, {{ $status }})'
         @endif >
         <div class="relative">

@@ -13,8 +13,8 @@ class AppLayout extends Component
 
     public function __construct()
     {
-        $round = new Round();
-        $this->currentRound = $round->current();
+        // $round = new Round();
+        // $this->currentRound = $round->current();
     }
 
     /**
@@ -25,7 +25,7 @@ class AppLayout extends Component
     public function render()
     {
         return view('layouts.app', [
-            'currentRound' => $this->currentRound,
+            // 'currentRound' => $this->currentRound,
         ]);
     }
 }

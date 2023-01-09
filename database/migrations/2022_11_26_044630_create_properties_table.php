@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable(false);
             $table->string('country')->nullable(false);
-            $table->text('address');
+            $table->text('address')->nullable(true);
             $table->text('description')->nullable(true);
             $table->timestamps();
             $table->softDeletes();

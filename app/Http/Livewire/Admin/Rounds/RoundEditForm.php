@@ -55,7 +55,7 @@ class RoundEditForm extends Component
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'stop_wishes_date' => ['date', 'after:today', 'before:start_date'],
+            'stop_wishes_date' => ['date', 'before:start_date'],
             'start_date' => ['required', 'date', 'after:stop_wishes_date'],
             'end_date' => ['date', 'after:start_date'],
             'description' => ['nullable'],

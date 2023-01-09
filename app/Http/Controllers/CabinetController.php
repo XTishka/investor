@@ -9,30 +9,24 @@ use Illuminate\Support\Facades\Auth;
 
 class CabinetController extends Controller
 {
-    public $hasAccessToRound = false;
-    public $maxWishes = 0;
-
-    public function __invoke()
+    public function cabinet()
     {
+        if (auth()->user()->is_admin == 1) return redirect(route('admin.dashboard'));
 
         $service = new RoundServices;
         $round = $service->getActiveRound();
         $stockholder = $round->users()->where('user_id', auth()->user()->id)->first();
         if ($stockholder) {
-            $this->hasAccessToRound = true;
-            $this->maxWishes = $stockholder->pivot->wishes;
-
-            if ($this->maxWishes > 0) {
-                $usedWishes = Wish::query()->where('round_id', $round->id)->where('user_id', $stockholder->id)->count();
-                return view('cabinet', [
-                    'round' => $round,
-                    'usedWishes' => $usedWishes,
-                    'stockholder' => $stockholder,
-                    'hasAccessToRound' => $this->hasAccessToRound,
-                    'maxWishes' => $this->maxWishes,
-                ]);
-            }
+            return view('cabinet', [
+                'round' => $round,
+                'stockholder' => $stockholder,
+            ]);
         }
         return view('no-available-rounds');
+    }
+
+    public function profile()
+    {
+        return view('profile');
     }
 }

@@ -9,7 +9,7 @@ class Wish extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['round_id', 'user_id', 'property_id', 'week_code', 'status'];
+    protected $fillable = ['round_id', 'user_id', 'property_id', 'week_code', 'status', 'priority'];
 
     public function user()
     {

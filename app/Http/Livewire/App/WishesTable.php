@@ -24,7 +24,7 @@ class WishesTable extends Component
         }
 
         return view('livewire.app.wishes-table', [
-            'wishes' => $this->stockholder->wishes,
+            'wishes' => $this->stockholder->wishes->sortBy('priority'),
         ]);
     }
 }

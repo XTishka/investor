@@ -14,13 +14,8 @@
                         <h3 class="text-lg font-medium leading-6 text-gray-900">
                             {{ __('Round: ') }}: {{ $round->name }}
                         </h3>
-                        <p class="mt-1 text-sm text-gray-600">
-                            {{ __('Used wishes: ') }} {{ $usedWishes }} / {{ $maxWishes }}
-                        </p>
 
-                        <div class="my-4">
-                            <livewire:app.add-wish :round="$round" :stockholder="$stockholder" />
-                        </div>
+                        <livewire:app.add-wish :round="$round" :stockholder="$stockholder" />
                     </div>
                 </div>
 

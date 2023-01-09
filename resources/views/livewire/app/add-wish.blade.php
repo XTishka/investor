@@ -1,5 +1,17 @@
-<div>
-    <x-admin.elements.button wire:click='openModal' value="{{ __('Add new') }}" />
+<div class="my-4">
+
+    <div class="mt-1 text-sm text-gray-600">
+        {{ __('Used wishes: ') }} {{ $usedWishes }}
+        @if ($round->max_wishes != 0)
+            / {{ $maxWishes }}
+        @endif
+    </div>
+
+    @if ($button)
+        <div class="my-4">
+            <x-admin.elements.button wire:model='button' wire:click='openModal' value="{{ __('Add new') }}" />
+        </div>
+    @endif
 
     <x-admin.elements.dialog-modal wire:model="modal">
 

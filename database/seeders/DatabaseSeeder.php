@@ -18,59 +18,59 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create([
-            'name' => 'Takhir Berdyiev',
-            'email' => 'takhir.berdyiev@gmail.com',
-            'password' => '$2y$10$MZAi8CD4QcuDOXOT...qOu8gfsKuMfPr9jiI9dvGci..JFFER32yO',
-            'is_admin' => 1,
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Takhir Berdyiev',
+        //     'email' => 'takhir.berdyiev@gmail.com',
+        //     'password' => '$2y$10$MZAi8CD4QcuDOXOT...qOu8gfsKuMfPr9jiI9dvGci..JFFER32yO',
+        //     'is_admin' => 1,
+        // ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@email.com',
-            'password' => Hash::make('password'),
-            'is_admin' => 0,
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@email.com',
+        //     'password' => Hash::make('password'),
+        //     'is_admin' => 0,
+        // ]);
 
-        User::factory(5)->create(['is_admin' => 1]);
-        User::factory(500)->create();
+        // User::factory(5)->create(['is_admin' => 1]);
+        // User::factory(500)->create();
 
-        Round::factory()->create([
-            'name' => 'Passed round 1',
-            'stop_wishes_date' => '2021-01-20',
-            'start_date' => '2021-02-01',
-            'end_date' => '2021-06-01',
-        ]);
+        // Round::factory()->create([
+        //     'name' => 'Passed round 1',
+        //     'stop_wishes_date' => '2021-01-20',
+        //     'start_date' => '2021-02-01',
+        //     'end_date' => '2021-06-01',
+        // ]);
 
-        Round::factory()->create([
-            'name' => 'Passed round 2',
-            'stop_wishes_date' => '2022-01-20',
-            'start_date' => '2022-02-01',
-            'end_date' => '2022-06-01',
-        ]);
+        // Round::factory()->create([
+        //     'name' => 'Passed round 2',
+        //     'stop_wishes_date' => '2022-01-20',
+        //     'start_date' => '2022-02-01',
+        //     'end_date' => '2022-06-01',
+        // ]);
 
-        Round::factory()->create([
-            'name' => 'Current round',
-            'stop_wishes_date' => '2022-07-20',
-            'start_date' => '2022-08-01',
-            'end_date' => '2023-01-20',
-        ]);
+        // Round::factory()->create([
+        //     'name' => 'Current round',
+        //     'stop_wishes_date' => '2022-07-20',
+        //     'start_date' => '2022-08-01',
+        //     'end_date' => '2023-01-20',
+        // ]);
 
-        Round::factory()->create([
-            'name' => 'Future round 1',
-            'stop_wishes_date' => '2023-01-20',
-            'start_date' => '2023-02-10',
-            'end_date' => '2023-07-20',
-        ]);
+        // Round::factory()->create([
+        //     'name' => 'Future round 1',
+        //     'stop_wishes_date' => '2023-01-20',
+        //     'start_date' => '2023-02-10',
+        //     'end_date' => '2023-07-20',
+        // ]);
 
-        Round::factory()->create([
-            'name' => 'Future round 2',
-            'stop_wishes_date' => '2024-01-20',
-            'start_date' => '2024-02-10',
-            'end_date' => '2024-07-20',
-        ]);
+        // Round::factory()->create([
+        //     'name' => 'Future round 2',
+        //     'stop_wishes_date' => '2024-01-20',
+        //     'start_date' => '2024-02-10',
+        //     'end_date' => '2024-07-20',
+        // ]);
 
-        Property::factory(10)->create();
+        // Property::factory(10)->create();
 
         // foreach (Round::all() as $round) {
         //     $users = User::inRandomOrder()->take(rand(1, 1000))->pluck('id');

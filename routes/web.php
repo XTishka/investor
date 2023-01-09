@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdministratorController;
 use App\Http\Controllers\Admin\RoundController;
 use App\Http\Controllers\CabinetController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\StockholderController;
 use App\Models\Stockholder;
@@ -19,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/login');
 
 Route::middleware([
     'auth:sanctum',
@@ -30,20 +29,19 @@ Route::middleware([
 ])->group(function () {
 
     // Cabinet
-    Route::get('/cabinet', CabinetController::class)->name('cabinet');
-
-    // Profile
-    Route::get('/cabinet/profile', function () {
-        return view('profile');
-    })->name('profile');
+    Route::controller(CabinetController::class)->group(function () {
+        Route::get('/cabinet', 'cabinet')->name('cabinet');
+        Route::get('/cabinet/profile', 'profile')->name('profile');
+    });
 
     Route::group(['middleware' => 'is_admin'], function () {
 
         Route::prefix('admin')->group(function () {
 
-            Route::get('/dashboard', function () {
-                return view('dashboard');
-            })->name('admin.dashboard');
+            Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
+            // Route::get('/dashboard', function () {
+            //     return view('dashboard');
+            // })->name('admin.dashboard');
 
             // Stockholders
             Route::get('/stockholders', function () {

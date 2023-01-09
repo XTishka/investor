@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('round_id')->nullable(false)->constrained();
             $table->foreignId('property_id')->nullable(false)->constrained();
             $table->integer('week_code')->nullable(false);
+            $table->integer('priority')->nullable(false)->default(0);
             $table->enum('status', ['confirmed', 'waiting', 'failed'])->default('waiting');
             $table->timestamps();
         });

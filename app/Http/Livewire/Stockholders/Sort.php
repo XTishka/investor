@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Stockholders;
 
 use App\Models\Round;
-use App\Models\User;
 use Livewire\Component;
 use Illuminate\Http\Request;
 
@@ -30,7 +29,6 @@ class Sort extends Component
             $round->users()->updateExistingPivot($item['value'], [
                 'priority' => $item['order'],
             ]);
-            debugbar()->info($item);
         }
     }
 

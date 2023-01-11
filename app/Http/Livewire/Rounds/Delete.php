@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Rounds;
 
 use Livewire\Component;
 use App\Models\Round;
+use App\Models\User;
+use App\Models\Wish;
 
 class Delete extends Component
 {
@@ -27,7 +29,11 @@ class Delete extends Component
 
     public function delete()
     {
-        if ($this->confirm === true) $this->round->delete();
+        if ($this->confirm === true) {
+            Wish::query()->where('round_id', $this->round->id)->delete();
+            $this->round->users()->detach();
+            $this->round->delete();
+        }
 
         $this->reset(['round']);
         $this->emit('roundDeleted');

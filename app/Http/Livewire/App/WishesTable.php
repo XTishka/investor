@@ -22,8 +22,6 @@ class WishesTable extends Component
             ->orderBy('priority')
             ->get();
 
-        debugbar()->info($wishes);
-
         foreach ($wishes as $wish) {
             $service = new WeeksService;
             $weekDates = $service->getWeekDatesFromCode($wish->week_code);

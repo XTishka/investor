@@ -65,4 +65,8 @@
             @endforeach
         </tbody>
     </x-admin.tables.table>
+
+    <div class="bg-gray-50 py-2 px-4">
+        {{ $wishes->links() }}
+    </div>
 </div>

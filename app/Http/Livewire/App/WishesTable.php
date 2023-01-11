@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\App;
 
+use App\Models\Wish;
 use App\Services\WeeksService;
 use Livewire\Component;
 use Carbon\Carbon;
@@ -15,7 +16,15 @@ class WishesTable extends Component
 
     public function render()
     {
-        foreach ($this->stockholder->wishes as $wish) {
+        $wishes = Wish::query()
+            ->where('round_id', $this->round->id)
+            ->where('user_id', $this->stockholder->id)
+            ->orderBy('priority')
+            ->get();
+
+        debugbar()->info($wishes);
+
+        foreach ($wishes as $wish) {
             $service = new WeeksService;
             $weekDates = $service->getWeekDatesFromCode($wish->week_code);
 
@@ -24,7 +33,7 @@ class WishesTable extends Component
         }
 
         return view('livewire.app.wishes-table', [
-            'wishes' => $this->stockholder->wishes->sortBy('priority'),
+            'wishes' => $wishes,
         ]);
     }
 }

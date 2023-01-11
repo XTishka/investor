@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdministratorController;
-use App\Http\Controllers\Admin\RoundController;
+// use App\Http\Controllers\Admin\RoundController;
+use App\Http\Controllers\RoundController;
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PropertyController;
@@ -38,10 +39,8 @@ Route::middleware([
 
         Route::prefix('admin')->group(function () {
 
+            // Dashboard
             Route::get('/dashboard', DashboardController::class)->name('admin.dashboard');
-            // Route::get('/dashboard', function () {
-            //     return view('dashboard');
-            // })->name('admin.dashboard');
 
             // Stockholders
             Route::get('/stockholders', function () {
@@ -65,13 +64,14 @@ Route::middleware([
             });
 
             // Rounds
-            Route::controller(RoundController::class)->group(function () {
-                Route::get('/rounds', 'index')->name('admin.rounds');
-                Route::get('/rounds/create', 'create')->name('admin.rounds.create');
-                Route::get('/rounds/edit/{round}', 'edit')->name('admin.rounds.edit');
-                Route::get('/rounds/show/{round}', 'show')->name('admin.rounds.show');
-                Route::delete('/rounds/delete/{round}', 'destroy')->name('admin.rounds.delete');
-            });
+            Route::get('/rounds', RoundController::class)->name('admin.rounds');
+            // Route::controller(RoundController::class)->group(function () {
+            //     Route::get('/rounds', 'index')->name('admin.rounds');
+            //     Route::get('/rounds/create', 'create')->name('admin.rounds.create');
+            //     Route::get('/rounds/edit/{round}', 'edit')->name('admin.rounds.edit');
+            //     Route::get('/rounds/show/{round}', 'show')->name('admin.rounds.show');
+            //     Route::delete('/rounds/delete/{round}', 'destroy')->name('admin.rounds.delete');
+            // });
 
             // Administrators
             Route::controller(AdministratorController::class)->group(function () {

@@ -29,16 +29,16 @@ class RoundSwitcher extends Component
         $this->activeRound = Round::query()->find($activeRoundId);
 
         $this->runningRounds = Round::query()
-            ->where('start_date', '<=', Carbon::now()->format('Y-m-d'))
-            ->where('end_date', '>=', Carbon::now()->format('Y-m-d'))
+            ->where('start_wishes_date', '<=', Carbon::now()->format('Y-m-d'))
+            ->where('stop_wishes_date', '>=', Carbon::now()->format('Y-m-d'))
             ->get();
 
         $this->futureRounds = Round::query()
-            ->where('start_date', '>=', Carbon::now()->format('Y-m-d'))
+            ->where('start_wishes_date', '>=', Carbon::now()->format('Y-m-d'))
             ->get();
 
         $this->passedRounds = Round::query()
-            ->where('end_date', '<=', Carbon::now()->format('Y-m-d'))
+            ->where('stop_wishes_date', '<=', Carbon::now()->format('Y-m-d'))
             ->get();
     }
 

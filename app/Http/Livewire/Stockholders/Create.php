@@ -11,8 +11,9 @@ use App\Actions\Stockholders\AddToRoundAction;
 class Create extends Component
 {
     public $modal = false;
-    public $stockholder = true;
+    public $stockholder = ['rounds' => []];
     public $groupedRounds = [];
+    // public $rounds = [];
 
     protected $rules = [
         'stockholder.name'      => 'required|string|max:255',

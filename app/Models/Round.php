@@ -15,6 +15,7 @@ class Round extends Model
 
     protected $fillable = [
         'name',
+        'start_wishes_date',
         'stop_wishes_date',
         'start_date',
         'end_date',

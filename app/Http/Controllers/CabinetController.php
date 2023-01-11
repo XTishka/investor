@@ -14,15 +14,17 @@ class CabinetController extends Controller
         if (auth()->user()->is_admin == 1) return redirect(route('admin.dashboard'));
 
         $service = new RoundServices;
+
         $round = $service->getActiveRound();
+        if (!$round) return view('no-available-rounds');
+
         $stockholder = $round->users()->where('user_id', auth()->user()->id)->first();
-        if ($stockholder) {
-            return view('cabinet', [
-                'round' => $round,
-                'stockholder' => $stockholder,
-            ]);
-        }
-        return view('no-available-rounds');
+        if (!$stockholder) return view('no-available-rounds');
+
+        return view('cabinet', [
+            'round' => $round,
+            'stockholder' => $stockholder,
+        ]);
     }
 
     public function profile()

@@ -30,13 +30,13 @@ class Edit extends Component
 
     public function openModal(Wish $wish)
     {
-        $this->wish = $wish;
-        $this->modal = true;
-        $this->round = $wish->round_id;
-        $this->stockholder = $wish->user_id;
-        $this->property = $wish->property_id;
-        $this->week = $wish->week_code;
-        $this->status = $wish->status;
+        $this->wish         = $wish;
+        $this->modal        = true;
+        $this->round        = $wish->round_id;
+        $this->stockholder  = $wish->user_id;
+        $this->property     = $wish->property_id;
+        $this->week         = $wish->week_code;
+        $this->status       = $wish->status;
     }
 
     public function closeModal()
@@ -48,7 +48,6 @@ class Edit extends Component
     public function save()
     {
         $wish = Wish::query()->find($this->wish->id);
-        debugbar()->info($wish->status);
 
         if ($wish) {
             $wish->update([

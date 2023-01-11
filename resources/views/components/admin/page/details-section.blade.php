@@ -8,7 +8,7 @@
         <x-slot name="details">{{ $details }}</x-slot>
     </x-admin.page.section-title>
 
-    <div class="mt-5 md:mt-0 md:col-span-2">
+    <div class="md:mt-0 md:col-span-2">
         {{ $data }}
     </div>
 </div>

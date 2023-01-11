@@ -33,10 +33,12 @@ class Delete extends Component
             Wish::query()->where('round_id', $this->round->id)->delete();
             $this->round->users()->detach();
             $this->round->delete();
+            $this->emit('roundDeleteConfirmed');
+        } else {
+            $this->emit('roundDeleteNotConfirmed');
         }
 
         $this->reset(['round']);
-        $this->emit('roundDeleted');
         $this->emit('refreshTable');
         $this->modal = false;
     }

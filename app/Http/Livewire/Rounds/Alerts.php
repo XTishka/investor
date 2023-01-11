@@ -11,7 +11,8 @@ class Alerts extends Component
         'roundCreateError',
         'roundUpdateSuccess',
         'roundUpdateError',
-        'roundDeleted',
+        'roundDeleteConfirmed',
+        'roundDeleteNotConfirmed',
     ];
 
     public function roundCreateSuccess()
@@ -46,11 +47,19 @@ class Alerts extends Component
         ]);
     }
 
-    public function roundDeleted()
+    public function roundDeleteConfirmed()
     {
         $this->dispatchBrowserEvent('alert', [
             'type' => 'info',
             'message' => __('Round was deleted')
+        ]);
+    }
+
+    public function roundDeleteNotConfirmed()
+    {
+        $this->dispatchBrowserEvent('alert', [
+            'type' => 'warning',
+            'message' => __('Round was not deleted')
         ]);
     }
 

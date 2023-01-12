@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Models\Round;
-use App\Models\Wish;
 use App\Repositories\RoundRepository;
 use App\Services\WeeksService;
 use Livewire\Component;

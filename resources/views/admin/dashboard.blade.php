@@ -10,7 +10,7 @@
 
             {{-- Action buttons --}}
             <div class="flex mb-4 justify-end items-center">
-                {{-- <livewire:wishes.create /> --}}
+                <livewire:dashboard.distribute />
             </div>
 
             {{-- Table --}}

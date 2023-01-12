@@ -2,22 +2,21 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use App\Models\Round;
-use App\Repositories\RoundRepository;
-use App\Services\WeeksService;
 use Livewire\Component;
 use Illuminate\Http\Request;
+use App\Repositories\RoundRepository;
+use App\Models\Wish;
 use Illuminate\Support\Facades\DB;
-use Livewire\WithPagination;
 
-class Table extends Component
+class Reset extends Component
 {
-    use WithPagination;
+    const WAITING   = 'waiting';
+    const CONFIRMED = 'confirmed';
+    const FAILED    = 'failed';
 
+    public $modal;
     public $roundId;
-    public $perPage = 10;
-
-    protected $listeners = ['refreshTable' => '$refresh'];
+    public $confirmed;
 
     public function mount(Request $request)
     {
@@ -30,20 +29,39 @@ class Table extends Component
         }
     }
 
-    public function render()
+    public function openModal()
     {
-        $round = Round::query()->find($this->roundId);
-        $service = new WeeksService;
-        $weeks = $service->roundWeeks($round->start_date, $round->end_date);
+        $this->modal = true;
+    }
 
-        $stockholders = $round->users()->orderBy('priority')->paginate($this->perPage);
-        $wishes = DB::table('wishes')
+
+    public function closeModal()
+    {
+        $this->reset(['confirmed']);
+        $this->modal = false;
+    }
+
+    public function distributeReset()
+    {
+        foreach ($this->getWishes() as $wish) {
+            $wish = Wish::find($wish->id);
+            $wish->update(['status' => self::WAITING]);
+        }
+        $this->emit('refreshTable');
+        $this->closeModal();
+    }
+
+    public function getWishes()
+    {
+        return DB::table('wishes')
             ->join('round_user', 'wishes.user_id', '=', 'round_user.user_id')
             ->join('users', 'round_user.user_id', '=', 'users.id')
             ->join('properties', 'wishes.property_id', '=', 'properties.id')
             ->select(
                 'wishes.id as id',
                 'wishes.status as status',
+                'wishes.priority as priority',
+                'round_user.wishes as limit',
                 'wishes.week_code as week_code',
                 'wishes.user_id as user_id',
                 'round_user.priority as user_priority',
@@ -52,12 +70,13 @@ class Table extends Component
                 'properties.name as property_name'
             )
             ->where('wishes.round_id', $this->roundId)
+            ->orderBy('round_user.priority')
+            ->orderBy('wishes.priority')
             ->get();
+    }
 
-        foreach ($stockholders as $stockholder) {
-            $stockholder->weeks = $weeks;
-        }
-
-        return view('livewire.dashboard.table', compact('weeks', 'stockholders', 'wishes'));
+    public function render()
+    {
+        return view('livewire.dashboard.reset');
     }
 }

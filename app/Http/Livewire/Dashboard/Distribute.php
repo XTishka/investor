@@ -59,15 +59,19 @@ class Distribute extends Component
             endif;
 
         endif;
+
+        $this->emit('refreshTable');
         $this->closeModal();
     }
 
     public function distributeReset()
     {
-        foreach ($this->getWishes() as $wish) {
-            $wish = Wish::find($wish->id);
-            $wish->update(['status' => self::WAITING]);
-        }
+        if ($this->confirmed == true) :
+            foreach ($this->getWishes() as $wish) :
+                $wish = Wish::find($wish->id);
+                $wish->update(['status' => self::WAITING]);
+            endforeach;
+        endif;
     }
 
     public function distributeLimits()

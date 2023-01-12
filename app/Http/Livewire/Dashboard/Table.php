@@ -52,6 +52,7 @@ class Table extends Component
                 'properties.name as property_name'
             )
             ->where('wishes.round_id', $this->roundId)
+            ->orderBy('round_user.priority')
             ->get();
 
         foreach ($stockholders as $stockholder) {

@@ -95,12 +95,8 @@ class Distribute extends Component
             endif;
         endforeach;
 
-        foreach ($wishes as $wish) :
-            // debugbar()->info($wish->status);
-            $wishUpdate = Wish::find($wish->id);
-            $wishUpdate->update(['status' => $wish->status]);
-        endforeach;
         debugbar()->info('Total round wishes: ' . $wishes->count());
+        $this->distributionSave($wishes);
 
         $wishes = $this->getWishes();
         debugbar()->info('Confirmed wishes: ' . $wishes->where('status', self::CONFIRMED)->count());
@@ -111,6 +107,14 @@ class Distribute extends Component
     public function distributeOverLimits()
     {
         debugbar()->info('distribute overlimits');
+    }
+
+    public function distributionSave($wishes)
+    {
+        foreach ($wishes as $wish) :
+            $wishUpdate = Wish::find($wish->id);
+            $wishUpdate->update(['status' => $wish->status]);
+        endforeach;
     }
 
     public function getWishes()

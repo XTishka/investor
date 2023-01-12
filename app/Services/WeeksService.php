@@ -32,20 +32,20 @@ class WeeksService
         ) {
             $roundWeeksArray = Arr::add($roundWeeksArray, $week, [
                 'week_start'    => [
-                    'number'        => $weekStartDate->weekOfYear,
+                    'number'        => str_pad($weekStartDate->weekOfYear, 2, 0, STR_PAD_LEFT),
                     'date'          => $weekStartDate->format('Y-m-d'),
                     'human_date'    => $weekStartDate->format('j F, Y'),
                     'status'        => $weekStartDate->isPast(),
                     'day'           => $weekStartDate->englishDayOfWeek,
                 ],
                 'week_end'      => [
-                    'number'        => $weekEndDate->weekOfYear,
+                    'number'        => str_pad($weekEndDate->weekOfYear, 2, 0, STR_PAD_LEFT),
                     'date'          => $weekEndDate->format('Y-m-d'),
                     'human_date'    => $weekEndDate->format('j F, Y'),
                     'status'        => $weekEndDate->isFuture(),
                     'day'           => $weekStartDate->englishDayOfWeek,
                 ],
-                'code' => $weekStartDate->year . $weekStartDate->weekOfYear,
+                'code' => $weekStartDate->year . str_pad($weekStartDate->weekOfYear, 2, 0, STR_PAD_LEFT),
             ]);
 
             $weekStartDate->addDays(7);

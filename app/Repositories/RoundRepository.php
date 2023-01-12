@@ -37,4 +37,12 @@ class RoundRepository implements RoundRepositoryInterface
             ->where('stop_wishes_date', '>=', Carbon::now()->format('Y-m-d'))
             ->first();
     }
+
+    public function getLastEndedRound()
+    {
+        return Round::query()
+            ->where('end_date', '<=', Carbon::now()->format('Y-m-d'))
+            ->orderBy('end_date', 'DESC')
+            ->first();
+    }
 }

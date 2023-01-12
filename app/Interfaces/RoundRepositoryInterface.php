@@ -8,4 +8,5 @@ interface RoundRepositoryInterface
     public function getFutureRounds();
     public function getPassedRounds();
     public function getFirstRunningRound();
+    public function getLastEndedRound();
 }

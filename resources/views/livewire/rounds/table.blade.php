@@ -9,7 +9,7 @@
                 <x-admin.tables.thead.th value="{{ __('Round start') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th value="{{ __('Round end') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th class="font-normal text-right">
-                    <x-admin.forms.elements.input wire:model="search" type="text" class="inline-block w-2/3"
+                    <x-admin.forms.elements.input wire:model="search" type="text" class="inline-block font-normal"
                         placeholder="{{ __('Search') }}" />
                 </x-admin.tables.thead.th>
             </tr>
@@ -26,7 +26,10 @@
                     {{-- Rounds --}}
                     <x-admin.tables.tbody.td class="tracking-wider flex items-center">
                         <x-admin.icons.arrow-path class="h-9 w-9 bg-blue-50 text-blue-300 rounded-full p-2 mr-4" />
-                        <span class="font-bold">{{ $round->name }}</span>
+                        <div>
+                            <span class="font-bold block">{{ $round->name }}</span>
+                            <p class="text-xs">{{ $round->description }}</p>
+                        </div>
                     </x-admin.tables.tbody.td>
 
                     {{-- Wishes start date --}}

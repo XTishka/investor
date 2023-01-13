@@ -20,7 +20,7 @@ class Distribute extends Component
     public $modal = false;
     public $roundId;
     public $distributionType = 'simple';
-    public $confirmed = true;
+    public $confirmed = false;
 
     public function mount(Request $request)
     {

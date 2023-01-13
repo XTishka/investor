@@ -29,7 +29,7 @@
 
                     {{-- User Name --}}
                     <x-admin.tables.tbody.td>
-                        {{ $stockholder->name }} : {{ $stockholder->id }}
+                        {{ $stockholder->name }} : {{ $stockholder->pivot->wishes }}
                     </x-admin.tables.tbody.td>
 
 
@@ -38,16 +38,19 @@
                         <x-admin.tables.tbody.td>
                             @foreach ($wishes->where('user_id', $stockholder->id)->where('week_code', $week['code']) as $wish)
                                 @if ($wish->status == 'waiting')
-                                    <span
-                                        class="block bg-gray-200 rounded-lg px-2 mb-1">{{ $wish->property_name }}</span>
+                                    <span class="block bg-gray-200 rounded-lg px-2 mb-1">
+                                        {{ $wish->property_name }} : {{ $wish->priority }}
+                                    </span>
                                 @endif
                                 @if ($wish->status == 'confirmed')
-                                    <span
-                                        class="block bg-green-200 rounded-lg px-2 mb-1">{{ $wish->property_name }}</span>
+                                    <span class="block bg-green-200 rounded-lg px-2 mb-1">
+                                        {{ $wish->property_name }} : {{ $wish->priority }}
+                                    </span>
                                 @endif
                                 @if ($wish->status == 'failed')
-                                    <span
-                                        class="block bg-red-200 rounded-lg px-2 mb-1">{{ $wish->property_name }}</span>
+                                    <span class="block bg-red-200 rounded-lg px-2 mb-1">
+                                        {{ $wish->property_name }} : {{ $wish->priority }}
+                                    </span>
                                 @endif
                             @endforeach
                         </x-admin.tables.tbody.td>

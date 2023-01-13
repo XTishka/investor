@@ -43,12 +43,14 @@ class Reset extends Component
 
     public function distributeReset()
     {
-        foreach ($this->getWishes() as $wish) {
-            $wish = Wish::find($wish->id);
-            $wish->update(['status' => self::WAITING]);
-        }
-        $this->emit('refreshTable');
-        $this->closeModal();
+        if ($this->confirmed === true) :
+            foreach ($this->getWishes() as $wish) {
+                $wish = Wish::find($wish->id);
+                $wish->update(['status' => self::WAITING]);
+            }
+            $this->emit('refreshTable');
+            $this->closeModal();
+        endif;
     }
 
     public function getWishes()

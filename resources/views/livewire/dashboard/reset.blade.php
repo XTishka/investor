@@ -20,9 +20,9 @@
                 {{ __('Cancel') }}
             </x-admin.elements.button-secondary>
 
-            <x-admin.elements.button class="ml-2" wire:click="distributeReset" wire:loading.attr="disabled">
-                {{ __('Run') }}
-                </x-admin.elements.button-danger>
+            <x-admin.elements.button-danger class="ml-2" wire:click="distributeReset" wire:loading.attr="disabled">
+                {{ __('Reset') }}
+            </x-admin.elements.button-danger>
         </x-slot>
     </x-admin.elements.dialog-modal>
 </div>

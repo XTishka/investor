@@ -44,6 +44,7 @@ class Table extends Component
             ->select(
                 'wishes.id as id',
                 'wishes.status as status',
+                'wishes.priority as priority',
                 'wishes.week_code as week_code',
                 'wishes.user_id as user_id',
                 'round_user.priority as user_priority',

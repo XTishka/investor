@@ -66,25 +66,24 @@ class Distribute extends Component
 
     public function distributeReset()
     {
-        if ($this->confirmed == true) :
-            foreach ($this->getWishes() as $wish) :
-                $wish = Wish::find($wish->id);
-                $wish->update(['status' => self::WAITING]);
-            endforeach;
-        endif;
+        foreach ($this->getWishes() as $wish) :
+            $wish = Wish::find($wish->id);
+            $wish->update(['status' => self::WAITING]);
+        endforeach;
     }
 
     public function distributeLimits()
     {
         $wishes = $this->getWishes();
         $round  = Round::find($this->roundId);
-        $users  = $round->users()->get();
+        $users  = $round->users()->orderBy('priority')->get();
 
         foreach ($users as $user) :
-            $userWishes = $wishes->where('user_id', $user->id);
-            $wishesLimit = $wishes->first()->limit;
+            $userWishes = $wishes->where('user_id', $user->id)->sortBy('priority');
             $confirmedWishes = 0;
             if ($userWishes->count() > 0) :
+                $wishesLimit = $userWishes->first()->limit;
+
                 foreach ($userWishes as $userWish) :
                     if ($wishesLimit > $confirmedWishes) :
                         $reserved = $wishes->where('week_code', $userWish->week_code)->where('property_id', $userWish->property_id)->where('status', self::CONFIRMED)->first();
@@ -99,13 +98,7 @@ class Distribute extends Component
             endif;
         endforeach;
 
-        debugbar()->info('Total round wishes: ' . $wishes->count());
         $this->distributionSave($wishes);
-
-        $wishes = $this->getWishes();
-        debugbar()->info('Confirmed wishes: ' . $wishes->where('status', self::CONFIRMED)->count());
-        debugbar()->info('Failed wishes: ' . $wishes->where('status', self::FAILED)->count());
-        debugbar()->info('Waiting wishes: ' . $wishes->where('status', self::WAITING)->count());
     }
 
     public function distributeOverLimits()
@@ -141,7 +134,7 @@ class Distribute extends Component
             )
             ->where('wishes.round_id', $this->roundId)
             ->orderBy('round_user.priority')
-            ->orderBy('wishes.priority')
+            // ->orderBy('wishes.priority')
             ->get();
     }
 

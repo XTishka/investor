@@ -10,6 +10,7 @@
 
             {{-- Action buttons --}}
             <div class="flex mb-4 justify-end items-center">
+                <livewire:dashboard.legend />
                 <livewire:dashboard.reset />
                 <livewire:dashboard.distribute />
             </div>

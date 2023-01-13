@@ -9,10 +9,18 @@ use Carbon\Carbon;
 
 class WishesTable extends Component
 {
-    public object $round;
-    public object $stockholder;
+    public $round;
+    public $stockholder;
 
     protected $listeners = ['updateTable' => '$refresh'];
+
+    public function updatePriority($list)
+    {
+        foreach ($list as $item) {
+            $wish = Wish::query()->find($item['value']);
+            $wish->update(['priority' => $item['order']]);
+        }
+    }
 
     public function render()
     {

@@ -45,6 +45,7 @@
             @endforeach
         </tbody>
     </x-admin.tables.table>
+
 </div>
 
 @push('scripts')

@@ -2,12 +2,14 @@
     <x-admin.tables.table>
         <thead>
             <tr>
-                <x-admin.tables.thead.th value="#" />
+                {{-- <x-admin.tables.thead.th value="#" /> --}}
                 <x-admin.tables.thead.th value="{{ __('Wish') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th value="{{ __('Stockholder') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th value="{{ __('Round') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th value="{{ __('Property') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th value="{{ __('Status') }}" class="tracking-wider" />
+                <x-admin.tables.thead.th value="{{ __('Created') }}" class="tracking-wider" />
+                <x-admin.tables.thead.th value="{{ __('Updated') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th class="font-normal text-right">
                     {{-- <x-admin.forms.elements.input wire:model="search" type="text" class="inline-block w-2/3"
                         placeholder="{{ __('Search stockholder') }}" /> --}}
@@ -18,9 +20,9 @@
             @foreach ($wishes as $wish)
                 <tr wire:loading.class='opacity-50'>
                     {{-- Counter --}}
-                    <x-admin.tables.tbody.td>
+                    {{-- <x-admin.tables.tbody.td>
                         {{ ($wishes->currentpage() - 1) * $perPage + $loop->index + 1 }}
-                    </x-admin.tables.tbody.td>
+                    </x-admin.tables.tbody.td> --}}
 
                     {{-- Wish --}}
                     <x-admin.tables.tbody.td class="tracking-wider">
@@ -45,6 +47,26 @@
                     {{-- Status --}}
                     <x-admin.tables.tbody.td class="tracking-wider">
                         {{ $wish->status }}
+                    </x-admin.tables.tbody.td>
+
+                    {{-- Created at --}}
+                    <x-admin.tables.tbody.td class="tracking-wider">
+                        <span class="block">
+                            {{ date('j F, Y', strtotime($wish->created_at)) }}
+                        </span>
+                        <span class="block text-xs text-gray-500">
+                            {{ date('H:i:s', strtotime($wish->created_at)) }}
+                        </span>
+                    </x-admin.tables.tbody.td>
+
+                    {{-- Updated at --}}
+                    <x-admin.tables.tbody.td class="tracking-wider">
+                        <span class="block">
+                            {{ date('j F, Y', strtotime($wish->updated_at)) }}
+                        </span>
+                        <span class="block text-xs text-gray-500">
+                            {{ date('H:i:s', strtotime($wish->updated_at)) }}
+                        </span>
                     </x-admin.tables.tbody.td>
 
                     {{-- Actions --}}

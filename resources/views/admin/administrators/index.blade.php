@@ -51,10 +51,12 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span
-                                        class="block">{{ date('j F, Y', strtotime($administrator->created_at)) }}</span>
-                                    <span
-                                        class="block text-xs text-gray-500">{{ date('H:i:s', strtotime($administrator->created_at)) }}</span>
+                                    <span class="block">
+                                        {{ date('j F, Y', strtotime($administrator->created_at)) }}
+                                    </span>
+                                    <span class="block text-xs text-gray-500">
+                                        {{ date('H:i:s', strtotime($administrator->created_at)) }}
+                                    </span>
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">

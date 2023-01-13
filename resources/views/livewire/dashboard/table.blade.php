@@ -52,6 +52,16 @@
                                         {{ $wish->property_name }} : {{ $wish->priority }}
                                     </span>
                                 @endif
+                                @if ($wish->status == 'overlimit_confirmed')
+                                    <span class="block bg-blue-200 rounded-lg px-2 mb-1">
+                                        {{ $wish->property_name }} : {{ $wish->priority }}
+                                    </span>
+                                @endif
+                                @if ($wish->status == 'overlimit_failed')
+                                    <span class="block bg-orange-200 rounded-lg px-2 mb-1">
+                                        {{ $wish->property_name }} : {{ $wish->priority }}
+                                    </span>
+                                @endif
                             @endforeach
                         </x-admin.tables.tbody.td>
                     @endforeach

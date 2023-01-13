@@ -122,14 +122,20 @@ class Distribute extends Component
                 $userWish = $waitingWishes->where('user_id', $user->id)->sortBy('priority')->first();
                 if ($userWish) :
                     $wishUpdate = Wish::find($userWish->id);
-                    $reserved = Wish::query()
+
+                    $reservedConfirmed = Wish::query()
                         ->where('week_code', $userWish->week_code)
                         ->where('property_id', $userWish->property_id)
                         ->where('status', self::CONFIRMED)
-                        ->orWhere('status', self::OVERLIMIT_CONFIRMED)
                         ->first();
 
-                    if ($reserved == null) :
+                    $reservedOverlimitConfirmed = Wish::query()
+                        ->where('week_code', $userWish->week_code)
+                        ->where('property_id', $userWish->property_id)
+                        ->Where('status', self::OVERLIMIT_CONFIRMED)
+                        ->first();
+
+                    if ($reservedConfirmed == null and $reservedOverlimitConfirmed == null) :
                         $wishUpdate->update(['status' => self::OVERLIMIT_CONFIRMED]);
                     else :
                         $wishUpdate->update(['status' => self::OVERLIMIT_FAILED]);

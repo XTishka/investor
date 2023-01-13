@@ -18,7 +18,7 @@
             <div class="flex items-center mt-4">
                 <x-admin.forms.elements.radio value='overlimit' wire:model.defer='distributionType' />
                 <x-admin.forms.elements.label class="ml-2 mb-0" wire:click="$set('distributionType', 'overlimit')"
-                    value="{{ __('Distribution with confirmed wishes limit') }}" />
+                    value="{{ __('Distribution with overlimits') }}" />
             </div>
 
             {{-- Confirm distribution --}}

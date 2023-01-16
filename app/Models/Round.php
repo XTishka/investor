@@ -21,6 +21,10 @@ class Round extends Model
         'start_date',
         'end_date',
         'max_wishes',
+        'overlimit',
+        'publicate',
+        'active',
+        'lock',
         'description',
     ];
 

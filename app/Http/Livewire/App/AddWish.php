@@ -6,11 +6,12 @@ use Livewire\Component;
 use App\Models\Wish;
 use App\Models\Round;
 use App\Models\User;
+use App\Services\RoundServices;
 
 class AddWish extends Component
 {
     public $modal = false;
-    public $button = false;
+    public $addWishButton = false;
     public $round;
     public $stockholder;
     public $property;
@@ -23,6 +24,8 @@ class AddWish extends Component
     public function mount(User $stockholder)
     {
         $this->maxWishes = $stockholder->pivot->wishes;
+        $roundService = new RoundServices;
+        $this->round = $roundService->getActiveRound();
     }
 
     public function openModal()
@@ -82,24 +85,25 @@ class AddWish extends Component
 
     public function buttonStatus()
     {
-        if ($this->maxWishes != 0) {
-            $this->usedWishes = Wish::query()
-                ->where('round_id', $this->round->id)
-                ->where('user_id', $this->stockholder->id)
-                ->count();
-            if (($this->maxWishes - $this->usedWishes) > 0) {
-                $this->button = true;
-            } else {
-                $this->button = false;
-            }
-        } else {
-            $this->button = true;
-        }
+        $status = false;
+        if ($this->round->active == true) :
+            $status = ($this->round->inWishesRange == 1) ? true : false;
+            if ($this->round->overlimit == 0) :
+
+                $this->usedWishes = Wish::query()
+                    ->where('round_id', $this->round->id)
+                    ->where('user_id', $this->stockholder->id)
+                    ->count();
+
+                $status = (($this->maxWishes - $this->usedWishes) > 0) ? true : false;
+            endif;
+        endif;
+        return $status;
     }
 
     public function render()
     {
-        $this->buttonStatus();
+        $this->addWishButton = $this->buttonStatus();
         return view('livewire.app.add-wish');
     }
 }

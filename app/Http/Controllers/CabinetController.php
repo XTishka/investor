@@ -17,11 +17,10 @@ class CabinetController extends Controller
 
         $round = $service->getActiveRound();
         if (!$round) return view('no-available-rounds');
+        debugbar()->info($round);
 
         $stockholder = $round->users()->where('user_id', auth()->user()->id)->first();
         if (!$stockholder) return view('no-available-rounds');
-
-        debugbar()->info($round->id);
 
         return view('cabinet', [
             'round' => $round,

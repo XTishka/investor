@@ -17,6 +17,10 @@ class Edit extends Component
     public $round_start;
     public $round_end;
     public $max_wishes;
+    public $overlimit;
+    public $publicate;
+    public $active;
+    public $lock;
     public $description;
 
     protected $listeners = ['openEditModal' => 'openModal'];
@@ -30,6 +34,10 @@ class Edit extends Component
             'round_start'   => ['required', 'date', 'after:wishes_stop', 'before:round_end'],
             'round_end'     => ['required', 'date', 'after:round_start'],
             'max_wishes'    => ['required'],
+            'overlimit'     => ['boolean'],
+            'publicate'     => ['boolean'],
+            'active'        => ['boolean'],
+            'lock'          => ['boolean'],
             'description'   => ['nullable'],
         ];
     }
@@ -44,13 +52,17 @@ class Edit extends Component
         $this->round_start  = $round->start_date;
         $this->round_end    = $round->end_date;
         $this->max_wishes   = $round->max_wishes;
+        $this->overlimit    = $round->overlimit;
+        $this->publicate    = $round->publicate;
+        $this->active       = $round->active;
+        $this->lock         = $round->lock;
         $this->description  = $round->description;
         $this->modal        = true;
     }
 
     public function closeModal()
     {
-        $this->reset(['name', 'wishes_start', 'wishes_stop', 'round_start', 'round_end', 'description', 'max_wishes']);
+        $this->reset(['name', 'wishes_start', 'wishes_stop', 'round_start', 'round_end', 'description', 'max_wishes', 'overlimit', 'publicate', 'active', 'lock']);
         $this->modal = false;
     }
 
@@ -58,6 +70,7 @@ class Edit extends Component
     {
         $this->validate();
         try {
+            if ($this->round->active != 1 and $this->active == 1) Round::query()->where('active', 1)->update(['active' => 0]);
             $this->round->update([
                 'name'              => $this->name,
                 'start_wishes_date' => $this->wishes_start,
@@ -65,6 +78,10 @@ class Edit extends Component
                 'start_date'        => $this->round_start,
                 'end_date'          => $this->round_end,
                 'max_wishes'        => $this->max_wishes,
+                'overlimit'         => $this->overlimit,
+                'publicate'         => $this->publicate,
+                'active'            => $this->active,
+                'lock'              => $this->lock,
                 'description'       => $this->description,
             ]);
             $this->emit('roundUpdateSuccess');
@@ -75,6 +92,7 @@ class Edit extends Component
             debugbar()->info($e);
         }
     }
+
     public function render()
     {
         return view('livewire.rounds.edit');

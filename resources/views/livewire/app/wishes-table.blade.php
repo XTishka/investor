@@ -14,7 +14,8 @@
         </thead>
         <tbody wire:sortable='updatePriority'>
             @foreach ($wishes as $wish)
-                <tr wire:sortable.item="{{ $wish->id }}" wire:key="wish-{{ $wish->id }}">
+                <tr
+                    @if ($round->inWishesRange == true) wire:sortable.item="{{ $wish->id }}" wire:key="wish-{{ $wish->id }}" @endif>
                     <x-admin.tables.tbody.td>
                         {{ $loop->iteration }}
                     </x-admin.tables.tbody.td>
@@ -37,8 +38,10 @@
 
                     <x-admin.tables.tbody.td>
                         <span wire:click="$emit('openDeleteModal', {{ $wish->id }})">
-                            <x-admin.icons.trash
-                                class="w-4 h-4 mr-2 text-gray-400 hover:text-red-700 transition hover:cursor-pointer" />
+                            @if ($round->inWishesRange == true)
+                                <x-admin.icons.trash
+                                    class="w-4 h-4 mr-2 text-gray-400 hover:text-red-700 transition hover:cursor-pointer" />
+                            @endif
                         </span>
                     </x-admin.tables.tbody.td>
                 </tr>

@@ -45,4 +45,11 @@ class RoundRepository implements RoundRepositoryInterface
             ->orderBy('end_date', 'DESC')
             ->first();
     }
+
+    public function getActiveRound()
+    {
+        return Round::query()
+            ->where('active', 1)
+            ->first();
+    }
 }

@@ -10,35 +10,75 @@
             <x-admin.forms.elements.input wire:model.defer='name' type="text" class="mt-1 block w-full" />
             <x-admin.forms.elements.input-error for="name" class="mt-2" />
 
-            {{-- Wishes start --}}
-            <x-admin.forms.elements.label value="{{ __('Wishes start date') }}" class="mt-4" />
-            <x-admin.forms.elements.input id="wishes_start_edit" wire:model.lazy='wishes_start' type="date"
-                class="mt-1 block w-full" />
-            <x-admin.forms.elements.input-error for="wishes_start" class="mt-2" />
+            <div class="flex gap-2">
+                <div class="w-1/2">
+                    {{-- Wishes start --}}
+                    <x-admin.forms.elements.label value="{{ __('Wishes start date') }}" class="mt-4" />
+                    <x-admin.forms.elements.input id="wishes_start_edit" wire:model.lazy='wishes_start' type="date"
+                        class="mt-1 block w-full" />
+                    <x-admin.forms.elements.input-error for="wishes_start" class="mt-2" />
+                </div>
 
-            {{-- Wishes end --}}
-            <x-admin.forms.elements.label value="{{ __('Wishes stop date') }}" class="mt-4" />
-            <x-admin.forms.elements.input id="wishes_stop" wire:model.lazy='wishes_stop' type="date"
-                class="mt-1 block w-full" />
-            <x-admin.forms.elements.input-error for="wishes_stop" class="mt-2" />
+                <div class="w-1/2">
+                    {{-- Wishes end --}}
+                    <x-admin.forms.elements.label value="{{ __('Wishes stop date') }}" class="mt-4" />
+                    <x-admin.forms.elements.input id="wishes_stop" wire:model.lazy='wishes_stop' type="date"
+                        class="mt-1 block w-full" />
+                    <x-admin.forms.elements.input-error for="wishes_stop" class="mt-2" />
+                </div>
+            </div>
 
-            {{-- Round start --}}
-            <x-admin.forms.elements.label value="{{ __('Round start date') }}" class="mt-4" />
-            <x-admin.forms.elements.input id="round_start" wire:model.lazy='round_start' type="date"
-                class="mt-1 block w-full" />
-            <x-admin.forms.elements.input-error for="round_start" class="mt-2" />
+            <div class="flex gap-2">
+                <div class="w-1/2">
+                    {{-- Round start --}}
+                    <x-admin.forms.elements.label value="{{ __('Round start date') }}" class="mt-4" />
+                    <x-admin.forms.elements.input id="round_start" wire:model.lazy='round_start' type="date"
+                        class="mt-1 block w-full" />
+                    <x-admin.forms.elements.input-error for="round_start" class="mt-2" />
+                </div>
 
-            {{-- Round end --}}
-            <x-admin.forms.elements.label value="{{ __('Round end date') }}" class="mt-4" />
-            <x-admin.forms.elements.input id="round_end" wire:model.lazy='round_end' type="date"
-                class="mt-1 block w-full" />
-            <x-admin.forms.elements.input-error for="round_end" class="mt-2" />
+                <div class="w-1/2">
+                    {{-- Round end --}}
+                    <x-admin.forms.elements.label value="{{ __('Round end date') }}" class="mt-4" />
+                    <x-admin.forms.elements.input id="round_end" wire:model.lazy='round_end' type="date"
+                        class="mt-1 block w-full" />
+                    <x-admin.forms.elements.input-error for="round_end" class="mt-2" />
+                </div>
+            </div>
 
             {{-- Max wishes --}}
             @php $maxWishesLabel = 'Max available wishes for this round. ( 0 - infinite wishes)'; @endphp
             <x-admin.forms.elements.label class="mt-4" value="{{ __($maxWishesLabel) }}" />
             <x-admin.forms.elements.input wire:model='max_wishes' type="number" class="mt-1 block w-full" />
             <x-admin.forms.elements.input-error for="max_wishes" class="mt-2" />
+
+            {{-- Overlimit --}}
+            <div class="flex items-center mt-4">
+                <x-admin.forms.elements.checkbox name="overlimit" wire:model='overlimit' />
+                <x-admin.forms.elements.label value="{{ __('Enable overlimit for wishes.') }}" class="ml-4 mt-2"
+                    wire:click="$toggle('overlimit')" />
+            </div>
+
+            {{-- Publicate --}}
+            <div class="flex items-center">
+                <x-admin.forms.elements.checkbox name="pulicate" wire:model.defer='publicate' />
+                <x-admin.forms.elements.label value="{{ __('Publicate round. Make round visible for stockholders.') }}"
+                    class="ml-4 mt-2" wire:click="$toggle('publicate')" />
+            </div>
+
+            {{-- Active --}}
+            <div class="flex items-center">
+                <x-admin.forms.elements.checkbox name="active" wire:model.defer='active' />
+                <x-admin.forms.elements.label value="{{ __('Set active round. Only one round can be active.') }}"
+                    class="ml-4 mt-2" wire:click="$toggle('active')" />
+            </div>
+
+            {{-- Lock --}}
+            <div class="flex items-center">
+                <x-admin.forms.elements.checkbox name="lock" wire:model.defer='lock' />
+                <x-admin.forms.elements.label value="{{ __('Lock round for changes') }}" class="ml-4 mt-2"
+                    wire:click="$toggle('lock')" />
+            </div>
 
             {{-- Description --}}
             <x-admin.forms.elements.label value="{{ __('Description') }}" class="mt-4" />

@@ -41,12 +41,8 @@
 
                     {{-- Actions --}}
                     <x-admin.tables.tbody.td class="tracking-wider text-right">
-                        <x-admin.tables.action-button class="rounded-l-md" wire:click='view({{ $stockholder->id }})'>
-                            <x-admin.icons.eye class="w-4 h-4 mr-2" />
-                            {{ __('View') }}
-                        </x-admin.tables.action-button>
-
-                        <x-admin.tables.action-button wire:click="$emit('openResetPasswordModal', {{ $stockholder }})">
+                        <x-admin.tables.action-button class="rounded-l-md"
+                            wire:click="$emit('openResetPasswordModal', {{ $stockholder }})">
                             <x-admin.icons.edit class="w-4 h-4 mr-2" />
                             {{ __('Reset password') }}
                         </x-admin.tables.action-button>

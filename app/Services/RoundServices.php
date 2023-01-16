@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Interfaces\RoundRepositoryInterface;
+use App\Models\Round;
 use App\Repositories\RoundRepository;
 use App\Models\User;
+use Carbon\Carbon;
 
 class RoundServices
 {
@@ -39,6 +41,12 @@ class RoundServices
 
     public function getActiveRound()
     {
-        return $this->roundRepository->getFirstRunningRound();
+        $round = $this->roundRepository->getActiveRound();
+        if ($round) {
+            $startWishesDate = Carbon::parse($round->start_wishes_date);
+            $stopWishesDate  = Carbon::parse($round->stop_wishes_date);
+            $round->inWishesRange = (Carbon::now()->between($startWishesDate, $stopWishesDate, true) == true) ? true : false;
+        }
+        return $round;
     }
 }

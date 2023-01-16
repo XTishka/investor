@@ -14,7 +14,11 @@ class Create extends Component
     public $wishes_stop;
     public $round_start;
     public $round_end;
-    public $max_wishes;
+    public $max_wishes = 0;
+    public $overlimit  = 0;
+    public $publicate  = 0;
+    public $active     = 0;
+    public $lock       = 0;
     public $description;
 
     public function rules()
@@ -25,8 +29,12 @@ class Create extends Component
             'wishes_stop'   => ['required', 'date', 'after:wishes_start', 'before:round_start'],
             'round_start'   => ['required', 'date', 'after:wishes_stop', 'before:round_end'],
             'round_end'     => ['required', 'date', 'after:round_start'],
-            'description'   => ['nullable'],
             'max_wishes'    => ['required'],
+            'overlimit'     => ['boolean'],
+            'publicate'     => ['boolean'],
+            'active'        => ['boolean'],
+            'lock'          => ['boolean'],
+            'description'   => ['nullable'],
         ];
     }
 
@@ -37,7 +45,7 @@ class Create extends Component
 
     public function closeModal()
     {
-        $this->reset(['name', 'wishes_start', 'wishes_stop', 'round_start', 'round_end', 'description', 'max_wishes']);
+        $this->reset(['name', 'wishes_start', 'wishes_stop', 'round_start', 'round_end', 'description', 'max_wishes', 'overlimit', 'publicate', 'active', 'lock']);
         $this->modal = false;
     }
 
@@ -46,18 +54,24 @@ class Create extends Component
         $this->validate();
 
         try {
-            Round::create([
+            if ($this->active == 1) Round::query()->where('active', 1)->update(['active' => 0]);
+            $round = Round::create([
                 'name'              => $this->name,
                 'start_wishes_date' => $this->wishes_start,
                 'stop_wishes_date'  => $this->wishes_stop,
                 'start_date'        => $this->round_start,
                 'end_date'          => $this->round_end,
                 'max_wishes'        => $this->max_wishes,
+                'overlimit'         => $this->overlimit,
+                'publicate'         => $this->publicate,
+                'active'            => $this->active,
+                'lock'              => $this->lock,
                 'description'       => $this->description,
             ]);
             $this->emit('roundCreateSuccess');
             $this->emit('refreshTable');
             $this->closeModal();
+            debugbar()->info($round);
         } catch (Exception $e) {
             $this->emit('roundCreateError');
             debugbar()->info($e);

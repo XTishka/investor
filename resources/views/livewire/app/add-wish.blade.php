@@ -7,7 +7,7 @@
         @endif
     </div>
 
-    @if ($button)
+    @if ($addWishButton == true)
         <div class="my-4">
             <x-admin.elements.button wire:model='button' wire:click='openModal' value="{{ __('Add new') }}" />
         </div>

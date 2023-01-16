@@ -4,10 +4,12 @@
             <tr>
                 <x-admin.tables.thead.th value="#" />
                 <x-admin.tables.thead.th value="{{ __('Rounds') }}" class="tracking-wider" />
-                <x-admin.tables.thead.th value="{{ __('Wishes start') }}" class="tracking-wider" />
-                <x-admin.tables.thead.th value="{{ __('Wishes end') }}" class="tracking-wider" />
-                <x-admin.tables.thead.th value="{{ __('Round start') }}" class="tracking-wider" />
-                <x-admin.tables.thead.th value="{{ __('Round end') }}" class="tracking-wider" />
+                <x-admin.tables.thead.th value="{{ __('Wishes dates') }}" class="tracking-wider" />
+                <x-admin.tables.thead.th value="{{ __('Round dates') }}" class="tracking-wider" />
+                <x-admin.tables.thead.th value="{{ __('Max wishes') }}" class="tracking-wider" />
+                <x-admin.tables.thead.th value="{{ __('Overlimit') }}" class="tracking-wider" />
+                <x-admin.tables.thead.th value="{{ __('Publicated') }}" class="tracking-wider" />
+                <x-admin.tables.thead.th value="{{ __('Active') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th class="font-normal text-right">
                     <x-admin.forms.elements.input wire:model="search" type="text" class="inline-block font-normal"
                         placeholder="{{ __('Search') }}" />
@@ -32,24 +34,36 @@
                         </div>
                     </x-admin.tables.tbody.td>
 
-                    {{-- Wishes start date --}}
-                    <x-admin.tables.tbody.td class="tracking-wider">
-                        {{ $round->wishes_start }}
-                    </x-admin.tables.tbody.td>
-
-                    {{-- Wishes end date --}}
-                    <x-admin.tables.tbody.td class="tracking-wider">
-                        {{ $round->wishes_stop }}
+                    {{-- Wishes start/stop date --}}
+                    <x-admin.tables.tbody.td class="tracking-wider text-xs">
+                        <span class="block">{{ $round->wishes_start }}</span>
+                        <span class="block">{{ $round->wishes_stop }}</span>
                     </x-admin.tables.tbody.td>
 
                     {{-- Round start date --}}
-                    <x-admin.tables.tbody.td class="tracking-wider">
-                        {{ $round->start }}
+                    <x-admin.tables.tbody.td class="tracking-wider text-xs">
+                        <span class="block">{{ $round->start }}</span>
+                        <span class="block">{{ $round->stop }}</span>
                     </x-admin.tables.tbody.td>
 
-                    {{-- Round end date --}}
-                    <x-admin.tables.tbody.td class="tracking-wider">
-                        {{ $round->stop }}
+                    {{-- Max wishes --}}
+                    <x-admin.tables.tbody.td class="tracking-wider text-center">
+                        {{ $round->max_wishes }}
+                    </x-admin.tables.tbody.td>
+
+                    {{-- Overlimit --}}
+                    <x-admin.tables.tbody.td class="tracking-wider text-center">
+                        {{ $round->overlimit }}
+                    </x-admin.tables.tbody.td>
+
+                    {{-- Publicated --}}
+                    <x-admin.tables.tbody.td class="tracking-wider text-center">
+                        {{ $round->publicate }}
+                    </x-admin.tables.tbody.td>
+
+                    {{-- Active --}}
+                    <x-admin.tables.tbody.td class="tracking-wider text-center">
+                        {{ $round->active }}
                     </x-admin.tables.tbody.td>
 
                     {{-- Actions --}}

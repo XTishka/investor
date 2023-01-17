@@ -5,7 +5,7 @@ namespace App\Exports;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
-class DistributionCsvExport implements FromView
+class DistributionExcelExport implements FromView
 {
     public $weeks;
     public $stockholders;
@@ -24,7 +24,7 @@ class DistributionCsvExport implements FromView
     public function view(): View
     {
         debugbar()->info($this->weeks);
-        return view('exports.distribution-csv-export', [
+        return view('exports.distribution-excel-export', [
             'stockholders' => $this->stockholders,
             'weeks'        => $this->weeks,
             'wishes'       => $this->wishes,

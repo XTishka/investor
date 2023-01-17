@@ -34,7 +34,7 @@ class ExportCSV extends Component
 
         $this->closeModal();
 
-        return Excel::download(new DistributionCsvExport($round, $weeks, $stockholders, $wishes), $this->getFilename());
+        return Excel::download(new DistributionCsvExport($weeks, $stockholders, $wishes), $this->getFilename());
     }
 
     public function getFilename()

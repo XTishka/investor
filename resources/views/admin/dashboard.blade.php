@@ -5,23 +5,25 @@
     <div class="py-6">
         <div class="w-full px-8">
 
-            {{-- Notifications --}}
-            {{-- <livewire:dashboard.alerts /> --}}
-
             {{-- Action buttons --}}
             <div class="flex mb-4 justify-end items-center">
-                <livewire:dashboard.legend />
-                <livewire:dashboard.reset />
-                <livewire:dashboard.distribute />
-                <livewire:dashboard.export-csv />
+                <div class="mr-4 flex">
+                    <livewire:dashboard.legend />
+                </div>
+
+                <div class="mr-4 flex">
+                    <livewire:dashboard.reset />
+                    <livewire:dashboard.distribute />
+                </div>
+
+                <div class="flex">
+                    <livewire:dashboard.export-csv />
+                    <livewire:dashboard.export-excel />
+                </div>
             </div>
 
             {{-- Table --}}
             <livewire:dashboard.table />
-
-            {{-- Table actions modals --}}
-            {{-- <livewire:wishes.edit />
-            <livewire:wishes.delete /> --}}
         </div>
     </div>
 </x-admin-layout>

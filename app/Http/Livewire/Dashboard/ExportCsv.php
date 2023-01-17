@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DistributionCsvExport;
 
-class ExportCSV extends Component
+class ExportCsv extends Component
 {
     public $modal;
 

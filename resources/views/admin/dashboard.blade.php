@@ -8,22 +8,22 @@
             {{-- Action buttons --}}
             <div class="flex mb-4 justify-end items-center">
                 <div class="mr-4 flex">
-                    <livewire:dashboard.legend />
+                    @livewire('dashboard.legend')
                 </div>
 
                 <div class="mr-4 flex">
-                    <livewire:dashboard.reset />
-                    <livewire:dashboard.distribute />
+                    @livewire('dashboard.reset')
+                    @livewire('dashboard.distribute')
                 </div>
 
                 <div class="flex">
-                    <livewire:dashboard.export-csv />
-                    <livewire:dashboard.export-excel />
+                    @livewire('dashboard.export-csv')
+                    @livewire('dashboard.export-excel')
                 </div>
             </div>
 
             {{-- Table --}}
-            <livewire:dashboard.table />
+            @livewire('dashboard.table')
         </div>
     </div>
 </x-admin-layout>

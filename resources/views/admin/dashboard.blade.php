@@ -13,6 +13,7 @@
                 <livewire:dashboard.legend />
                 <livewire:dashboard.reset />
                 <livewire:dashboard.distribute />
+                <livewire:dashboard.export-csv />
             </div>
 
             {{-- Table --}}

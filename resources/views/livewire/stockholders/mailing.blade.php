@@ -5,9 +5,7 @@
         <x-slot name="title">{{ __('Send emails to stockholders') }}</x-slot>
 
         <x-slot name="content">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea veniam eaque aspernatur architecto aperiam
-            suscipit eveniet soluta? Odit architecto doloribus, totam culpa corrupti, possimus doloremque explicabo
-            perferendis deleniti sit numquam?
+            <i class="text-lg text-gray-500 font-bold">Sorry, this option is not ready yet.</i>
         </x-slot>
 
         <x-slot name="footer">

@@ -7,12 +7,15 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use App\Actions\Stockholders\StoreAction;
 use App\Actions\Stockholders\AddToRoundAction;
+use App\Mail\SendPassword;
+use Illuminate\Support\Facades\Mail;
 
 class Create extends Component
 {
     public $modal = false;
     public $stockholder = ['rounds' => []];
     public $groupedRounds = [];
+    public $sendPassword = true;
     // public $rounds = [];
 
     protected $rules = [
@@ -48,10 +51,15 @@ class Create extends Component
         } else {
             $this->emit('stockholderSaveError');
         }
+
+        // Send email
+        if ($this->sendPassword == true) {
+            Mail::to($this->stockholder['email'])->queue(new SendPassword($this->stockholder, $this->stockholder['password']));
+        }
+
         $this->reset(['stockholder']);
         $this->emit('stockholdersUpdated');
         $this->modal = false;
-        // TODO: Send email to stockholder
     }
 
     public function generatePassword()

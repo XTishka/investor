@@ -35,7 +35,7 @@
             {{-- Send password --}}
             <div class="mt-4 flex">
                 <x-admin.forms.elements.checkbox id="send_password" name="send_password"
-                    wire:model.defer='stockholder.sendPassword' />
+                    wire:model.defer='sendPassword' />
                 <x-admin.forms.elements.label for="send_password"
                     value="{{ __('Send email with login details to stockholder') }}" class="ml-4" />
             </div>

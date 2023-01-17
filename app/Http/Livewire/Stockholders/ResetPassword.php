@@ -6,6 +6,8 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendPassword;
 
 class ResetPassword extends Component
 {
@@ -34,6 +36,11 @@ class ResetPassword extends Component
             'password'  => 'required|string|min:8|regex:/(^[a-zA-Z]+[a-zA-Z0-9\\-]*)/u',
         ]);
         $this->stockholder->update(['password' => Hash::make($this->password)]);
+
+        // Send email
+        if ($this->sendPassword == true) {
+            Mail::to($this->stockholder['email'])->queue(new SendPassword($this->stockholder, $this->password));
+        }
         $this->closeModal();
         $this->emit('updatePasswordSuccess');
     }

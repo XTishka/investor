@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendPassword;
 
 class StockholdersImport implements ToCollection, WithHeadingRow
 {
@@ -40,7 +42,12 @@ class StockholdersImport implements ToCollection, WithHeadingRow
 
                 if (!$stockholder) {
                     $createStockholder = new StoreAction;
-                    $stockholder = $createStockholder->handle($row['name'], $row['email'], Str::random(8));
+                    $password = Str::random(8);
+                    $stockholder = $createStockholder->handle($row['name'], $row['email'], $password);
+                    debugbar()->info($this->options);
+                    if ($this->options['option_create_with_email'] == true) :
+                        Mail::to($row['email'])->queue(new SendPassword($stockholder, $password));
+                    endif;
                 } else {
                     if ($stockholder->trashed()) $stockholder->restore();
                 }

@@ -29,11 +29,10 @@ class ExportExcel extends Component
     {
         $round        = $this->getRound($request);
         $weeks        = $this->getWeeks($round);
-        $stockholders = $this->getStockholders($round, $weeks);
         $wishes       = $this->getWishes($round);
+        $stockholders = $this->getStockholders($round, $weeks, $wishes);
 
         $this->closeModal();
-
         return Excel::download(new DistributionExcelExport($weeks, $stockholders, $wishes), $this->getFilename());
     }
 
@@ -64,13 +63,26 @@ class ExportExcel extends Component
             ->get();
     }
 
-    public function getStockholders($round, $weeks)
+    public function getStockholders($round, $weeks, $wishes)
     {
         $stockholders = $round->users()->orderBy('priority')->get();
-        foreach ($stockholders as $stockholder) {
-            $stockholder->weeks = $weeks;
-        }
+        foreach ($stockholders as $stockholder) :
+            $stockholder->rowspan = $this->getStockholderRowspan($stockholder, $weeks, $wishes);
+        endforeach;
         return $stockholders;
+    }
+
+    public function getStockholderRowspan($stockholder, $weeks, $wishes)
+    {
+        $rowspan = 1;
+        foreach ($weeks as $week) :
+            $stockholderWishes = $wishes
+                ->where('user_id', $stockholder->id)
+                ->where('week_code', $week['code'])
+                ->count();
+            $rowspan = ($stockholderWishes > $rowspan) ? $stockholderWishes : $rowspan;
+        endforeach;
+        return $rowspan;
     }
 
     public function getRound($request)

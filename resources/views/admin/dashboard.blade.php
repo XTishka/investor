@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="flex">
-                    @livewire('dashboard.export-csv')
+                    {{-- @livewire('dashboard.export-csv') --}}
                     @livewire('dashboard.export-excel')
                 </div>
             </div>

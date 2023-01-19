@@ -119,27 +119,34 @@ class Distribute extends Component
 
         if ($waitingWishes->count() > 0) :
             foreach ($users as $user) :
-                $userWish = $waitingWishes->where('user_id', $user->id)->sortBy('priority')->first();
-                if ($userWish) :
-                    $wishUpdate = Wish::find($userWish->id);
+                $userWishes = $waitingWishes->where('user_id', $user->id)->sortBy('priority');
+                if ($userWishes->count() > 0) :
+                    $confirmedWish = false;
+                    foreach ($userWishes as $userWish) :
+                        if ($confirmedWish == false) :
+                            $wishUpdate = Wish::find($userWish->id);
 
-                    $reservedConfirmed = Wish::query()
-                        ->where('week_code', $userWish->week_code)
-                        ->where('property_id', $userWish->property_id)
-                        ->where('status', self::CONFIRMED)
-                        ->first();
+                            $reservedConfirmed = Wish::query()
+                                ->where('week_code', $userWish->week_code)
+                                ->where('property_id', $userWish->property_id)
+                                ->where('status', self::CONFIRMED)
+                                ->first();
 
-                    $reservedOverlimitConfirmed = Wish::query()
-                        ->where('week_code', $userWish->week_code)
-                        ->where('property_id', $userWish->property_id)
-                        ->Where('status', self::OVERLIMIT_CONFIRMED)
-                        ->first();
+                            $reservedOverlimitConfirmed = Wish::query()
+                                ->where('week_code', $userWish->week_code)
+                                ->where('property_id', $userWish->property_id)
+                                ->Where('status', self::OVERLIMIT_CONFIRMED)
+                                ->first();
 
-                    if ($reservedConfirmed == null and $reservedOverlimitConfirmed == null) :
-                        $wishUpdate->update(['status' => self::OVERLIMIT_CONFIRMED]);
-                    else :
-                        $wishUpdate->update(['status' => self::OVERLIMIT_FAILED]);
-                    endif;
+                            if ($reservedConfirmed == null and $reservedOverlimitConfirmed == null) :
+                                $wishUpdate->update(['status' => self::OVERLIMIT_CONFIRMED]);
+                                $confirmedWish = true;
+                            else :
+                                $wishUpdate->update(['status' => self::OVERLIMIT_FAILED]);
+                                $confirmedWish = false;
+                            endif;
+                        endif;
+                    endforeach;
                 endif;
             endforeach;
             $this->distributeOverLimits();

@@ -14,6 +14,10 @@ class Table extends Component
     public $search = '';
     public $roundId;
     public $perPage = 20;
+    public $filter_stockholder;
+    public $filter_round;
+    public $filter_property;
+    public $filter_status;
 
     protected $listeners = ['stockholdersUpdated' => '$refresh'];
 

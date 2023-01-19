@@ -1,6 +1,34 @@
 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
     <x-admin.tables.table>
         <thead>
+            <tr class="border-b">
+                <th colspan="8" class="px-2 pt-2 pb-4 bg-gray-50" wire:model="filter.show">
+                    <div class="flex items-center justify-between ">
+                        <div class="flex">
+                            <div class="mr-2">
+                                <x-admin.forms.elements.select-wish-stockholder model="filter.stockholder" />
+                            </div>
+
+                            <div class="mr-2">
+                                <x-admin.forms.elements.select-round model="filter.round" />
+                            </div>
+
+                            <div class="mr-2">
+                                <x-admin.forms.elements.select-property model="filter.property" />
+                            </div>
+
+                            <div class="mr-2">
+                                <x-admin.forms.elements.select-wish-status model="filter.wish_status" />
+                            </div>
+                        </div>
+                        <div>
+                            <x-admin.forms.elements.button class="mt-2" wire:click="resetFilter">
+                                {{ __('Reset') }}
+                            </x-admin.forms.elements.button>
+                        </div>
+                    </div>
+                </th>
+            </tr>
             <tr>
                 {{-- <x-admin.tables.thead.th value="#" /> --}}
                 <x-admin.tables.thead.th value="{{ __('Wish') }}" class="tracking-wider" />
@@ -11,8 +39,9 @@
                 <x-admin.tables.thead.th value="{{ __('Created') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th value="{{ __('Updated') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th class="font-normal text-right">
-                    {{-- <x-admin.forms.elements.input wire:model="search" type="text" class="inline-block w-2/3"
-                        placeholder="{{ __('Search stockholder') }}" /> --}}
+                    {{-- <x-admin.forms.elements.button>
+                        Filter
+                    </x-admin.forms.elements.button> --}}
                 </x-admin.tables.thead.th>
             </tr>
         </thead>

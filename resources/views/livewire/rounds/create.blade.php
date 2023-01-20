@@ -104,13 +104,14 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
-
     <script src="{{ asset('js/pikaday.js') }}"></script>
+
     <script>
         let startWishesDate = new Pikaday({
             field: document.getElementById('wishes_start'),
             format: 'YYYY-MM-DD',
             minDate: new Date(),
+            showWeekNumber: true,
             toString(date, format) {
                 const day = date.getDate();
                 const month = date.getMonth() + 1;
@@ -130,6 +131,7 @@
             field: document.getElementById('wishes_stop'),
             format: 'YYYY-MM-DD',
             minDate: new Date(),
+            showWeekNumber: true,
             toString(date, format) {
                 const day = date.getDate();
                 const month = date.getMonth() + 1;
@@ -150,6 +152,8 @@
             field: document.getElementById('round_start'),
             format: 'YYYY-MM-DD',
             minDate: new Date(),
+            firstDay: 1,
+            showWeekNumber: true,
             toString(date, format) {
                 const day = date.getDate();
                 const month = date.getMonth() + 1;
@@ -162,6 +166,16 @@
                 const month = parseInt(parts[1], 10) - 1;
                 const year = parseInt(parts[2], 10);
                 return new Date(year, month, day);
+            },
+            disableDayFn: function(date) {
+                return (
+                    date.getDay() === 1 ||
+                    date.getDay() === 2 ||
+                    date.getDay() === 3 ||
+                    date.getDay() === 4 ||
+                    date.getDay() === 5 ||
+                    date.getDay() === 0
+                );
             },
         });
 
@@ -169,6 +183,8 @@
             field: document.getElementById('round_end'),
             format: 'YYYY-MM-DD',
             minDate: new Date(),
+            firstDay: 1,
+            showWeekNumber: true,
             toString(date, format) {
                 const day = date.getDate();
                 const month = date.getMonth() + 1;
@@ -181,6 +197,16 @@
                 const month = parseInt(parts[1], 10) - 1;
                 const year = parseInt(parts[2], 10);
                 return new Date(year, month, day);
+            },
+            disableDayFn: function(date) {
+                return (
+                    date.getDay() === 1 ||
+                    date.getDay() === 2 ||
+                    date.getDay() === 3 ||
+                    date.getDay() === 4 ||
+                    date.getDay() === 5 ||
+                    date.getDay() === 0
+                );
             },
         });
     </script>

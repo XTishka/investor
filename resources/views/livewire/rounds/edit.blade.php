@@ -14,17 +14,17 @@
                 <div class="w-1/2">
                     {{-- Wishes start --}}
                     <x-admin.forms.elements.label value="{{ __('Wishes start date') }}" class="mt-4" />
-                    <x-admin.forms.elements.input id="wishes_start_edit" wire:model.lazy='wishes_start' type="date"
+                    <x-admin.forms.elements.input id="wishes_edit_start" wire:model.lazy='wishes_start' type="text"
                         class="mt-1 block w-full" />
-                    <x-admin.forms.elements.input-error for="wishes_start" class="mt-2" />
+                    <x-admin.forms.elements.input-error for="wishes_edit_start" class="mt-2" />
                 </div>
 
                 <div class="w-1/2">
                     {{-- Wishes end --}}
                     <x-admin.forms.elements.label value="{{ __('Wishes stop date') }}" class="mt-4" />
-                    <x-admin.forms.elements.input id="wishes_stop" wire:model.lazy='wishes_stop' type="date"
+                    <x-admin.forms.elements.input id="wishes_edit_stop" wire:model.lazy='wishes_stop' type="text"
                         class="mt-1 block w-full" />
-                    <x-admin.forms.elements.input-error for="wishes_stop" class="mt-2" />
+                    <x-admin.forms.elements.input-error for="wishes_edit_stop" class="mt-2" />
                 </div>
             </div>
 
@@ -32,17 +32,17 @@
                 <div class="w-1/2">
                     {{-- Round start --}}
                     <x-admin.forms.elements.label value="{{ __('Round start date') }}" class="mt-4" />
-                    <x-admin.forms.elements.input id="round_start" wire:model.lazy='round_start' type="date"
+                    <x-admin.forms.elements.input id="round_edit_start" wire:model.lazy='round_start' type="text"
                         class="mt-1 block w-full" />
-                    <x-admin.forms.elements.input-error for="round_start" class="mt-2" />
+                    <x-admin.forms.elements.input-error for="round_edit_start" class="mt-2" />
                 </div>
 
                 <div class="w-1/2">
                     {{-- Round end --}}
                     <x-admin.forms.elements.label value="{{ __('Round end date') }}" class="mt-4" />
-                    <x-admin.forms.elements.input id="round_end" wire:model.lazy='round_end' type="date"
+                    <x-admin.forms.elements.input id="round_edit_end" wire:model.lazy='round_end' type="text"
                         class="mt-1 block w-full" />
-                    <x-admin.forms.elements.input-error for="round_end" class="mt-2" />
+                    <x-admin.forms.elements.input-error for="round_edit_end" class="mt-2" />
                 </div>
             </div>
 
@@ -97,3 +97,111 @@
         </x-slot>
     </x-admin.elements.dialog-modal>
 </div>
+
+
+@push('scripts')
+    <script>
+        let startEditWishesDate = new Pikaday({
+            field: document.getElementById('wishes_edit_start'),
+            format: 'YYYY-MM-DD',
+            minDate: new Date(),
+            showWeekNumber: true,
+            toString(date, format) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return `${year}-${month}-${day}`;
+            },
+            parse(dateString, format) {
+                const parts = dateString.split('-');
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            },
+        });
+
+        let stopEditWishesDate = new Pikaday({
+            field: document.getElementById('wishes_edit_stop'),
+            format: 'YYYY-MM-DD',
+            minDate: new Date(),
+            showWeekNumber: true,
+            toString(date, format) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return `${year}-${month}-${day}`;
+            },
+            parse(dateString, format) {
+                const parts = dateString.split('-');
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            },
+        });
+
+
+        let startEditRoundDate = new Pikaday({
+            field: document.getElementById('round_edit_start'),
+            format: 'YYYY-MM-DD',
+            minDate: new Date(),
+            firstDay: 1,
+            showWeekNumber: true,
+            toString(date, format) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return `${year}-${month}-${day}`;
+            },
+            parse(dateString, format) {
+                const parts = dateString.split('-');
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            },
+            disableDayFn: function(date) {
+                return (
+                    date.getDay() === 1 ||
+                    date.getDay() === 2 ||
+                    date.getDay() === 3 ||
+                    date.getDay() === 4 ||
+                    date.getDay() === 5 ||
+                    date.getDay() === 0
+                );
+            },
+        });
+
+        let endEditRoundDate = new Pikaday({
+            field: document.getElementById('round_edit_end'),
+            format: 'YYYY-MM-DD',
+            minDate: new Date(),
+            firstDay: 1,
+            showWeekNumber: true,
+            toString(date, format) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return `${year}-${month}-${day}`;
+            },
+            parse(dateString, format) {
+                const parts = dateString.split('-');
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1;
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            },
+            disableDayFn: function(date) {
+                return (
+                    date.getDay() === 1 ||
+                    date.getDay() === 2 ||
+                    date.getDay() === 3 ||
+                    date.getDay() === 4 ||
+                    date.getDay() === 5 ||
+                    date.getDay() === 0
+                );
+            },
+        });
+    </script>
+@endpush

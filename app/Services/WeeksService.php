@@ -7,7 +7,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Arr;
 use App\Models\Week;
 use App\Models\Wish;
-use Carbon\CarbonInterface;
 
 class WeeksService
 {
@@ -33,7 +32,7 @@ class WeeksService
         ) {
             $roundWeeksArray = Arr::add($roundWeeksArray, $week, [
                 'week_start'    => [
-                    'number'        => str_pad($weekStartDate->weekOfYear, 2, 0, STR_PAD_LEFT),
+                    'number'        => str_pad($weekStartDate->weekOfYear, 2, 0, STR_PAD_LEFT) + 1,
                     'date'          => $weekStartDate->format('Y-m-d'),
                     'human_date'    => $weekStartDate->format('j F, Y'),
                     'status'        => $weekStartDate->isPast(),
@@ -46,7 +45,7 @@ class WeeksService
                     'status'        => $weekEndDate->isFuture(),
                     'day'           => $weekStartDate->englishDayOfWeek,
                 ],
-                'code' => $weekStartDate->year . str_pad($weekStartDate->weekOfYear, 2, 0, STR_PAD_LEFT),
+                'code' => $weekStartDate->year . (str_pad($weekStartDate->weekOfYear, 2, 0, STR_PAD_LEFT) + 1),
             ]);
 
             $weekStartDate->addDays(7);
@@ -112,8 +111,8 @@ class WeeksService
         $endDate = $end->addWeek();
 
         $dates = [
-            'start' => $startDate->weekday(CarbonInterface::SATURDAY),
-            'end' => $endDate->weekday(CarbonInterface::SATURDAY),
+            'start' => $startDate->startOfWeek(Carbon::SATURDAY),
+            'end' => $endDate->startOfWeek(Carbon::SATURDAY),
         ];
         return $dates;
     }

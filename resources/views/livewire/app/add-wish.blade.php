@@ -20,7 +20,7 @@
             {{-- Week --}}
             @if ($property !== null)
                 <x-admin.forms.elements.label for="week" value="{{ __('Week') }}" class="mt-4" />
-                <x-admin.forms.elements.select-week model="week" :round="$round->id" :property="$property"
+                <x-admin.forms.elements.select-wish-week model="week" :round="$round->id" :property="$property"
                     :stockholder="$stockholder" />
                 <x-admin.forms.elements.input-error for="week" class="mt-2" />
             @endif

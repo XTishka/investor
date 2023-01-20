@@ -66,7 +66,6 @@ class Edit extends Component
 
     public function render()
     {
-        debugbar()->info($this->week);
         return view('livewire.wishes.edit');
     }
 }

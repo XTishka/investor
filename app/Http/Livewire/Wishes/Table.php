@@ -34,7 +34,6 @@ class Table extends Component
     public function render()
     {
         sleep(1);
-        debugbar()->info($this->filter);
         $wishes = ($this->roundId) ? $this->getRoundWishes() : $this->getAllWishes();
         return view('livewire.wishes.table', [
             'wishes' => $wishes

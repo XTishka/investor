@@ -23,7 +23,6 @@ class DistributionCsvExport implements FromView
      */
     public function view(): View
     {
-        debugbar()->info($this->weeks);
         return view('exports.distribution-csv-export', [
             'stockholders' => $this->stockholders,
             'weeks'        => $this->weeks,

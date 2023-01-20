@@ -15,6 +15,5 @@ class PriorityService
         $round = Round::query()->find($roundId);
         $qty = $round->users()->count();
         $return = ($qty > 0) ? $qty + 1 : 1;
-        debugbar()->info('Stockholders qty: ' . $return);
     }
 }

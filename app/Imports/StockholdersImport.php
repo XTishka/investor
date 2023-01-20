@@ -44,7 +44,6 @@ class StockholdersImport implements ToCollection, WithHeadingRow
                     $createStockholder = new StoreAction;
                     $password = Str::random(8);
                     $stockholder = $createStockholder->handle($row['name'], $row['email'], $password);
-                    debugbar()->info($this->options);
                     if ($this->options['option_create_with_email'] == true) :
                         Mail::to($row['email'])->queue(new SendPassword($stockholder, $password));
                     endif;

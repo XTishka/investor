@@ -30,7 +30,6 @@ class View extends Component
         $this->roundStartDate      = Carbon::parse($round->start_date)->format('j F, Y');
         $this->roundEndDate        = Carbon::parse($round->end_date)->format('j F, Y');
         $this->modal = true;
-        debugbar()->info($this->roundWeeks);
     }
 
     public function closeModal()

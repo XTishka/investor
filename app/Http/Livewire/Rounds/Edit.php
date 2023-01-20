@@ -89,7 +89,6 @@ class Edit extends Component
             $this->closeModal();
         } catch (Exception $e) {
             $this->emit('roundUpdateError');
-            debugbar()->info($e);
         }
     }
 

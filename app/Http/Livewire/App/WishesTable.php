@@ -34,7 +34,6 @@ class WishesTable extends Component
             $service = new WeeksService;
             $weekDates = $service->getWeekDatesFromCode($wish->week_code);
 
-            debugbar()->info($wish);
             $wish->week_start_date = $weekDates['start']->format('j F, Y');
             $wish->week_end_date = $weekDates['end']->format('j F, Y');
         }

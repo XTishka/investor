@@ -91,7 +91,6 @@ class AddWish extends Component
         $status = false;
         if ($this->round->active == true) :
             $status = ($this->round->inWishesRange == 1) ? true : false;
-        // debugbar()->info($status);
         // if ($this->round->overlimit == 0) :
 
         //     $this->usedWishes = Wish::query()

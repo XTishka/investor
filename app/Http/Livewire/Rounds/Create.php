@@ -71,10 +71,8 @@ class Create extends Component
             $this->emit('roundCreateSuccess');
             $this->emit('refreshTable');
             $this->closeModal();
-            debugbar()->info($round);
         } catch (Exception $e) {
             $this->emit('roundCreateError');
-            debugbar()->info($e);
         }
     }
 

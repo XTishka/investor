@@ -111,13 +111,11 @@ class StockholdersPage extends Component
     public function storePriorities($stockholderId, $roundId, $wishes = 0, $priority = 1)
     {
         try {
-            // debugbar()->info($stockholderId, $roundId, $wishes, $priority);
             $round = Round::find($roundId);
             $round->users()->detach($stockholderId);
             $round->users()->attach($stockholderId, ['wishes' => $wishes, 'priority' => $priority]);
         } catch (Exception $e) {
             $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Something went wrong on priority save.']);
-            debugbar()->info($e);
         }
     }
 
@@ -135,7 +133,6 @@ class StockholdersPage extends Component
         $round = Round::query()->find($this->import['from_resource']);
         $stockholders = $round->users()->where('is_admin', '!=', 1)->get();
         foreach ($stockholders as $stockholder) {
-            debugbar()->info($this->import['from_resource']);
             $this->storePriorities($stockholder->id, $this->import['from_resource']);
         }
     }
@@ -145,14 +142,12 @@ class StockholdersPage extends Component
         $this->validate(['import.to' => 'required']);
         $count = 0;
         foreach (User::query()->where('is_admin', '!=', 1) as $stockholder) {
-            debugbar()->error($count++);
             // $this->storePriorities($stockholder);
         }
     }
 
     public function importFromFile()
     {
-        debugbar()->info('Import from file');
     }
 
     public function export()

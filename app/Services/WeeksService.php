@@ -102,6 +102,7 @@ class WeeksService
 
     public function getWeekDatesFromCode($code)
     {
+        debugbar()->info($code);
         $start = Carbon::now();
         $weekNumber = substr($code, 4);
         $year = substr($code, 0, 4);

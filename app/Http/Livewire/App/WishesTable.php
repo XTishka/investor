@@ -3,13 +3,13 @@
 namespace App\Http\Livewire\App;
 
 use App\Models\Wish;
+use App\Services\RoundServices;
 use App\Services\WeeksService;
 use Livewire\Component;
 use Carbon\Carbon;
 
 class WishesTable extends Component
 {
-    public $round;
     public $stockholder;
 
     protected $listeners = ['updateTable' => '$refresh'];
@@ -22,10 +22,11 @@ class WishesTable extends Component
         }
     }
 
-    public function render()
+    public function render(RoundServices $roundService)
     {
+        $round = $roundService->getActiveRound();
         $wishes = Wish::query()
-            ->where('round_id', $this->round->id)
+            ->where('round_id', $round->id)
             ->where('user_id', $this->stockholder->id)
             ->orderBy('priority')
             ->get();
@@ -40,6 +41,7 @@ class WishesTable extends Component
 
         return view('livewire.app.wishes-table', [
             'wishes' => $wishes,
+            'round' => $round,
         ]);
     }
 }

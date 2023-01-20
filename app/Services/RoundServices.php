@@ -45,7 +45,7 @@ class RoundServices
         if ($round) {
             $startWishesDate = Carbon::parse($round->start_wishes_date);
             $stopWishesDate  = Carbon::parse($round->stop_wishes_date);
-            $round->inWishesRange = (Carbon::now()->between($startWishesDate, $stopWishesDate, false) == true) ? true : false;
+            $round->inWishesRange = (Carbon::now()->between($startWishesDate, $stopWishesDate->addDay(), false) == true) ? true : false;
         }
         return $round;
     }

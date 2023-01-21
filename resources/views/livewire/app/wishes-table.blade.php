@@ -37,12 +37,20 @@
                     </x-admin.tables.tbody.td>
 
                     <x-admin.tables.tbody.td>
-                        <span wire:click="$emit('openDeleteModal', {{ $wish->id }})">
-                            @if ($round->inWishesRange == true)
-                                <x-admin.icons.trash
-                                    class="w-4 h-4 mr-2 text-gray-400 hover:text-red-700 transition hover:cursor-pointer" />
-                            @endif
-                        </span>
+                        <div class="flex items-center justify-end">
+                            <span wire:click="$emit('openDeleteModal', {{ $wish->id }})" class="p-2">
+                                @if ($round->inWishesRange == true)
+                                    <x-admin.icons.trash
+                                        class="w-4 h-4 mr-2 text-gray-400 hover:text-red-700 transition hover:cursor-pointer" />
+                                @endif
+                            </span>
+                            <span wire:sortable.handle class="p-2">
+                                @if ($round->inWishesRange == true)
+                                    <x-admin.icons.drug-and-drop
+                                        class="w-4 h-4 mr-2 text-gray-400 hover:text-blue-700 transition hover:cursor-pointer" />
+                                @endif
+                            </span>
+                        </div>
                     </x-admin.tables.tbody.td>
                 </tr>
             @endforeach

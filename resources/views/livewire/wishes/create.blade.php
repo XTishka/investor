@@ -63,13 +63,13 @@
                 </select>
             @endif
 
-            {{-- @if (!empty($warnings)) --}}
-            <ul>
-                @foreach ($warnings as $warning)
-                    <li>{{ $warning }}</li>
-                @endforeach
-            </ul>
-            {{-- @endif --}}
+            @if (!empty($warnings))
+                <ul class="mt-4 border-1 border-red-500 rounded-ld text-red-500 list-disc px-8">
+                    @foreach ($warnings as $warning)
+                        <li class="my-2">{{ $warning }}</li>
+                    @endforeach
+                </ul>
+            @endif
         </x-slot>
 
         <x-slot name="footer">

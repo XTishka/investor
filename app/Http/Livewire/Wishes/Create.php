@@ -68,8 +68,12 @@ class Create extends Component
     {
         $this->validate();
         $wishService = new WishService;
-        $wishService->updateRoundWishesStatusByStatus($this->wish, 'confirmed', 'failed');
-        $wishService->updateRoundWishesStatusByStatus($this->wish, 'overlimit_confirmed', 'overlimit_failed');
+        if ($this->wish['status'] == 'confirmed') :
+            $wishService->updateRoundWishesStatusByStatus($this->wish, 'confirmed', 'failed');
+        endif;
+        if ($this->wish['status'] == 'overlimit_confirmed') :
+            $wishService->updateRoundWishesStatusByStatus($this->wish, 'overlimit_confirmed', 'overlimit_failed');
+        endif;
         $wishService->createWish($this->wish);
 
         $this->closeModal();

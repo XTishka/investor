@@ -9,6 +9,9 @@
                 <x-admin.button-link link="{{ route('admin.administrators.create') }}">
                     {{ __('Add new') }}
                 </x-admin.button-link>
+                <x-admin.button-link link="{{ route('admin.administrators.create') }}">
+                    {{ __('Trash') }}
+                </x-admin.button-link>
             </div>
 
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">

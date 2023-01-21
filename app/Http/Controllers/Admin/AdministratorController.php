@@ -33,7 +33,6 @@ class AdministratorController extends Controller
         return view('admin.administrators.edit', compact('administrator'));
     }
 
-
     public function destroy($id): RedirectResponse
     {
         $superadminEmail = 'takhir.berdyiev@gmail.com';

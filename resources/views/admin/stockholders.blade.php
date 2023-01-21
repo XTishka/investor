@@ -17,6 +17,7 @@
                 <livewire:stockholders.import />
 
                 <livewire:stockholders.create />
+                <livewire:stockholders.trash />
             </div>
 
             {{-- Table --}}

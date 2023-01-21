@@ -68,11 +68,8 @@ class Create extends Component
     {
         $this->validate();
         $wishService = new WishService;
-        if ($this->wish['duplicate'] != null) :
-            $duplicate = Wish::find($this->duplicate);
-            $newStatus = ($duplicate->status == 'confirmed') ? 'failed' : 'overlimit_failed';
-            $wishService->updateWishStatusById($this->wish['duplicate'], $newStatus);
-        endif;
+        $wishService->updateRoundWishesStatusByStatus($this->wish, 'confirmed', 'failed');
+        $wishService->updateRoundWishesStatusByStatus($this->wish, 'overlimit_confirmed', 'overlimit_failed');
         $wishService->createWish($this->wish);
 
         $this->closeModal();
@@ -97,33 +94,41 @@ class Create extends Component
             $this->wish['limit'] = $wishService->getStockholderWishLimit($this->wish['round_id'], $this->wish['stockholder_id']);
             $this->wish['used']  = $wishService->getStockholderUsedWishesQty($this->wish['round_id'], $this->wish['stockholder_id']);
         endif;
-        debugbar()->info($this->wish);
+
+        $this->reset('warnings');
         $this->checkOverlimits();
+        $this->checkForDuplicates();
         return view('livewire.wishes.create');
     }
 
     public function checkOverlimits()
     {
-        $roundService       = new RoundService;
-        $roundId            = $this->wish['round_id'];
-        $usedWishesPlusOne  = $this->wish['used'] + 1;
-        $wishesLimit        = $this->wish['limit'];
-        $roundOverlimit     = $roundService->roundHasOverLimits($roundId);
+        if ($this->field['property'] === true) :
+            $roundService       = new RoundService;
+            $roundId            = $this->wish['round_id'];
+            $usedWishesPlusOne  = $this->wish['used'] + 1;
+            $wishesLimit        = $this->wish['limit'];
+            $roundOverlimit     = $roundService->roundHasOverLimits($roundId);
 
-        if ($roundOverlimit == false and ($usedWishesPlusOne > $wishesLimit)) :
-            $this->warnings[] = 'This round doesn\'t  have overlimits, but wishes quantity is greater than limit.';
+            if ($roundOverlimit == null and ($usedWishesPlusOne > $wishesLimit)) :
+                $this->warnings[] = 'This round doesn\'t  have overlimits, but wishes quantity is greater than limit.';
+            endif;
         endif;
     }
 
     public function checkForDuplicates()
     {
-        $wishService = new WishService;
-        $wish = $wishService->checkForConfirmedDuplicates($this->wish);
-        $stockholder = User::find($wish->user_id);
-        if ($wish) :
-            $this->wish['duplicate'] = $wish->id;
-            $newStatus = ($wish->status == 'confirmed') ? 'failed' : 'overlimit_failed';
-            $this->warnings[] = 'Another stockholder, ' . $stockholder->name . ', has wish with such parameters. If you save, his wish status would be changed to ' . $newStatus;
+        if ($this->field['status'] === true and (($this->wish['status'] == 'confirmed') or ($this->wish['status'] == 'overlimit_confirmed'))) :
+            $wishService = new WishService;
+            $wish = $wishService->checkForConfirmedDuplicates($this->wish);
+            if ($wish) :
+                $stockholder = User::find($wish->user_id);
+                if ($wish) :
+                    $this->wish['duplicate'] = $wish->id;
+                    $newStatus = ($wish->status == 'confirmed') ? 'failed' : 'overlimit_failed';
+                    $this->warnings[] = 'Another stockholder, ' . $stockholder->name . ', has wish with such parameters. If you save, his wish status would be changed to ' . $newStatus;
+                endif;
+            endif;
         endif;
     }
 }

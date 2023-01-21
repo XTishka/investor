@@ -10,6 +10,9 @@ class RoundService
 {
     public function roundHasOverLimits($roundId)
     {
-        return Round::query()->where('id', $roundId)->pluck('overlimit');
+        $round = Round::query()
+            ->where('id', $roundId)
+            ->first();
+        return boolval($round->overlimit);
     }
 }

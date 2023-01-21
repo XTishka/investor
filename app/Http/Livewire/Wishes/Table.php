@@ -66,12 +66,12 @@ class Table extends Component
     public function getAllWishes()
     {
         $wishes = new Wish();
-        return $wishes;
+        return $wishes->orderBy('created_at', 'desc');
     }
 
     public function getRoundWishes()
     {
         $wishes = new Wish();
-        return $wishes->query()->where('round_id', $this->roundId);
+        return $wishes->query()->where('round_id', $this->roundId)->orderBy('created_at', 'desc');
     }
 }

@@ -14,6 +14,16 @@ class WishService
         $stockholder = $stockholder->rounds()->detach();
     }
 
+    public function updateRoundWishesStatusByStatus($data, $oldStatus, $newStatus)
+    {
+        Wish::query()
+            ->where('round_id', $data['round_id'])
+            ->where('property_id', $data['property_id'])
+            ->where('week_code', $data['week_code'])
+            ->where('status', $oldStatus)
+            ->update(['status' => $newStatus]);
+    }
+
     public function checkIfWishIsset($data)
     {
         return Wish::query()
@@ -24,16 +34,12 @@ class WishService
             ->exists();
     }
 
-    public function updateWishStatusById($id, $status)
-    {
-        $wish = Wish::find($id);
-        $wish->update(['status' => $status]);
-    }
-
     public function checkForConfirmedDuplicates($data)
     {
+        debugbar()->info($data);
         $confirmed          = $this->getConfirmedWish($data);
         $overlimitConfirmed = $this->getOverlimitConfirmedWish($data);
+        debugbar()->info($confirmed);
         if ($confirmed)          return $confirmed;
         if ($overlimitConfirmed) return $overlimitConfirmed;
         return false;
@@ -43,10 +49,9 @@ class WishService
     {
         return Wish::query()
             ->where('round_id',    $data['round_id'])
-            ->where('user_id',     $data['stockholder_id'])
             ->where('property_id', $data['property_id'])
             ->where('week_code',   $data['week_code'])
-            ->where('status',      $data['confirmed'])
+            ->where('status',      'confirmed')
             ->first();
     }
 
@@ -54,10 +59,9 @@ class WishService
     {
         return Wish::query()
             ->where('round_id',    $data['round_id'])
-            ->where('user_id',     $data['stockholder_id'])
             ->where('property_id', $data['property_id'])
             ->where('week_code',   $data['week_code'])
-            ->where('status',      $data['overlimit_confirmed'])
+            ->where('status',      'overlimit_confirmed')
             ->first();
     }
 
@@ -68,6 +72,7 @@ class WishService
             'user_id'     => $data['stockholder_id'],
             'property_id' => $data['property_id'],
             'week_code'   => $data['week_code'],
+            'status'      => $data['status'],
         ]);
     }
 

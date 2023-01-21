@@ -6,11 +6,8 @@
         <div class="w-full px-8">
 
             <div class="flex mb-4 justify-end py-bw1">
-                <x-admin.button-link link="{{ route('admin.administrators.create') }}">
-                    {{ __('Add new') }}
-                </x-admin.button-link>
-                <x-admin.button-link link="{{ route('admin.administrators.trash') }}">
-                    {{ __('Trash') }}
+                <x-admin.button-link link="{{ route('admin.administrators') }}">
+                    {{ __('Back') }}
                 </x-admin.button-link>
             </div>
 
@@ -70,7 +67,19 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-right">
-                                    <x-admin.tables.action-buttons link="admin.administrators" :id="$administrator" />
+                                    {{-- Restore button --}}
+                                    <a href="{{ route('admin.administrators.restore', $administrator) }}"
+                                        class="inline-flex items-center px-2 py-1 bg-gray-300 border border-transparent rounded-l-md font-semibold text-xs text-gray-700 tracking-widest hover:bg-gray-400 active:bg-gray-900 active:text-white disabled:opacity-25 transition">
+                                        <x-admin.icons.refresh class="w-4 h-4 mr-2" />
+                                        {{ __('Restore') }}
+                                    </a>
+
+                                    {{-- Complete delete button --}}
+                                    <a href="{{ route('admin.administrators.delete', $administrator) }}"
+                                        class="inline-flex items-center px-2 py-1 bg-red-500 border border-transparent rounded-l-md font-semibold text-xs text-white tracking-widest hover:bg-gray-400 active:bg-gray-900 active:text-white disabled:opacity-25 transition">
+                                        <x-admin.icons.trash class="w-4 h-4 mr-2" />
+                                        {{ __('Complete delete') }}
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

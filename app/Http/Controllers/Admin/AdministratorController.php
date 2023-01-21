@@ -38,7 +38,32 @@ class AdministratorController extends Controller
         $superadminEmail = 'takhir.berdyiev@gmail.com';
         $administrator = User::query()->findOrFail($id);
         if ($administrator->email == $superadminEmail) return redirect()->route('admin.administrators');
+        $administrator->rounds()->detach();
         $administrator->delete();
         return redirect()->route('admin.administrators');
+    }
+
+    public function trash()
+    {
+        $administrators = User::query()
+            ->onlyTrashed()
+            ->where('is_admin', 1)
+            ->orderBy('name')
+            ->paginate(10);
+        return view('admin.administrators.trash', compact('administrators'));
+    }
+
+    public function restore($id)
+    {
+        $administrator = User::query()->onlyTrashed()->find($id);
+        $administrator->restore();
+        return redirect()->route('admin.administrators.trash');
+    }
+
+    public function delete($id)
+    {
+        $administrator = User::query()->onlyTrashed()->find($id);
+        $administrator->forceDelete();
+        return redirect()->route('admin.administrators.trash');
     }
 }

@@ -80,6 +80,9 @@ Route::middleware([
                 Route::get('/administrators/show/{id}', 'show')->name('admin.administrators.show');
                 Route::get('/administrators/edit/{id}', 'edit')->name('admin.administrators.edit');
                 Route::delete('/administrators/delete/{id}', 'destroy')->name('admin.administrators.delete');
+                Route::get('/administrators/trash', 'trash')->name('admin.administrators.trash');
+                Route::get('/administrators/restore/{id}', 'restore')->name('admin.administrators.restore');
+                Route::get('/administrators/delete/{id}', 'delete')->name('admin.administrators.delete');
             });
         });
     });

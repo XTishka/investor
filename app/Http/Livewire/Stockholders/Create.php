@@ -54,7 +54,11 @@ class Create extends Component
 
         // Send email
         if ($this->sendPassword == true) {
-            Mail::to($this->stockholder['email'])->queue(new SendPassword($this->stockholder, $this->stockholder['password']));
+            try {
+                Mail::to($this->stockholder['email'])->queue(new SendPassword($this->stockholder, $this->stockholder['password']));
+            } catch (\Throwable $th) {
+                $this->emit('emailSentError');
+            }
         }
 
         $this->reset(['stockholder']);

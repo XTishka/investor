@@ -45,7 +45,11 @@ class StockholdersImport implements ToCollection, WithHeadingRow
                     $password = Str::random(8);
                     $stockholder = $createStockholder->handle($row['name'], $row['email'], $password);
                     if ($this->options['option_create_with_email'] == true) :
-                        Mail::to($row['email'])->queue(new SendPassword($stockholder, $password));
+                        try {
+                            Mail::to($row['email'])->queue(new SendPassword($stockholder, $password));
+                        } catch (\Throwable $th) {
+                            debugbar()->error('email was not sent');
+                        }
                     endif;
                 } else {
                     if ($stockholder->trashed()) $stockholder->restore();

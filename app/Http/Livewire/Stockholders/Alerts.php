@@ -14,6 +14,7 @@ class Alerts extends Component
         'updateWishesError',
         'updatePasswordSuccess',
         'importReady',
+        'emailSentError',
     ];
 
     public function stockholderSaveSuccess()
@@ -69,6 +70,14 @@ class Alerts extends Component
         $this->dispatchBrowserEvent('alert', [
             'type' => 'info',
             'message' => __('Import is done'),
+        ]);
+    }
+
+    public function emailSentError()
+    {
+        $this->dispatchBrowserEvent('alert', [
+            'type' => 'error',
+            'message' => __('Error. Email was not sent'),
         ]);
     }
 

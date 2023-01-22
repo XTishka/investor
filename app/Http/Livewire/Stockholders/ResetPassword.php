@@ -39,7 +39,11 @@ class ResetPassword extends Component
 
         // Send email
         if ($this->sendPassword == true) {
-            Mail::to($this->stockholder['email'])->queue(new SendPassword($this->stockholder, $this->password));
+            try {
+                Mail::to($this->stockholder['email'])->queue(new SendPassword($this->stockholder, $this->password));
+            } catch (\Throwable $th) {
+                $this->emit('emailSentError');
+            }
         }
         $this->closeModal();
         $this->emit('updatePasswordSuccess');

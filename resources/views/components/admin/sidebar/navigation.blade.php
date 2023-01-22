@@ -35,4 +35,9 @@
          </x-admin.sidebar.single-link>
      </li>
 
+     <li> {{-- Logs --}}
+         <x-admin.sidebar.single-link route="admin.logs" :text="__('Logs')">
+             <x-admin.icons.list-bullet class="h-5 w-5" />
+         </x-admin.sidebar.single-link>
+     </li>
  </ul>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdministratorController;
 use App\Http\Controllers\RoundController;
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\StockholderController;
 use App\Models\Stockholder;
@@ -65,13 +66,6 @@ Route::middleware([
 
             // Rounds
             Route::get('/rounds', RoundController::class)->name('admin.rounds');
-            // Route::controller(RoundController::class)->group(function () {
-            //     Route::get('/rounds', 'index')->name('admin.rounds');
-            //     Route::get('/rounds/create', 'create')->name('admin.rounds.create');
-            //     Route::get('/rounds/edit/{round}', 'edit')->name('admin.rounds.edit');
-            //     Route::get('/rounds/show/{round}', 'show')->name('admin.rounds.show');
-            //     Route::delete('/rounds/delete/{round}', 'destroy')->name('admin.rounds.delete');
-            // });
 
             // Administrators
             Route::controller(AdministratorController::class)->group(function () {
@@ -84,6 +78,9 @@ Route::middleware([
                 Route::get('/administrators/restore/{id}', 'restore')->name('admin.administrators.restore');
                 Route::get('/administrators/delete/{id}', 'delete')->name('admin.administrators.delete');
             });
+
+            // Logs
+            Route::get('/logs', LogController::class)->name('admin.logs');
         });
     });
 });

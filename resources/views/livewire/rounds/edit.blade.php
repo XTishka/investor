@@ -104,7 +104,6 @@
         let startEditWishesDate = new Pikaday({
             field: document.getElementById('wishes_edit_start'),
             format: 'YYYY-MM-DD',
-            minDate: new Date(),
             showWeekNumber: true,
             toString(date, format) {
                 const day = date.getDate();
@@ -124,7 +123,6 @@
         let stopEditWishesDate = new Pikaday({
             field: document.getElementById('wishes_edit_stop'),
             format: 'YYYY-MM-DD',
-            minDate: new Date(),
             showWeekNumber: true,
             toString(date, format) {
                 const day = date.getDate();
@@ -145,7 +143,6 @@
         let startEditRoundDate = new Pikaday({
             field: document.getElementById('round_edit_start'),
             format: 'YYYY-MM-DD',
-            minDate: new Date(),
             firstDay: 1,
             showWeekNumber: true,
             toString(date, format) {
@@ -176,7 +173,6 @@
         let endEditRoundDate = new Pikaday({
             field: document.getElementById('round_edit_end'),
             format: 'YYYY-MM-DD',
-            minDate: new Date(),
             firstDay: 1,
             showWeekNumber: true,
             toString(date, format) {

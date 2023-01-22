@@ -66,13 +66,14 @@ class AddWish extends Component
     {
         $this->validate();
         if ($this->wishExist() === false) {
-            Wish::query()->create([
+            $wish = Wish::query()->create([
                 'user_id' => $this->stockholder->id,
                 'round_id' => $this->round->id,
                 'property_id' => $this->property,
                 'week_code' => $this->week,
                 'priority' => $this->wishesCount() + 1,
             ]);
+            activity('add_wish')->log('User[' . auth()->id() . '] ' . auth()->user()->name . ' added wish [' . $wish->id . ']');
         }
 
         $this->emit('updateTable');

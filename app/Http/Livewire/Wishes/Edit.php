@@ -95,6 +95,7 @@ class Edit extends Component
                 'week_code'   => $this->wish['week_code'],
                 'status'      => $this->wish['status'],
             ]);
+            activity('edit_wish')->log('Administrator[' . auth()->id() . '] ' . auth()->user()->name . ' edited wish[' . $wish->id . ']');
         }
 
         $this->closeModal();

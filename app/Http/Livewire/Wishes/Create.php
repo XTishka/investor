@@ -74,7 +74,8 @@ class Create extends Component
         if ($this->wish['status'] == 'overlimit_confirmed') :
             $wishService->updateRoundWishesStatusByStatus($this->wish, 'overlimit_confirmed', 'overlimit_failed');
         endif;
-        $wishService->createWish($this->wish);
+        $wish = $wishService->createWish($this->wish);
+        activity('add_wish')->log('Administrator[' . auth()->id() . '] ' . auth()->user()->name . ' added wish[' . $wish->id . ']');
 
         $this->closeModal();
         $this->emit('wishCreateSuccess');

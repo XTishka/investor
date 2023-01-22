@@ -27,7 +27,10 @@ class DeleteWish extends Component
 
     public function delete()
     {
-        if ($this->confirm === true) $this->wish->delete();
+        if ($this->confirm === true) :
+            activity('delete_wish')->log('User[' . auth()->id() . '] ' . auth()->user()->name . ' deleted wish[' . $this->wish->id . ']');
+            $this->wish->delete();
+        endif;
 
         $this->reset(['wish']);
         $this->emit('wishDeleted');

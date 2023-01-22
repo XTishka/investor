@@ -30,7 +30,7 @@
                         <x-admin.icons.arrow-path class="h-9 w-9 bg-blue-50 text-blue-300 rounded-full p-2 mr-4" />
                         <div>
                             <span class="font-bold block">{{ $round->name }}</span>
-                            <p class="text-xs">{{ $round->description }}</p>
+                            {{-- <p class="text-xs">{{ $round->description }}</p> --}}
                             <p>{{ $round->status }}</p>
                         </div>
                     </x-admin.tables.tbody.td>

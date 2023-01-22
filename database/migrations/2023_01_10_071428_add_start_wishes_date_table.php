@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('rounds', function (Blueprint $table) {
-            $table->date('start_wishes_date')->nullable(false)->default(now())->after('description');
+            $table->date('start_wishes_date')->nullable(false)->after('description');
         });
     }
 

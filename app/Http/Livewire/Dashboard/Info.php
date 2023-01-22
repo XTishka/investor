@@ -44,14 +44,17 @@ class Info extends Component
     public function getStockholders()
     {
         $round = Round::query()->find($this->roundId);
-        $stockholders = $round->users()->get();
-        foreach ($stockholders as $stockholder) :
-            $stockholder->wishes = Wish::query()
-                ->where('round_id', $round->id)
-                ->where('user_id', $stockholder->id)
-                ->count();
-        endforeach;
-        return $stockholders->sortByDesc('wishes');
+        if ($round) :
+            $stockholders = $round->users()->get();
+            foreach ($stockholders as $stockholder) :
+                $stockholder->wishes = Wish::query()
+                    ->where('round_id', $round->id)
+                    ->where('user_id', $stockholder->id)
+                    ->count();
+            endforeach;
+            return $stockholders->sortByDesc('wishes');
+        endif;
+        return [];
     }
 
     public function getFilename()

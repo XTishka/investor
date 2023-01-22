@@ -31,7 +31,7 @@
                         <div>
                             <span class="font-bold block">{{ $round->name }}</span>
                             {{-- <p class="text-xs">{{ $round->description }}</p> --}}
-                            <p>{{ $round->status }}</p>
+                            {{-- <p>{{ $round->status }}</p> --}}
                         </div>
                     </x-admin.tables.tbody.td>
 

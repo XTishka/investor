@@ -7,19 +7,15 @@
 
             {{-- Action buttons --}}
             <div class="flex mb-4 justify-end items-center">
-                <div class="mr-4 flex">
-                    @livewire('dashboard.legend')
-                </div>
+                @livewire('dashboard.info')
 
-                <div class="mr-4 flex">
-                    @livewire('dashboard.reset')
-                    @livewire('dashboard.distribute')
-                </div>
+                @livewire('dashboard.legend')
 
-                <div class="flex">
-                    {{-- @livewire('dashboard.export-csv') --}}
-                    @livewire('dashboard.export-excel')
-                </div>
+                @livewire('dashboard.reset')
+                @livewire('dashboard.distribute')
+
+                {{-- @livewire('dashboard.export-csv') --}}
+                @livewire('dashboard.export-excel')
             </div>
 
             {{-- Table --}}

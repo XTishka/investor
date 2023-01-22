@@ -1,5 +1,5 @@
 <div>
-    <x-admin.elements.button wire:click='openModal' value="{{ __('Distribute') }}" />
+    <x-admin.elements.button wire:click='openModal' value="{{ __('Distribute') }}" class="mr-4" />
 
     <x-admin.elements.dialog-modal wire:model="modal">
 

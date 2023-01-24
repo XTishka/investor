@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\Round;
 use Livewire\Component;
 use Illuminate\Http\Request;
 use App\Repositories\RoundRepository;
@@ -25,6 +26,9 @@ class Reset extends Component
         if ($this->roundId == null) {
             $repository = new RoundRepository;
             $round = $repository->getLastEndedRound();
+            if ($round == null) :
+                $round = Round::query()->orderByDesc('stop_wishes_date')->first();
+            endif;
             $this->roundId = $round->id;
         }
     }

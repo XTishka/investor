@@ -31,6 +31,9 @@ class Distribute extends Component
         if ($this->roundId == null) {
             $repository = new RoundRepository;
             $round = $repository->getLastEndedRound();
+            if ($round == null) :
+                $round = Round::query()->orderByDesc('stop_wishes_date')->first();
+            endif;
             $this->roundId = $round->id;
         }
     }

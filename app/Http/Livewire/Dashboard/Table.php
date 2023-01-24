@@ -28,17 +28,15 @@ class Table extends Component
         if ($this->roundId == null) {
             $repository = new RoundRepository;
             $round = $repository->getLastEndedRound();
+            if ($round == null) :
+                $round = Round::query()->orderByDesc('stop_wishes_date')->first();
+            endif;
             $this->roundId = $round->id;
         }
     }
 
     public function render()
     {
-        $round        = Round::query()->find($this->roundId);
-        $service      = new WeeksService;
-        $weeks        = $service->roundWeeks($round->start_date, $round->end_date);
-        $stockholders = $round->users()->orderBy('priority')->paginate($this->perPage);
-
         $round        = Round::query()->find($this->roundId);
         $service      = new WeeksService;
         $weeks        = $service->roundWeeks($round->start_date, $round->end_date);

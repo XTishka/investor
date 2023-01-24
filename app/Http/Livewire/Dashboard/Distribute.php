@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\Property;
 use App\Models\Round;
 use App\Models\Wish;
 use Livewire\Component;
 use Illuminate\Http\Request;
 use App\Repositories\RoundRepository;
+use App\Services\WeeksService;
 use Illuminate\Support\Facades\DB;
 
 class Distribute extends Component
@@ -68,41 +70,40 @@ class Distribute extends Component
 
     public function distributeReset()
     {
-        foreach ($this->getWishes() as $wish) :
-            $wish = Wish::find($wish->id);
-            $wish->update(['status' => self::WAITING]);
-        endforeach;
+        Wish::query()
+            ->where('round_id', $this->roundId)
+            ->update(['status' => self::WAITING]);
     }
 
     public function distributeLimits()
     {
-        $wishes = $this->getWishes();
-        $round  = Round::find($this->roundId);
-        $users  = $round->users()->orderBy('priority')->get();
+        $round  = Round::query()->find($this->roundId);
+        $wishes = Wish::query()->where('round_id', $this->roundId)->get();
+        $stockholders = $round->users()->orderBy('priority')->get();
 
-        foreach ($users as $user) :
-            $userWishes = $wishes->where('user_id', $user->id)->sortBy('priority');
+        foreach ($stockholders as $stockholder) :
+            $wishesLimit = $round->users()->where('user_id', $stockholder->id)->first()->pivot->wishes;
             $confirmedWishes = 0;
-            if ($userWishes->count() > 0) :
-                $wishesLimit = $userWishes->first()->limit;
+            $userWishes  = $wishes
+                ->where('user_id', $stockholder->id)
+                ->sortBy('priority');
 
-                foreach ($userWishes as $userWish) :
-                    if ($wishesLimit > $confirmedWishes) :
-                        $reserved = $wishes
-                            ->where('week_code', $userWish->week_code)
-                            ->where('property_id', $userWish->property_id)
-                            ->where('status', self::CONFIRMED)
-                            ->first();
+            foreach ($userWishes as $userWish) :
+                if ($wishesLimit > $confirmedWishes) :
+                    $reserved = $wishes
+                        ->where('week_code', $userWish->week_code)
+                        ->where('property_id', $userWish->property_id)
+                        ->where('status', self::CONFIRMED)
+                        ->first();
 
-                        if ($reserved === null) :
-                            $userWish->status = self::CONFIRMED;
-                            $confirmedWishes++;
-                        else :
-                            $userWish->status = self::FAILED;
-                        endif;
+                    if ($reserved === null) :
+                        $userWish->status = self::CONFIRMED;
+                        $confirmedWishes++;
+                    else :
+                        $userWish->status = self::FAILED;
                     endif;
-                endforeach;
-            endif;
+                endif;
+            endforeach;
         endforeach;
 
         foreach ($wishes as $wish) :
@@ -113,13 +114,16 @@ class Distribute extends Component
 
     public function distributeOverLimits()
     {
-        $waitingWishes = $this->getWishes()->where('status', self::WAITING);
-        $round  = Round::find($this->roundId);
-        $users  = $round->users()->orderBy('priority')->get();
+        $round  = Round::query()->find($this->roundId);
+        $wishes = Wish::query()
+            ->where('round_id', $this->roundId)
+            ->where('status', self::WAITING)
+            ->get();
+        $stockholders = $round->users()->orderBy('priority')->get();
 
-        if ($waitingWishes->count() > 0) :
-            foreach ($users as $user) :
-                $userWishes = $waitingWishes->where('user_id', $user->id)->sortBy('priority');
+        if ($wishes->count() > 0) :
+            foreach ($stockholders as $stockholder) :
+                $userWishes = $wishes->where('user_id', $stockholder->id)->sortBy('priority');
                 if ($userWishes->count() > 0) :
                     $confirmedWish = false;
                     foreach ($userWishes as $userWish) :
@@ -151,29 +155,6 @@ class Distribute extends Component
             endforeach;
             $this->distributeOverLimits();
         endif;
-    }
-
-    public function getWishes()
-    {
-        return DB::table('wishes')
-            ->join('round_user', 'wishes.user_id', '=', 'round_user.user_id')
-            ->join('users', 'round_user.user_id', '=', 'users.id')
-            ->join('properties', 'wishes.property_id', '=', 'properties.id')
-            ->select(
-                'wishes.id as id',
-                'wishes.status as status',
-                'wishes.priority as priority',
-                'round_user.wishes as limit',
-                'wishes.week_code as week_code',
-                'wishes.user_id as user_id',
-                'round_user.priority as user_priority',
-                'users.name as user_name',
-                'wishes.property_id as property_id',
-                'properties.name as property_name'
-            )
-            ->where('wishes.round_id', $this->roundId)
-            ->orderBy('round_user.priority')
-            ->get();
     }
 
     public function render()

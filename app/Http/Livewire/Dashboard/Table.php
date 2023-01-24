@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\Property;
 use App\Models\Round;
+use App\Models\Wish;
 use App\Repositories\RoundRepository;
 use App\Services\WeeksService;
 use Livewire\Component;
@@ -32,33 +34,32 @@ class Table extends Component
 
     public function render()
     {
-        $round = Round::query()->find($this->roundId);
-        $service = new WeeksService;
-        $weeks = $service->roundWeeks($round->start_date, $round->end_date);
-
+        $round        = Round::query()->find($this->roundId);
+        $service      = new WeeksService;
+        $weeks        = $service->roundWeeks($round->start_date, $round->end_date);
         $stockholders = $round->users()->orderBy('priority')->paginate($this->perPage);
-        $wishes = DB::table('wishes')
-            ->join('round_user', 'wishes.user_id', '=', 'round_user.user_id')
-            ->join('users', 'round_user.user_id', '=', 'users.id')
-            ->join('properties', 'wishes.property_id', '=', 'properties.id')
-            ->select(
-                'wishes.id as id',
-                'wishes.status as status',
-                'wishes.priority as priority',
-                'wishes.week_code as week_code',
-                'wishes.user_id as user_id',
-                'round_user.priority as user_priority',
-                'users.name as user_name',
-                'wishes.property_id as property_id',
-                'properties.name as property_name'
-            )
-            ->where('wishes.round_id', $this->roundId)
-            ->orderBy('round_user.priority')
-            ->get();
 
-        foreach ($stockholders as $stockholder) {
-            $stockholder->weeks = $weeks;
-        }
+        $round        = Round::query()->find($this->roundId);
+        $service      = new WeeksService;
+        $weeks        = $service->roundWeeks($round->start_date, $round->end_date);
+        $stockholders = $round->users()->orderBy('priority')->paginate($this->perPage);
+        $wishes       = Wish::query()->where('round_id', $this->roundId)->get();
+        $properties   = Property::all();
+
+        foreach ($stockholders as $stockholder) :
+            $stWeeks = $weeks;
+            foreach ($stWeeks as $key => $week) :
+                foreach ($wishes->where('user_id', $stockholder->id)->where('week_code', $week['code']) as $wish) :
+                    $property = $properties->where('id', $wish->property_id)->first();
+                    $stWeeks[$key]['wishes'][] = [
+                        'property_id'   => $wish->property_id,
+                        'property_name' => $property->name,
+                        'status'        => $wish->status,
+                    ];
+                endforeach;
+            endforeach;
+            $stockholder->weeks = $stWeeks;
+        endforeach;
 
         return view('livewire.dashboard.table', compact('weeks', 'stockholders', 'wishes'));
     }

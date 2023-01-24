@@ -7,7 +7,7 @@
 
             {{-- Action buttons --}}
             <div class="flex mb-4 justify-end items-center">
-                @livewire('dashboard.info')
+                {{-- @livewire('dashboard.info') --}}
 
                 @livewire('dashboard.legend')
 

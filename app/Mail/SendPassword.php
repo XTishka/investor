@@ -25,9 +25,9 @@ class SendPassword extends Mailable
      */
     public function __construct($user, $password)
     {
-       $this->name      = $user['name'];
-       $this->email     = $user['email'];
-       $this->password  = $password;
+        $this->name      = $user['name'];
+        $this->email     = $user['email'];
+        $this->password  = $password;
     }
 
     /**
@@ -38,8 +38,8 @@ class SendPassword extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('info@investor.danspot.dk', 'Investering & Feriebolig'),
-            subject: 'Your new password on investor.danspot.dk',
+            from: new Address('info@investeringogferiebolig.dk', 'Investering & Feriebolig'),
+            subject: __('Your new password on') . ' investor.investeringogferiebolig.dk',
         );
     }
 

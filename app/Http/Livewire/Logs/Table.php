@@ -14,6 +14,7 @@ class Table extends Component
 
     public $activity = '';
     public $description = '';
+    public $perPage = 25;
 
     public function resetFilter()
     {
@@ -37,7 +38,8 @@ class Table extends Component
         return Activity::query()
             ->where('log_name', 'like', '%' . $this->activity . '%')
             ->where('description', 'like', '%' . $this->description . '%')
-            ->paginate();
+            ->orderByDesc('created_at')
+            ->paginate($this->perPage);
     }
 
     public function getLogs()
@@ -45,6 +47,7 @@ class Table extends Component
         return Activity::query()
             ->where('log_name', 'like', '%' . $this->activity . '%')
             ->where('description', 'like', '%' . $this->description . '%')
+            ->orderByDesc('created_at')
             ->get();
     }
 

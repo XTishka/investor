@@ -40,7 +40,7 @@
                 <tr>
                     {{-- Counter --}}
                     <x-admin.tables.tbody.td>
-                        {{ $loop->iteration }}
+                        {{ ($logs->currentpage() - 1) * $perPage + $loop->index + 1 }}
                     </x-admin.tables.tbody.td>
 
                     {{-- Activity --}}

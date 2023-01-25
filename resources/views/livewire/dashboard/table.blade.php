@@ -7,7 +7,7 @@
                 @foreach ($weeks as $week)
                     <x-admin.tables.thead.th class="tracking-wider">
                         <span class="block text-center">
-                            {{ __('Week ') }} {{ $week['week_start']['number'] }}
+                            {{ __('Week') }} {{ $week['week_start']['number'] }}
                         </span>
                         <span class="block font-normal text-center text-gray-500 lowercase">
                             {{ $week['week_start']['human_date'] }}

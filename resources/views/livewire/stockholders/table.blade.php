@@ -4,7 +4,7 @@
             <tr>
                 <x-admin.tables.thead.th value="#" />
                 <x-admin.tables.thead.th value="{{ __('Stockholders') }}" class="tracking-wider" />
-                <x-admin.tables.thead.th value="Rounds" class="tracking-wider" />
+                <x-admin.tables.thead.th value="{{ __('Rounds') }}" class="tracking-wider" />
                 <x-admin.tables.thead.th class="font-normal text-right">
                     <x-admin.forms.elements.input wire:model="search" type="text" class="inline-block w-2/3 font-normal"
                         placeholder="{{ __('Search stockholder') }}" />

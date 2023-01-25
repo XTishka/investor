@@ -9,7 +9,7 @@
     <ul class="flex items-center text-zinc-500 px-4 text-sm">
         <li>
             <a href="{{ route('admin.dashboard') }}" class="hover:text-zinc-700">
-                {{ __('admin.dashboard') }}
+                {{ __('Dashboard') }}
             </a>
         </li>
         @foreach ($breadcrumbs as $text => $link)

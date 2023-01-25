@@ -5,7 +5,7 @@
                 <button
                     class="flex w-full text-sm border-2 border-transparent rounded-full focus:outline-none transition">
                     <div class="w-full text-sm text-gray-500 mx-2 flex items-center justify-between ml-7">
-                        <strong class="mr-4">{{ __('admin.round') }}: </strong>
+                        <strong class="mr-4">{{ __('Round') }}: </strong>
                         @if ($activeRound)
                             {{ $activeRound->name }}
                         @else

@@ -109,8 +109,8 @@ return [
     'available_locales' => [
         'English'   => 'en',
         'Danish'    => 'da',
-        'Ukraine'   => 'ua',
-        'Russian'   => 'ru',
+        // 'Ukraine'   => 'ua',
+        // 'Russian'   => 'ru',
     ],
 
     'languages' => [
@@ -122,16 +122,16 @@ return [
             'title' => 'Danish',
             'icon'  => 'da_flag_icon.png'
         ],
-        'ua'   =>
-        [
-            'title' => 'Ukraine',
-            'icon'  => 'ua_flag_icon.png'
-        ],
-        'ru'   =>
-        [
-            'title' => 'Russian',
-            'icon'  => 'ru_flag_icon.png'
-        ],
+        // 'ua'   =>
+        // [
+        //     'title' => 'Ukraine',
+        //     'icon'  => 'ua_flag_icon.png'
+        // ],
+        // 'ru'   =>
+        // [
+        //     'title' => 'Russian',
+        //     'icon'  => 'ru_flag_icon.png'
+        // ],
     ],
 
     /*

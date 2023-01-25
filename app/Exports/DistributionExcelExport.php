@@ -11,11 +11,10 @@ class DistributionExcelExport implements FromView
     public $stockholders;
     public $wishes;
 
-    public function __construct($weeks, $stockholders, $wishes)
+    public function __construct($weeks, $stockholders)
     {
         $this->weeks        = $weeks;
         $this->stockholders = $stockholders;
-        $this->wishes       = $wishes;
     }
 
     /**
@@ -23,10 +22,10 @@ class DistributionExcelExport implements FromView
      */
     public function view(): View
     {
+        debugbar()->info($this->stockholders);
         return view('exports.distribution-excel-export', [
             'stockholders' => $this->stockholders,
             'weeks'        => $this->weeks,
-            'wishes'       => $this->wishes,
         ]);
     }
 }

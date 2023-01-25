@@ -7,9 +7,10 @@ use App\Repositories\RoundRepository;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use App\Services\WeeksService;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DistributionExcelExport;
+use App\Models\Property;
+use App\Models\Wish;
 
 class ExportExcel extends Component
 {
@@ -28,9 +29,27 @@ class ExportExcel extends Component
     public function export(Request $request)
     {
         $round        = $this->getRound($request);
-        $weeks        = $this->getWeeks($round);
-        $wishes       = $this->getWishes($round);
-        $stockholders = $this->getStockholders($round, $weeks, $wishes);
+        $service      = new WeeksService;
+        $weeks        = $service->roundWeeks($round->start_date, $round->end_date);
+        $stockholders = $round->users()->orderBy('priority')->get();
+        $wishes       = Wish::query()->where('round_id', $round->id)->get();
+        $properties   = Property::all();
+
+        foreach ($stockholders as $stockholder) :
+            $stWeeks = $weeks;
+            foreach ($stWeeks as $key => $week) :
+                foreach ($wishes->where('user_id', $stockholder->id)->where('week_code', $week['code']) as $wish) :
+                    $property = $properties->where('id', $wish->property_id)->first();
+                    $stWeeks[$key]['wishes'][] = [
+                        'property_id'   => $wish->property_id,
+                        'property_name' => $property->name,
+                        'status'        => $wish->status,
+                    ];
+                endforeach;
+            endforeach;
+            $stockholder->weeks = $stWeeks;
+            $stockholder->rowspan = $this->getStockholderRowspan($stockholder, $weeks, $wishes);
+        endforeach;
 
         $this->closeModal();
         return Excel::download(new DistributionExcelExport($weeks, $stockholders, $wishes), $this->getFilename());
@@ -39,37 +58,6 @@ class ExportExcel extends Component
     public function getFilename()
     {
         return 'distribution_' . now()->timestamp . '.xlsx';
-    }
-
-    public function getWishes($round)
-    {
-        return DB::table('wishes')
-            ->join('round_user', 'wishes.user_id', '=', 'round_user.user_id')
-            ->join('users', 'round_user.user_id', '=', 'users.id')
-            ->join('properties', 'wishes.property_id', '=', 'properties.id')
-            ->select(
-                'wishes.id as id',
-                'wishes.status as status',
-                'wishes.priority as priority',
-                'wishes.week_code as week_code',
-                'wishes.user_id as user_id',
-                'round_user.priority as user_priority',
-                'users.name as user_name',
-                'wishes.property_id as property_id',
-                'properties.name as property_name'
-            )
-            ->where('wishes.round_id', $round->id)
-            ->orderBy('round_user.priority')
-            ->get();
-    }
-
-    public function getStockholders($round, $weeks, $wishes)
-    {
-        $stockholders = $round->users()->orderBy('priority')->get();
-        foreach ($stockholders as $stockholder) :
-            $stockholder->rowspan = $this->getStockholderRowspan($stockholder, $weeks, $wishes);
-        endforeach;
-        return $stockholders;
     }
 
     public function getStockholderRowspan($stockholder, $weeks, $wishes)

@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Rounds;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Round;
-use App\Services\WeeksService;
 use Carbon\Carbon;
 
 class Table extends Component
@@ -38,11 +37,12 @@ class Table extends Component
 
             $now = Carbon::now();
             $status = 'not setted';
-            if ($now->lessThan($round->wished_start)) $status = 'waiting';
-            if ($now->greaterThan($round->wishes_start) and $now->lessThan($round->wishes_stop)) $status = 'collecting wishes';
-            if ($now->greaterThan($round->wishes_stop) and $now->lessThan($round->start)) $status = 'distribution period';
-            if ($now->greaterThan($round->start) and $now->lessThan($round->stop)) $status = 'life as dream';
-            if ($now->greaterThan($round->stop)) $status = 'finished';
+            // TODO::set statused of rounds
+            // if ($now->lessThan($round->wished_start)) $status = 'waiting';
+            // if ($now->greaterThan($round->wishes_start) and $now->lessThan($round->wishes_stop)) $status = 'collecting wishes';
+            // if ($now->greaterThan($round->wishes_stop) and $now->lessThan($round->start)) $status = 'distribution period';
+            // if ($now->greaterThan($round->start) and $now->lessThan($round->stop)) $status = 'life as dream';
+            // if ($now->greaterThan($round->stop)) $status = 'finished';
             $round->status = $status;
         }
 

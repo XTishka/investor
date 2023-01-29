@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Http\Traits\ActiveRoundTrait;
 use App\Models\Property;
 use App\Models\Round;
 use App\Models\Wish;
@@ -14,34 +15,19 @@ use Livewire\WithPagination;
 
 class Table extends Component
 {
-    use WithPagination;
+    use WithPagination, ActiveRoundTrait;
 
-    public $roundId;
     public $perPage = 10;
 
     protected $listeners = ['refreshTable' => '$refresh'];
 
-    public function mount(Request $request)
+    public function render(Request $request)
     {
-        $this->roundId = $request->session()->get('active_round');
-
-        if ($this->roundId == null) {
-            $repository = new RoundRepository;
-            $round = $repository->getLastEndedRound();
-            if ($round == null) :
-                $round = Round::query()->orderByDesc('stop_wishes_date')->first();
-            endif;
-            $this->roundId = $round->id;
-        }
-    }
-
-    public function render()
-    {
-        $round        = Round::query()->find($this->roundId);
+        $round        = $this->activeRound($request);
         $service      = new WeeksService;
         $weeks        = $service->roundWeeks($round->start_date, $round->end_date);
         $stockholders = $round->users()->orderBy('priority')->paginate($this->perPage);
-        $wishes       = Wish::query()->where('round_id', $this->roundId)->get();
+        $wishes       = Wish::query()->where('round_id', $round->id)->get();
         $properties   = Property::all();
 
         foreach ($stockholders as $stockholder) :

@@ -29,7 +29,7 @@
 
                     {{-- User Name --}}
                     <x-admin.tables.tbody.td>
-                        {{ $stockholder->name }} :: {{ $stockholder->pivot->wishes }}
+                        {{ $stockholder->name }}
                     </x-admin.tables.tbody.td>
 
                     {{-- Weeks --}}
@@ -53,7 +53,7 @@
                                         <span class="block bg-orange-200 rounded-lg px-2 mb-1">
                                     @endif
 
-                                    {{ $wish['property_name'] }} :: {{ $wish['status'] }}
+                                    {{ $wish['property_name'] }}
                                     </span>
                                 @endforeach
                             @endif

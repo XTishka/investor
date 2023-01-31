@@ -45,6 +45,7 @@ class ExportExcel extends Component
                         'property_name' => $property->name,
                         'status'        => $wish->status,
                     ];
+                    debugbar()->info($wish->status);
                 endforeach;
             endforeach;
             $stockholder->weeks = $stWeeks;

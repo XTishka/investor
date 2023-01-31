@@ -30,13 +30,17 @@
 
                     @foreach ($stockholder['weeks'] as $week)
                         <td>
-                            @if (array_key_exists($i - 1, $week['wishes']))
-                                {{ $week['wishes'][$i - 1]['property_name'] }}
+                            @if (array_key_exists('wishes', $week))
+                                @if (array_key_exists($i - 1, $week['wishes']))
+                                    {{ $week['wishes'][$i - 1]['property_name'] }}
+                                @endif
                             @endif
                         </td>
                         <td>
-                            @if (array_key_exists($i - 1, $week['wishes']))
-                                {{ $week['wishes'][$i - 1]['status'] }}
+                            @if (array_key_exists('wishes', $week))
+                                @if (array_key_exists($i - 1, $week['wishes']))
+                                    {{ $week['wishes'][$i - 1]['status'] }}
+                                @endif
                             @endif
                         </td>
                     @endforeach;

@@ -22,7 +22,9 @@ class DistributionExcelExport implements FromView
      */
     public function view(): View
     {
-        debugbar()->info($this->stockholders);
+        foreach ($this->stockholders as $stockholder) :
+            debugbar()->info($stockholder);
+        endforeach;
         return view('exports.distribution-excel-export', [
             'stockholders' => $this->stockholders,
             'weeks'        => $this->weeks,

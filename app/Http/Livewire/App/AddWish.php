@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\User;
 use App\Services\RoundServices;
 use App\Models\Wish;
+use App\Repositories\RoundRepository;
+use App\Repositories\WishRepository;
 
 class AddWish extends Component
 {
@@ -20,29 +22,6 @@ class AddWish extends Component
     public $usedWishes;
 
     protected $listeners = ['wishDeleted' => 'addWishButtonStatus'];
-
-    public function mount(User $stockholder)
-    {
-        $this->maxWishes = $stockholder->pivot->wishes;
-    }
-
-    public function addWishButtonStatus()
-    {
-        $roundService = new RoundServices;
-        $this->round = $roundService->getActiveRound();
-        if ($this->round->active == true) :
-            $this->addWishButton = ($this->round->inWishesRange == 1) ? true : false;
-            if ($this->round->overlimit == 0) :
-
-                $this->usedWishes = Wish::query()
-                    ->where('round_id', $this->round->id)
-                    ->where('user_id', $this->stockholder->id)
-                    ->count();
-
-                $this->addWishButton = (($this->maxWishes - $this->usedWishes) > 0) ? true : false;
-            endif;
-        endif;
-    }
 
     public function openModal()
     {
@@ -61,42 +40,45 @@ class AddWish extends Component
             'week' => 'required|numeric',
         ];
     }
+    public function addWishButtonStatus()
+    {
+        $status     = false;
+        $service    = new RoundServices;
+        $repository = new WishRepository;
+
+        $round                = $service->getActiveRound();
+        $stockholder          = $round->users()->where('id', $this->stockholder->id)->first();
+        $usedWishes           = $repository->getUsersWishesInRound($round->id, $stockholder->id);
+        $usersMaxWishes       = $stockholder->pivot->wishes;
+
+        if ($round->active == true and $round->inWishesRange == true) $status = true;
+        if ($status == true and $round->overlimit == false and $usedWishes >= $usersMaxWishes) $status = false;
+        if ($status == true and $round->max_wishes != 0 and $usedWishes >= $round->max_wishes) $status = false;
+
+        $this->addWishButton = $status;
+    }
 
     public function save()
     {
         $this->validate();
-        if ($this->wishExist() === false) {
-            $wish = Wish::query()->create([
-                'user_id' => $this->stockholder->id,
-                'round_id' => $this->round->id,
-                'property_id' => $this->property,
-                'week_code' => $this->week,
-                'priority' => $this->wishesCount() + 1,
-            ]);
+        $repository = new WishRepository;
+
+        $data = [
+            'user_id'       => $this->stockholder->id,
+            'round_id'      => $this->round->id,
+            'property_id'   => $this->property,
+            'week_code'     => $this->week,
+            'priority'      => $this->wishesCount() + 1,
+        ];
+
+        if ($repository->wishExists($data) == null) :
+            $wish = $repository->createWishWithArray($data);
             activity('add_wish')->log('User[' . auth()->id() . '] ' . auth()->user()->name . ' added wish [' . $wish->id . ']');
-        }
+        endif;
 
         $this->emit('updateTable');
         $this->addWishButtonStatus();
         $this->closeModal();
-    }
-
-    public function wishExist()
-    {
-        return Wish::query()
-            ->where('user_id', $this->stockholder->id)
-            ->where('round_id', $this->round->id)
-            ->where('property_id', $this->property)
-            ->where('week_code', $this->week)
-            ->exists();
-    }
-
-    public function wishesCount()
-    {
-        return Wish::query()
-            ->where('user_id', $this->stockholder->id)
-            ->where('round_id', $this->round->id)
-            ->count();
     }
 
     public function render()

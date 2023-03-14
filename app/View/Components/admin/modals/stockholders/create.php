@@ -1,15 +1,11 @@
 <?php
 
-namespace App\View\Components\admin\modals\stockholders;
+namespace App\View\Components\Admin\Modals\Stockholders;
 
 use Illuminate\View\Component;
-use App\Models\Round;
 
-class create extends Component
+class Create extends Component
 {
-    public $groupedRounds;
-    public $test;
-
     /**
      * Create a new component instance.
      *
@@ -17,12 +13,7 @@ class create extends Component
      */
     public function __construct()
     {
-        $this->groupedRounds = [
-            'running' => Round::running()->toArray(),
-            'future' => Round::future()->toArray(),
-            'passed' => Round::passed()->toArray(),
-        ];
-        $this->test = 'hello world';
+        //
     }
 
     /**
@@ -32,6 +23,6 @@ class create extends Component
      */
     public function render()
     {
-        return view('components.admin.modals.stockholders.create');
+        return view('components.admin.modals.stockholders.create-stockholder-modal');
     }
 }

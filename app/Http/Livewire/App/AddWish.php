@@ -68,7 +68,7 @@ class AddWish extends Component
             'round_id'      => $this->round->id,
             'property_id'   => $this->property,
             'week_code'     => $this->week,
-            'priority'      => $this->wishesCount() + 1,
+            'priority'      => $this->wishesCount($this->round->id, $this->stockholder->id) + 1,
         ];
 
         if ($repository->wishExists($data) == null) :
@@ -85,5 +85,12 @@ class AddWish extends Component
     {
         $this->addWishButtonStatus();
         return view('livewire.app.add-wish');
+    }
+
+    public function wishesCount($roundId, $stockholderId)
+    {
+        $repository = new WishRepository;
+        $usedWishes = $repository->getUsersWishesInRound($roundId, $stockholderId);
+        return $usedWishes + 1;
     }
 }

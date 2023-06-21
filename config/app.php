@@ -100,6 +100,43 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Available locales
+    |--------------------------------------------------------------------------
+    |
+    | List all locales that your application works with
+    |
+    */
+
+    'available_locales' => [
+        'English' => 'en',
+        'Danish' => 'da',
+        'Ukraine' => 'uk',
+        'Russian' => 'ru',
+    ],
+
+    'languages' => [
+        'en' => [
+            'title' => 'English',
+            'icon' => 'uk_flag_icon.png'
+        ],
+        'da' => [
+            'title' => 'Dansk',
+            'icon' => 'da_flag_icon.png'
+        ],
+        'uk' =>
+        [
+            'title' => 'Українська',
+            'icon' => 'ua_flag_icon.png'
+        ],
+        'ru' =>
+        [
+            'title' => 'Язык',
+            'icon' => 'ru_flag_icon.png'
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Faker Locale
     |--------------------------------------------------------------------------
     |
@@ -168,6 +205,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
+        App\Providers\JetstreamServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
     ])->toArray(),
 

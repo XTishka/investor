@@ -75,5 +75,14 @@
     "_accounts_imported": "  accounts have been imported",
     "_accounts_updated": "  accounts have been updated",
     "_has_import_problem": " accounts had issues during import",
-    "import": " Import"
+    "import": " Import",
+    "wishes_period": "Wishes period",
+    "round_period": "Round period",
+    "max_wishes": "Max wishes",
+    "wishes_start_date": "Wishes start date",
+    "wishes_end_date": "Wishes end date",
+    "round_start_date": "Round start date",
+    "round_end_date": "Round end date",
+    "overlimit": "Overlimit",
+    "active": "Active"
 }

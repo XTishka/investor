@@ -76,5 +76,14 @@
     "_accounts_imported": " er blevet importeret",
     "_accounts_updated": " er blevet opdateret",
     "_has_import_problem": " havde problemer under import",
-    "import": "Importér"
+    "import": "Importér",
+    "wishes_period": "Ønsker periode",
+    "round_period": "Runde periode",
+    "max_wishes": "Maks. ønsker",
+    "wishes_start_date": "Ønsker start dato",
+    "wishes_end_date": "Ønsker slut dato",
+    "round_start_date": "Runde start dato",
+    "round_end_date": "Runde slut dato",
+    "overlimit": "Over grænse",
+    "active": "Aktiv"
 }

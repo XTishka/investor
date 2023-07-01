@@ -76,5 +76,14 @@
     "_accounts_imported": " было импортировано",
     "_accounts_updated": " было обновлено",
     "_has_import_problem": " имело проблемы при импорте",
-    "import": "Импорт"
+    "import": "Импорт",
+    "wishes_period": "Период желаний",
+    "round_period": "Период раунда",
+    "max_wishes": "Макс. желаний",
+    "wishes_start_date": "Дата начала желаний",
+    "wishes_end_date": "Дата окончания желаний",
+    "round_start_date": "Дата начала раунда",
+    "round_end_date": "Дата окончания раунда",
+    "overlimit": "Превышение лимита",
+    "active": "Активный"
 }

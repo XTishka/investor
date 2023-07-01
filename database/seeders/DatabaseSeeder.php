@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Round;
+use Database\Seeders\RoundsSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +22,7 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             DevelopersSeeder::class,
             AdministratorsSeeder::class,
+            RoundsSeeder::class,
         ]);
     }
 }

@@ -39,6 +39,7 @@ class SetLocale
             }
         } elseif (config('app.locale')) {
             $language = config('app.locale');
+            session()->put('language', $language);
         }
 
         if (isset($language) && in_array($language, $languages)) {

@@ -45,15 +45,14 @@ class ExportExcel extends Component
                         'property_name' => $property->name,
                         'status'        => $wish->status,
                     ];
-                    debugbar()->info($wish->status);
                 endforeach;
             endforeach;
             $stockholder->weeks = $stWeeks;
-            $stockholder->rowspan = $this->getStockholderRowspan($stockholder, $weeks, $wishes);
+         $stockholder->rowspan = $this->getStockholderRowspan($stockholder, $weeks, $wishes);
         endforeach;
 
         $this->closeModal();
-        return Excel::download(new DistributionExcelExport($weeks, $stockholders, $wishes), $this->getFilename());
+         return Excel::download(new DistributionExcelExport($weeks, $stockholders, $wishes), $this->getFilename());
     }
 
     public function getFilename()
